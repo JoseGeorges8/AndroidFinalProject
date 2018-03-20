@@ -1,7 +1,11 @@
 package com.example.josegeorges.paintit;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,11 +59,56 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
         blueValue = 0;
 
 
+        //set up the view pager
+        ViewPager viewPager = findViewById(R.id.viewPager);
+        viewPager.setAdapter(new CustomAdapter(getSupportFragmentManager()));
+
+
     }
 
-
+    /**
+     * receive the values from the fragments and add them to the frame_layout
+     */
     @Override
     public void onFragmentInteraction(int value, String key) {
+        if(key == RGBFragment.RED)
+            redValue = value;
+        if(key == RGBFragment.GREEN)
+            greenValue = value;
+        if(key == RGBFragment.BLUE)
+            blueValue = value;
 
+        layout.setBackgroundColor(Color.rgb( redValue, greenValue, blueValue ));
+        layout.refreshDrawableState();
     }
+
+
+    /**
+     * Small simple custom adapter to show the different fragments
+     */
+    //TODO: As of right now I only have RGB. Create different fragments later
+    private class CustomAdapter extends FragmentPagerAdapter {
+
+        public CustomAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position){
+                case 0:
+                    return new RGBFragment();
+                case 1:
+                    return new RGBFragment();
+                default:
+                    return new RGBFragment();
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+    }
+
 }
