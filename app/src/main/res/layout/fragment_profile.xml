@@ -10,208 +10,220 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<android.support.constraint.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/recent_orders_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/standard_margin"
-        android:layout_marginStart="@dimen/standard_margin"
-        android:layout_marginTop="@dimen/standard_margin"
-        android:background="@color/cardsColor"
-        app:cardCornerRadius="@dimen/corner_radius"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/cardsColor"
-            android:orientation="vertical">
-            <TextView
-                android:textSize="@dimen/title_size"
-                android:textColor="@color/colorAccent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Recent Orders"
-                android:paddingLeft="@dimen/standard_margin"
-                android:paddingTop="@dimen/standard_padding"
-                />
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorAccentDark"
-                android:padding="1dp"
-                android:layout_margin="@dimen/standard_padding"/>
+            android:layout_height="wrap_content">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recent_orders_list"
+            <android.support.v7.widget.CardView
+                android:id="@+id/recent_orders_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                android:layout_marginEnd="@dimen/standard_margin"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginTop="32dp"
+                android:background="@color/cardsColor"
+                app:cardCornerRadius="@dimen/corner_radius"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/see_all_recent_orders"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:padding="@dimen/standard_padding"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:text="@string/see_all"
-                android:visibility="gone"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/cardsColor"
+                    android:orientation="vertical">
 
-            <TextView
-                android:textColor="@color/colorAccentDark"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="You don't have any recent orders"
-                android:padding="@dimen/standard_padding"/>
-            <TextView
-                android:textColor="@color/colorAccent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="Make a new order"
-                android:padding="@dimen/standard_padding"/>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/standard_margin"
+                        android:paddingTop="@dimen/standard_padding"
+                        android:text="Recent Orders"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/title_size" />
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/favourite_colours_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/standard_margin"
-        android:layout_marginStart="@dimen/standard_margin"
-        android:layout_marginTop="@dimen/standard_margin"
-        android:background="@color/cardsColor"
-        app:cardCornerRadius="@dimen/corner_radius"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recent_orders_card">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/cardsColor"
-            android:orientation="vertical">
-            <TextView
-                android:textSize="@dimen/title_size"
-                android:textColor="@color/colorAccent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Favourite Colours"
-                android:paddingLeft="@dimen/standard_margin"
-                android:paddingTop="@dimen/standard_padding"/>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/standard_padding"
+                        android:background="@color/colorAccentDark"
+                        android:padding="1dp" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorAccentDark"
-                android:padding="1dp"
-                android:layout_margin="@dimen/standard_padding"/>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recent_orders_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/favourite_colours_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                    <TextView
+                        android:id="@+id/see_all_recent_orders"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:padding="@dimen/standard_padding"
+                        android:text="@string/see_all"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/colorAccent"
+                        android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/see_all_favourite_colours"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:padding="@dimen/standard_padding"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:text="@string/see_all"
-                android:visibility="gone"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/standard_padding"
+                        android:text="You don't have any recent orders"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccentDark" />
 
-            <TextView
-                android:textColor="@color/colorAccentDark"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="You don't have any favourite colours yet"
-                android:padding="@dimen/standard_padding"/>
-            <TextView
-                android:textColor="@color/colorAccent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="Add a color"
-                android:padding="@dimen/standard_padding"/>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/standard_padding"
+                        android:text="Make a new order"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/standard_margin"
-        android:layout_marginStart="@dimen/standard_margin"
-        android:layout_marginTop="@dimen/standard_margin"
-        android:background="@color/cardsColor"
-        app:cardCornerRadius="@dimen/corner_radius"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/favourite_colours_card">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/cardsColor"
-            android:orientation="vertical">
-            <TextView
-                android:textSize="@dimen/title_size"
-                android:textColor="@color/colorAccent"
+            <android.support.v7.widget.CardView
+                android:id="@+id/favourite_colours_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Favourite Palettes"
-                android:paddingLeft="@dimen/standard_margin"
-                android:paddingTop="@dimen/standard_padding"/>
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorAccentDark"
-                android:padding="1dp"
-                android:layout_margin="@dimen/standard_padding"/>
+                android:layout_marginEnd="@dimen/standard_margin"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:background="@color/cardsColor"
+                app:cardCornerRadius="@dimen/corner_radius"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recent_orders_card">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/favourite_palettes_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/cardsColor"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/see_all_favourite_palettes"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"
-                android:padding="@dimen/standard_padding"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:text="@string/see_all"
-                android:visibility="gone"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/standard_margin"
+                        android:paddingTop="@dimen/standard_padding"
+                        android:text="Favourite Colours"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/title_size" />
 
-            <TextView
-                android:textColor="@color/colorAccentDark"
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/standard_padding"
+                        android:background="@color/colorAccentDark"
+                        android:padding="1dp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/favourite_colours_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/see_all_favourite_colours"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:padding="@dimen/standard_padding"
+                        android:text="@string/see_all"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/colorAccent"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/standard_padding"
+                        android:text="You don't have any favourite colours yet"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccentDark" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/standard_padding"
+                        android:text="Add a color"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="You don't have any favourite palettes yet"
-                android:padding="@dimen/standard_padding"/>
-            <TextView
-                android:textColor="@color/colorAccent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="Add a palette"
-                android:padding="@dimen/standard_padding"/>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-</android.support.constraint.ConstraintLayout>
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="@dimen/standard_margin"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:background="@color/cardsColor"
+                app:cardCornerRadius="@dimen/corner_radius"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/favourite_colours_card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/cardsColor"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/standard_margin"
+                        android:paddingTop="@dimen/standard_padding"
+                        android:text="Favourite Palettes"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/title_size" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/standard_padding"
+                        android:background="@color/colorAccentDark"
+                        android:padding="1dp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/favourite_palettes_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/see_all_favourite_palettes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:padding="@dimen/standard_padding"
+                        android:text="@string/see_all"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/colorAccent"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/standard_padding"
+                        android:text="You don't have any favourite palettes yet"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccentDark" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/standard_padding"
+                        android:text="Add a palette"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </android.support.constraint.ConstraintLayout>
     </ScrollView>
 </FrameLayout>
