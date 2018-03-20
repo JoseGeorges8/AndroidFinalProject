@@ -46,8 +46,26 @@
                 android:background="@color/colorAccentDark"
                 android:padding="1dp"
                 android:layout_margin="@dimen/standard_padding"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recent_orders_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
             <TextView
+                android:id="@+id/see_all_recent_orders"
+                android:textAlignment="textEnd"
+                android:layout_gravity="end"
+                android:padding="@dimen/standard_padding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:textColor="@color/colorAccent"
+                android:text="@string/see_all"
+                android:visibility="gone"/>
+
+            <TextView
+                android:textColor="@color/colorAccentDark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -95,8 +113,26 @@
                 android:background="@color/colorAccentDark"
                 android:padding="1dp"
                 android:layout_margin="@dimen/standard_padding"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/favourite_colours_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
             <TextView
+                android:id="@+id/see_all_favourite_colours"
+                android:textAlignment="textEnd"
+                android:layout_gravity="end"
+                android:padding="@dimen/standard_padding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:textColor="@color/colorAccent"
+                android:text="@string/see_all"
+                android:visibility="gone"/>
+
+            <TextView
+                android:textColor="@color/colorAccentDark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -142,8 +178,26 @@
                 android:background="@color/colorAccentDark"
                 android:padding="1dp"
                 android:layout_margin="@dimen/standard_padding"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/favourite_palettes_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
             <TextView
+                android:id="@+id/see_all_favourite_palettes"
+                android:textAlignment="textEnd"
+                android:layout_gravity="end"
+                android:padding="@dimen/standard_padding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:textColor="@color/colorAccent"
+                android:text="@string/see_all"
+                android:visibility="gone"/>
+
+            <TextView
+                android:textColor="@color/colorAccentDark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
