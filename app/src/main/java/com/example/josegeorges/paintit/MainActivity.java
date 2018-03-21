@@ -91,14 +91,12 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
 
         mainFab.setClosedOnTouchOutside(true);
         mainFab.hideMenuButton(false);
-
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-
+    protected void onPause() {
+        super.onPause();
+        mainFab.close(true);
     }
 
     @Override
