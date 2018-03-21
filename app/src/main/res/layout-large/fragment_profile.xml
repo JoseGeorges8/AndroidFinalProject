@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/colorBackground"
     tools:context="com.example.josegeorges.paintit.ProfileFragment">
 
@@ -19,8 +19,8 @@
                 android:id="@+id/recent_orders_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/card_margin"
-                android:layout_marginStart="@dimen/card_margin"
+                android:layout_marginEnd="80dp"
+                android:layout_marginStart="80dp"
                 android:layout_marginTop="32dp"
                 android:background="@color/cardsColor"
                 app:cardCornerRadius="@dimen/corner_radius"
@@ -31,6 +31,7 @@
                 app:layout_constraintVertical_chainStyle="spread">
 
                 <LinearLayout
+                    android:padding="40dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/cardsColor"
@@ -94,9 +95,9 @@
                 android:id="@+id/favourite_colours_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/card_margin"
-                android:layout_marginStart="@dimen/card_margin"
-                android:layout_marginTop="@dimen/card_margin"
+                android:layout_marginEnd="80dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="96dp"
                 android:background="@color/cardsColor"
                 app:cardCornerRadius="@dimen/corner_radius"
                 app:layout_constraintBottom_toTopOf="@+id/cardView"
@@ -108,7 +109,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/cardsColor"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="40dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -169,11 +171,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:layout_marginEnd="@dimen/card_margin"
-                android:layout_marginStart="@dimen/card_margin"
-                android:layout_marginTop="@dimen/card_margin"
+                android:layout_marginEnd="80dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="96dp"
                 android:background="@color/cardsColor"
                 app:cardCornerRadius="@dimen/corner_radius"
+                app:cardUseCompatPadding="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -183,7 +186,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/cardsColor"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="40dp">
 
                     <TextView
                         android:layout_width="match_parent"
