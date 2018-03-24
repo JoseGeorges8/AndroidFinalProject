@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
 
     private FloatingActionMenu mainFab; //big main fab button
     private FloatingActionButton fabColour; //mini fab button for the colourPicker
+    private FloatingActionButton fabPalette; //mini fab button for the palettePicker
     private List<FloatingActionMenu> menus = new ArrayList<>();
     private Handler mUiHandler = new Handler();
 
@@ -88,6 +89,17 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
                 startActivity(intent);
             }
         });
+
+        //link the mini fab button for the colour picker and when click open the activity.
+        fabPalette = (FloatingActionButton) findViewById(R.id.palette_picker_fab);
+        fabPalette.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, PalletePickerActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         mainFab.setClosedOnTouchOutside(true);
         mainFab.hideMenuButton(false);
