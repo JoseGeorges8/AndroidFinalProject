@@ -88,7 +88,71 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Uses USERID
      * Uses PALETTEID
      */
-    
+
+    /**
+     * Create Table Statements
+     */
+
+    // Users Table
+    public static final String CREATE_USERS_TABLE = "CREATE TABLE " +
+            TABLE_USERS + "(" + COLUMN_USERID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_FIRSTNAME + " VARCHAR(25)," + COLUMN_LASTNAME + " VARCHAR(25),"
+            + COLUMN_EMAIL + " TEXT," + COLUMN_PASSWORD + " TEXT,"
+            + COLUMN_RECOVERYEMAIL + " TEXT," + COLUMN_PHONENUMBER + " CHAR(10))";
+
+    // Orders Table
+    public static final String CREATE_ORDERS_TABLE = "CREATE TABLE " +
+            TABLE_ORDERS + "(" + COLUMN_ORDERID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            COLUMN_ORDERNUMBER + " INTEGER," + COLUMN_DATEORDERED + " TEXT,"
+            + COLUMN_USERID +
+            " INTEGER REFERENCES " + TABLE_USERS + "(" + COLUMN_USERID
+            + "))";
+
+    // Items Table
+    public static final String CREATE_ITEMS_TABLE = "CREATE TABLE " +
+            TABLE_ITEMS + "(" + COLUMN_ITEMID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_UPC + " INTEGER," + COLUMN_PRICE + " DECIMAL,"
+            + COLUMN_DESCRIPTION + " TEXT)";
+
+    // OrderItems Table
+    public static final String CREATE_ITEMORDERS_TABLE = "CREATE TABLE " +
+            TABLE_ITEMORDERS + "(" + COLUMN_ORDERID + " INTEGER REFERENCES " +
+            TABLE_ORDERS + "(" + COLUMN_ORDERID + ")," + COLUMN_ITEMID +
+            " INTEGER REFERENCES " + TABLE_ITEMS + "(" + COLUMN_ITEMID + "),"
+            + COLUMN_LASTNAME + " INTEGER)";
+
+    // Palettes Table
+    public static final String CREATE_PALETTES_TABLE = "CREATE TABLE " +
+            TABLE_PALETTES + "(" + COLUMN_PALETTEID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            COLUMN_PALETTENAME + " TEXT," + COLUMN_TIMESTAMP + " TEXT,"
+            + COLUMN_USERID +
+            " INTEGER REFERENCES " + TABLE_USERS + "(" + COLUMN_USERID
+            + "))";
+
+    // Colors Table
+    public static final String CREATE_COLORS_TABLE = "CREATE TABLE " +
+            TABLE_COLORS + "(" + COLUMN_HEXVALUE + " INTEGER PRIMARY KEY,"
+            + COLUMN_COLORNAME + " TEXT," + COLUMN_TIMESTAMP + " TEXT,)";
+
+    // PaletteColors Table
+    public static final String CREATE_PALETTECOLORS_TABLE = "CREATE TABLE " +
+            TABLE_PALETTECOLORS + "(" + COLUMN_PALETTEID + " INTEGER REFERENCES " +
+            TABLE_PALETTES + "(" + COLUMN_PALETTEID + ")," + COLUMN_HEXVALUE +
+            " INTEGER REFERENCES " + TABLE_COLORS + "(" + COLUMN_HEXVALUE + "))";
+
+    // FavoriteColors Table
+    public static final String CREATE_FAVORITECOLORS_TABLE = "CREATE TABLE " +
+            TABLE_FAVORITECOLORS + "(" + COLUMN_USERID + " INTEGER REFERENCES " +
+            TABLE_USERS + "(" + COLUMN_USERID + ")," + COLUMN_HEXVALUE +
+            " INTEGER REFERENCES " + TABLE_COLORS + "(" + COLUMN_HEXVALUE + "))";
+
+    // FavoritePalettes Table
+    public static final String CREATE_FAVORITEPALETTES_TABLE = "CREATE TABLE " +
+            TABLE_FAVORITEPALETTES + "(" + COLUMN_PALETTEID + " INTEGER REFERENCES " +
+            TABLE_PALETTES + "(" + COLUMN_PALETTEID + ")," + COLUMN_USERID +
+            " INTEGER REFERENCES " + TABLE_USERS + "(" + COLUMN_USERID + "))";
+
+
 
 
     public DatabaseHandler(Context context){
