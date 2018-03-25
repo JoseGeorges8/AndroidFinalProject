@@ -1,5 +1,6 @@
 package com.example.josegeorges.paintit;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -187,5 +188,52 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FAVORITEPALETTES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FAVORITECOLORS);
 
+    }
+
+    /**
+     * Create Operations
+     */
+
+    public void addUser(User user){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_FIRSTNAME, user.getFirstName());
+        values.put(COLUMN_LASTNAME, user.getLastName());
+        values.put(COLUMN_EMAIL, user.getEmail());
+        values.put(COLUMN_RECOVERYEMAIL, user.getRecoveryEmail());
+        values.put(COLUMN_PHONENUMBER, user.getPhoneNumber());
+        db.insert(TABLE_USERS, null, values);
+        db.close();
+    }
+
+    public void addOrder(Order order){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ORDERID, order.getOrderID());
+        values.put(COLUMN_ORDERNUMBER, order.getOrderNumber());
+        values.put(COLUMN_DATEORDERED, order.getDateOrdered());
+        values.put(COLUMN_USERID, order.getUserID());
+        db.insert(TABLE_ORDERS, null, values);
+        db.close();
+    }
+
+    public void addItem(Item item){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_UPC, item.getUpc());
+        values.put(COLUMN_DESCRIPTION, item.getDescription());
+        values.put(COLUMN_PRICE, item.getPrice());
+        db.insert(TABLE_ITEMS, null, values);
+        db.close();
+    }
+
+    public void addColor(Color color){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_HEXVALUE, color.getHexValue());
+        values.put(COLUMN_COLORNAME, color.getColorName());
+        values.put(COLUMN_TIMESTAMP, color.getTimestamp());
+        db.insert(TABLE_USERS, null, values);
+        db.close();
     }
 }

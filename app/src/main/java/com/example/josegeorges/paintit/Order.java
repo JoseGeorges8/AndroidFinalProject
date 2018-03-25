@@ -10,6 +10,9 @@ public class Order {
     private String dateOrdered;
     private int userID;
 
+    public Order() {
+    }
+
     public Order(int orderID, String orderNumber, String dateOrdered, int userID) {
         this.orderID = orderID;
         this.orderNumber = orderNumber;

@@ -9,6 +9,9 @@ public class Color {
     private String colorName;
     private String timestamp;
 
+    public Color() {
+    }
+
     public Color(int hexValue, String colorName, String timestamp) {
         this.hexValue = hexValue;
         this.colorName = colorName;
