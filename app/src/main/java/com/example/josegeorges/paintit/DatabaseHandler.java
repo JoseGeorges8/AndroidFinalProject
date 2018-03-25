@@ -155,17 +155,37 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
 
+
+
     public DatabaseHandler(Context context){
         super(context, DATABASE_NAME, null , DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL(CREATE_USERS_TABLE);
+        db.execSQL(CREATE_ORDERS_TABLE);
+        db.execSQL(CREATE_ITEMS_TABLE);
+        db.execSQL(CREATE_ITEMORDERS_TABLE);
+        db.execSQL(CREATE_COLORS_TABLE);
+        db.execSQL(CREATE_PALETTES_TABLE);
+        db.execSQL(CREATE_PALETTECOLORS_TABLE);
+        db.execSQL(CREATE_FAVORITECOLORS_TABLE);
+        db.execSQL(CREATE_FAVORITEPALETTES_TABLE);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEMS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEMORDERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COLORS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PALETTES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PALETTECOLORS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FAVORITEPALETTES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FAVORITECOLORS);
 
     }
 }
