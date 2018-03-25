@@ -2,8 +2,11 @@ package com.example.josegeorges.paintit;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 /**
  * Created by Keegan on 2018-03-24.
@@ -236,4 +239,167 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TABLE_USERS, null, values);
         db.close();
     }
+
+    /**
+     * READ OPERATIONS
+     */
+
+    // Users
+    public User getUser(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        User user = null;
+        //table name, String Array of column names, query, String array of values that will
+        // be inserted into the query
+        Cursor cursor = db.query(TABLE_USERS,
+                new String[]{COLUMN_USERID, COLUMN_FIRSTNAME, COLUMN_LASTNAME, COLUMN_EMAIL,
+                        COLUMN_RECOVERYEMAIL, COLUMN_PHONENUMBER},
+                COLUMN_USERID + "=?", new String[]{String.valueOf(id)},
+                null, null, null, null);
+        if(cursor != null){
+            cursor.moveToFirst();
+            user = new User(Integer.parseInt(cursor.getString(0)),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getString(5));
+        }
+        db.close();
+        return user;
+    }
+
+    public ArrayList<User> getAllUsers(){
+        ArrayList<User> userList = new ArrayList<User>();
+        String query = "SELECT * FROM " + TABLE_USERS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            do{
+                userList.add(new User(Integer.parseInt(cursor.getString(0)),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5)));
+            } while (cursor.moveToNext());
+        }
+
+        db.close();
+        return userList;
+    }
+
+    // Orders
+    public Order getOrder(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Order order = null;
+        //table name, String Array of column names, query, String array of values that will
+        // be inserted into the query
+        Cursor cursor = db.query(TABLE_ORDERS,
+                new String[]{COLUMN_ORDERID, COLUMN_ORDERNUMBER, COLUMN_DATEORDERED, COLUMN_USERID},
+                COLUMN_ORDERID + "=?", new String[]{String.valueOf(id)},
+                null, null, null, null);
+        if(cursor != null){
+            cursor.moveToFirst();
+            order = new Order(Integer.parseInt(cursor.getString(0)),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    Integer.parseInt(cursor.getString(3)));
+        }
+        db.close();
+        return order;
+    }
+
+    public ArrayList<Order> getAllOrders(){
+        ArrayList<Order> orderList = new ArrayList<Order>();
+        String query = "SELECT * FROM " + TABLE_ORDERS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()) {
+            do {
+                orderList.add(new Order(Integer.parseInt(cursor.getString(0)),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        Integer.parseInt(cursor.getString(3))));
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        return orderList;
+    }
+
+    // Items
+    public Item getItem(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Item item = null;
+        //table name, String Array of column names, query, String array of values that will
+        // be inserted into the query
+        Cursor cursor = db.query(TABLE_ITEMS,
+                new String[]{COLUMN_ITEMID, COLUMN_UPC, COLUMN_PRICE, COLUMN_PRICE},
+                COLUMN_ITEMID + "=?", new String[]{String.valueOf(id)},
+                null, null, null, null);
+        if(cursor != null){
+            cursor.moveToFirst();
+            item = new Item(Integer.parseInt(cursor.getString(0)),
+                    Integer.parseInt(cursor.getString(1)),
+                    Double.parseDouble(cursor.getString(2)),
+                    cursor.getString(1));
+        }
+        db.close();
+        return item;
+    }
+
+    public ArrayList<Item> getAllItems(){
+        ArrayList<Item> itemList = new ArrayList<Item>();
+        String query = "SELECT * FROM " + TABLE_ITEMS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            do{
+                itemList.add(new Item(Integer.parseInt(cursor.getString(0)),
+                        Integer.parseInt(cursor.getString(1)),
+                        Double.parseDouble(cursor.getString(2)),
+                        cursor.getString(1));
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        return itemList;
+    }
+
+    // Colors
+    public Color getColor(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Color color = null;
+        //table name, String Array of column names, query, String array of values that will
+        // be inserted into the query
+        Cursor cursor = db.query(TABLE_COLORS,
+                new String[]{COLUMN_HEXVALUE, COLUMN_COLORNAME, COLUMN_TIMESTAMP},
+                COLUMN_HEXVALUE + "=?", new String[]{String.valueOf(id)},
+                null, null, null, null);
+        if(cursor != null){
+            cursor.moveToFirst();
+            color = new Color(Integer.parseInt(cursor.getString(0)),
+                    cursor.getString(1),
+                    cursor.getString(2));
+        }
+        db.close();
+        return color;
+    }
+
+    public ArrayList<Color> getAllColors(){
+        ArrayList<Color> colorList = new ArrayList<Color>();
+        String query = "SELECT * FROM " + TABLE_COLORS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()){
+            do{
+                colorList.add(new Color(Integer.parseInt(cursor.getString(0)),
+                        cursor.getString(1),
+                        cursor.getString(2)));
+            } while (cursor.moveToNext());
+        }
+
+        db.close();
+        return colorList;
+
+
+
 }
