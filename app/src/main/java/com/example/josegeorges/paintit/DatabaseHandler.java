@@ -357,7 +357,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 itemList.add(new Item(Integer.parseInt(cursor.getString(0)),
                         Integer.parseInt(cursor.getString(1)),
                         Double.parseDouble(cursor.getString(2)),
-                        cursor.getString(1));
+                        cursor.getString(1)));
             } while (cursor.moveToNext());
         }
         db.close();
@@ -384,13 +384,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return color;
     }
 
-    public ArrayList<Color> getAllColors(){
+    public ArrayList<Color> getAllColors() {
         ArrayList<Color> colorList = new ArrayList<Color>();
         String query = "SELECT * FROM " + TABLE_COLORS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
-        if(cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst()) {
+            do {
                 colorList.add(new Color(Integer.parseInt(cursor.getString(0)),
                         cursor.getString(1),
                         cursor.getString(2)));
@@ -399,7 +399,43 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.close();
         return colorList;
+    }
 
+    /**
+     * DELETE OPERATIONS
+     */
+
+    // User
+    public void deleteUser(int user){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_USERS, COLUMN_USERID + " = ?",
+                new String[]{String.valueOf(user)});
+        db.close();
+    }
+
+    // Order
+    public void deleteOrder(int order){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_ORDERS, COLUMN_ORDERID + " = ?",
+                new String[]{String.valueOf(order)});
+        db.close();
+    }
+
+    // Item
+    public void deleteItem(int item){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_ITEMS, COLUMN_ITEMID + " = ?",
+                new String[]{String.valueOf(item)});
+        db.close();
+    }
+
+    // Color
+    public void deleteColor(int color){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_COLORS, COLUMN_HEXVALUE + " = ?",
+                new String[]{String.valueOf(color)});
+        db.close();
+    }
 
 
 }
