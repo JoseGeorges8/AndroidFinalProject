@@ -103,7 +103,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Orders Table
     public static final String CREATE_ORDERS_TABLE = "CREATE TABLE " +
             TABLE_ORDERS + "(" + COLUMN_ORDERID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            COLUMN_ORDERNUMBER + " INTEGER," + COLUMN_DATEORDERED + " TEXT,"
+            COLUMN_ORDERNUMBER + " TEXT," + COLUMN_DATEORDERED + " TEXT,"
             + COLUMN_USERID +
             " INTEGER REFERENCES " + TABLE_USERS + "(" + COLUMN_USERID
             + "))";
