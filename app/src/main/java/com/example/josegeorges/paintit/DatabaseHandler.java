@@ -25,7 +25,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
 
     public static final String TABLE_USERS = "user";
-    public static final String TABLE_ORDERS = "order";
+    public static final String TABLE_ORDERS = "orders";
     public static final String TABLE_ITEMS = "item";
     public static final String TABLE_ITEMORDERS = "item_order";
     public static final String TABLE_COLORS = "colors";
@@ -106,7 +106,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Orders Table
     public static final String CREATE_ORDERS_TABLE = "CREATE TABLE " +
-            TABLE_ORDERS + "(" + COLUMN_ORDERID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            TABLE_ORDERS + "(" + COLUMN_ORDERID + " INTEGER PRIMARY KEY," +
             COLUMN_ORDERNUMBER + " TEXT," + COLUMN_DATEORDERED + " TEXT,"
             + COLUMN_USERID +
             " INTEGER REFERENCES " + TABLE_USERS + "(" + COLUMN_USERID
@@ -114,7 +114,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Items Table
     public static final String CREATE_ITEMS_TABLE = "CREATE TABLE " +
-            TABLE_ITEMS + "(" + COLUMN_ITEMID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            TABLE_ITEMS + "(" + COLUMN_ITEMID + " INTEGER PRIMARY KEY,"
             + COLUMN_UPC + " INTEGER," + COLUMN_PRICE + " DECIMAL,"
             + COLUMN_DESCRIPTION + " TEXT)";
 
@@ -127,7 +127,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Palettes Table
     public static final String CREATE_PALETTES_TABLE = "CREATE TABLE " +
-            TABLE_PALETTES + "(" + COLUMN_PALETTEID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            TABLE_PALETTES + "(" + COLUMN_PALETTEID + " INTEGER PRIMARY KEY," +
             COLUMN_PALETTENAME + " TEXT," + COLUMN_TIMESTAMP + " TEXT,"
             + COLUMN_USERID +
             " INTEGER REFERENCES " + TABLE_USERS + "(" + COLUMN_USERID
@@ -236,6 +236,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COLUMN_HEXVALUE, color.getHexValue());
         values.put(COLUMN_COLORNAME, color.getColorName());
         values.put(COLUMN_TIMESTAMP, color.getTimestamp());
+        db.insert(TABLE_USERS, null, values);
+        db.close();
+    }
+
+    public void addPalette(Palette palette){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_PALETTEID, palette.getPaletteID());
+        values.put(COLUMN_USERID, palette.getUserID());
+        values.put(COLUMN_PALETTENAME, palette.getPaletteName());
+        values.put(COLUMN_TIMESTAMP, palette.getTimestamp());
         db.insert(TABLE_USERS, null, values);
         db.close();
     }
@@ -401,6 +412,45 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return colorList;
     }
 
+    // Palettes
+    public Palette getPalette(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Palette palette = null;
+        //table name, String Array of column names, query, String array of values that will
+        // be inserted into the query
+        Cursor cursor = db.query(TABLE_PALETTES,
+                new String[]{COLUMN_PALETTEID, COLUMN_USERID, COLUMN_PALETTENAME, COLUMN_TIMESTAMP},
+                COLUMN_HEXVALUE + "=?", new String[]{String.valueOf(id)},
+                null, null, null, null);
+        if(cursor != null){
+            cursor.moveToFirst();
+            palette = new Palette(Integer.parseInt(cursor.getString(0)),
+                    Integer.parseInt(cursor.getString(1)),
+                    cursor.getString(2),
+                    cursor.getString(3));
+        }
+        db.close();
+        return palette;
+    }
+
+    public ArrayList<Palette> getAllPalettes() {
+        ArrayList<Palette> paletteList = new ArrayList<Palette>();
+        String query = "SELECT * FROM " + TABLE_PALETTES;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                paletteList.add(new Palette(Integer.parseInt(cursor.getString(0)),
+                        Integer.parseInt(cursor.getString(1)),
+                        cursor.getString(2),
+                        cursor.getString(3));
+            } while (cursor.moveToNext());
+        }
+
+        db.close();
+        return paletteList;
+    }
+
     /**
      * DELETE OPERATIONS
      */
@@ -434,6 +484,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_COLORS, COLUMN_HEXVALUE + " = ?",
                 new String[]{String.valueOf(color)});
+        db.close();
+    }
+
+    // Palette
+    public void deletePalette(int palette){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_PALETTES, COLUMN_HEXVALUE + " = ?",
+                new String[]{String.valueOf(palette)});
         db.close();
     }
 
