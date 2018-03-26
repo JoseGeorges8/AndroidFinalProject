@@ -443,7 +443,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 paletteList.add(new Palette(Integer.parseInt(cursor.getString(0)),
                         Integer.parseInt(cursor.getString(1)),
                         cursor.getString(2),
-                        cursor.getString(3));
+                        cursor.getString(3)));
             } while (cursor.moveToNext());
         }
 
