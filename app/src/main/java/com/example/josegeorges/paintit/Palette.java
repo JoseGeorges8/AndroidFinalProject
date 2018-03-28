@@ -5,6 +5,7 @@ package com.example.josegeorges.paintit;
  */
 
 public class Palette {
+
     private int paletteID;
     private int userID;
     private String paletteName;

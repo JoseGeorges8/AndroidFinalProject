@@ -136,7 +136,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Colors Table
     public static final String CREATE_COLORS_TABLE = "CREATE TABLE " +
             TABLE_COLORS + "(" + COLUMN_HEXVALUE + " INTEGER PRIMARY KEY,"
-            + COLUMN_COLORNAME + " TEXT," + COLUMN_TIMESTAMP + " TEXT,)";
+            + COLUMN_COLORNAME + " TEXT," + COLUMN_TIMESTAMP + " TEXT)";
 
     // PaletteColors Table
     public static final String CREATE_PALETTECOLORS_TABLE = "CREATE TABLE " +
