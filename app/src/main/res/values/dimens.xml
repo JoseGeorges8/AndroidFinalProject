@@ -4,4 +4,5 @@
     <dimen name="standard_margin">16dp</dimen>
     <dimen name="corner_radius">4dp</dimen>
     <dimen name="title_size">20sp</dimen>
+    <dimen name="card_margin">32dp</dimen>
 </resources>
