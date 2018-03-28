@@ -12,8 +12,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+
+import java.util.Calendar;
+import java.util.Date;
 
 
 /**
@@ -25,7 +31,7 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
 
     private static final int REQUEST_CODE = 18;     //this request code is for when passing result from thr cameraActivity to this one
     int colorPickedByCameraValue = 0; //color picked by the cameraActivity
-
+    int definitiveChosenColor = 0; //color saved when confirmed by user
 
 
     Toolbar toolbar; //custom Action Bar
@@ -36,6 +42,9 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
 
     FloatingActionButton fab; //for launching the camera activity
     FrameLayout layout; //holds the color value that the user wants
+
+    EditText colorName; //name of the color to save
+    Button confirmButton; //button to confirm and save the color to the database
 
 
     @Override
@@ -69,6 +78,13 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
         //set up the frame for the color value
         layout = findViewById(R.id.frame_layout);
 
+        //set up the EditText to get the name
+        colorName = findViewById(R.id.color_picker_color_name_edit_text);
+
+        //set up the confirmation button
+        confirmButton = findViewById(R.id.color_picker_confirm_button);
+
+
         //default colors
         redValue = 0;
         greenValue = 0;
@@ -82,6 +98,25 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
 
     }
 
+    /**
+     * This method gets called by the confirm button and it adds the color to the database.
+     * @param view
+     */
+    public void addColor(View view){
+        String name = colorName.getText().toString();
+        int value = definitiveChosenColor;
+        String currentTime = Calendar.getInstance().getTime().toString();
+        Log.d("ADDCOLOR", "Color details: " + name + " " + value + " " + currentTime.toString());
+        com.example.josegeorges.paintit.Color color = new com.example.josegeorges.paintit.Color(value, name, currentTime);
+        DatabaseHandler db = new DatabaseHandler(this);
+        boolean result = db.addColor(color);
+        if(result){
+            Log.d("COLORPICKER", "Color successfully added on the db");
+            onBackPressed();
+        }else{
+            Log.d("COLORPICKER", "Something went wrong when adding the color");
+        }
+    }
 
     /**
      *  Will get call when we receive results from an activity, in this case CameraActivity
@@ -93,7 +128,8 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
             case (REQUEST_CODE) : {
                 if (resultCode == Activity.RESULT_OK && data!=null) {
                     colorPickedByCameraValue = data.getIntExtra(CameraActivity.SELECTED_COLOR, 0);
-                    layout.setBackgroundColor(colorPickedByCameraValue);
+                    definitiveChosenColor = colorPickedByCameraValue;
+                    layout.setBackgroundColor(definitiveChosenColor);
                     layout.refreshDrawableState();
                 }
                 break;
@@ -113,7 +149,8 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
         if(key == RGBFragment.BLUE)
             blueValue = value;
 
-        layout.setBackgroundColor(Color.rgb( redValue, greenValue, blueValue ));
+        definitiveChosenColor = Color.rgb( redValue, greenValue, blueValue);
+        layout.setBackgroundColor(definitiveChosenColor);
         layout.refreshDrawableState();
     }
 

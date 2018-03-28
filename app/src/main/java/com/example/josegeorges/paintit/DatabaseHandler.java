@@ -237,14 +237,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addColor(Color color){
+    public boolean addColor(Color color){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_HEXVALUE, color.getHexValue());
         values.put(COLUMN_COLORNAME, color.getColorName());
         values.put(COLUMN_TIMESTAMP, color.getTimestamp());
-        db.insert(TABLE_USERS, null, values);
+        long result = db.insert(TABLE_COLORS, null, values);
         db.close();
+        if (result == -1)
+            return false;
+        else
+            return true;
     }
 
     public void addPalette(Palette palette){
@@ -254,7 +258,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COLUMN_USERID, palette.getUserID());
         values.put(COLUMN_PALETTENAME, palette.getPaletteName());
         values.put(COLUMN_TIMESTAMP, palette.getTimestamp());
-        db.insert(TABLE_USERS, null, values);
+        db.insert(TABLE_PALETTES, null, values);
         db.close();
     }
 
