@@ -98,7 +98,7 @@ public class PalletePickerActivity extends AppCompatActivity implements RGBFragm
 
         int color = Color.rgb(redValue, greenValue, blueValue);
         mRecyclerViewAdapter.color = color;
-        mRecyclerViewAdapter.notifyDataSetChanged();
+        mRecyclerViewAdapter.notifyItemChanged(mRecyclerViewAdapter.framePosition);
     }
 
 
@@ -140,7 +140,8 @@ public class PalletePickerActivity extends AppCompatActivity implements RGBFragm
         protected ArrayList<String> list;
         Context context;
 
-        int color;
+        protected int color;
+        protected int framePosition;
 
         private FrameLayout frame;
 
@@ -164,9 +165,10 @@ public class PalletePickerActivity extends AppCompatActivity implements RGBFragm
         }
 
         @Override
-        public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-            final String index = list.get(position);
+        public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
             final int location = holder.getAdapterPosition();
+
+
 
             holder.deleteIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -181,6 +183,7 @@ public class PalletePickerActivity extends AppCompatActivity implements RGBFragm
                 @Override
                 public void onClick(View view) {
                     Log.d("APPNAME", location + " selected");
+                    framePosition = position;
                 }
             });
 
@@ -198,7 +201,6 @@ public class PalletePickerActivity extends AppCompatActivity implements RGBFragm
         public int getItemCount() {
             return list.size();
         }
-
 
 
         public class RecyclerViewHolder extends RecyclerView.ViewHolder{
