@@ -106,6 +106,7 @@ public class RegisterFragment extends Fragment {
                         Log.d("DATABASE", "Something went wrong");
                     }
                 }
+                getActivity().onBackPressed();
             }
         });
 
