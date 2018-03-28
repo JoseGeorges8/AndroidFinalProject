@@ -69,6 +69,10 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
+        //Sign as a user to the app
+
+
+
         //open the register fragment
         TextView register = view.findViewById(R.id.link_signup);
         register.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +86,8 @@ public class LoginFragment extends Fragment {
             }
         });
 
+
+        //sign as a guest to the app
         Button signAsGuest = view.findViewById(R.id.btn_guest);
         signAsGuest.setOnClickListener(new View.OnClickListener() {
             @Override

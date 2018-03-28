@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,12 +30,12 @@ public class RegisterFragment extends Fragment {
 
     //Views
     private ImageView cancel;
-    private EditText fname;
-    private EditText lname;
-    private EditText email;
-    private EditText password;
-    private EditText recoveryEmail;
-    private EditText number;
+    private EditText fnameEditText;
+    private EditText lnameEditText;
+    private EditText emailEditText;
+    private EditText passwordEditText;
+    private EditText recoveryEmailEditText;
+    private EditText numberEditText;
     private Button register;
 
     public RegisterFragment() {
@@ -73,39 +74,70 @@ public class RegisterFragment extends Fragment {
 
 
         //edit text fields
-        fname = view.findViewById(R.id.register_fname);
-        lname = view.findViewById(R.id.register_lname);
-        email = view.findViewById(R.id.register_email);
-        password = view.findViewById(R.id.register_password);
-        recoveryEmail = view.findViewById(R.id.register_recovery_email);
-        number = view.findViewById(R.id.register_number);
+        fnameEditText = view.findViewById(R.id.register_fname);
+        lnameEditText = view.findViewById(R.id.register_lname);
+        emailEditText = view.findViewById(R.id.register_email);
+        passwordEditText = view.findViewById(R.id.register_password);
+        recoveryEmailEditText = view.findViewById(R.id.register_recovery_email);
+        numberEditText = view.findViewById(R.id.register_number);
+
 
         register = view.findViewById(R.id.register_button);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User newUser = new User(fname.getText().toString(),
-                            lname.getText().toString(),
-                            email.getText().toString(),
-                            password.getText().toString(),
-                            recoveryEmail.getText().toString(),
-                            number.getText().toString());
 
-                DatabaseHandler db = new DatabaseHandler(getContext());
-                Boolean result = db.addUser(newUser);
-                if(result){
-                    Toast.makeText(getContext(), "User successfully created", Toast.LENGTH_LONG);
-                    Log.d("DATABASE", "User successfully created");
-                }else{
-                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG);
-                    Log.d("DATABASE", "Something went wrong");
+                String fname = fnameEditText.getText().toString();
+                String lname = lnameEditText.getText().toString();
+                String email = emailEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+                String recoveryEmail = recoveryEmailEditText.getText().toString();
+                String number = numberEditText.getText().toString();
+
+                if (validateData(fname, lname, email, password, recoveryEmail, number)) {
+                    User newUser = new User(fname, lname, email, password, recoveryEmail, number);
+                    DatabaseHandler db = new DatabaseHandler(getContext());
+                    Boolean result = db.addUser(newUser);
+                    if (result) {
+                        Toast.makeText(getContext(), "User successfully created", Toast.LENGTH_LONG);
+                        Log.d("DATABASE", "User successfully created");
+                    } else {
+                        Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG);
+                        Log.d("DATABASE", "Something went wrong");
+                    }
                 }
-
             }
         });
 
 
         return view;
+    }
+
+    //function checking that all the fields have been filled out and correctly
+    public boolean validateData(String fname, String lname, String email, String password, String recoveryEmail, String number){
+
+
+        if(TextUtils.isEmpty(fname)){
+            fnameEditText.setError("Missing Field");
+            return false;
+        }
+        if(TextUtils.isEmpty(lname)){
+            lnameEditText.setError("Missing Field");
+            return false;
+        }
+        if(TextUtils.isEmpty(email)){
+            emailEditText.setError("Missing Field");
+            return false;
+        }
+        if(TextUtils.isEmpty(password)){
+            passwordEditText.setError("Missing Field");
+            return false;
+        }if(TextUtils.isEmpty(recoveryEmail)){
+            recoveryEmailEditText.setError("Missing Field");
+            return false;
+        }
+        Log.d("SIGNUP", "Validation successful");
+        return true;
     }
 
 
