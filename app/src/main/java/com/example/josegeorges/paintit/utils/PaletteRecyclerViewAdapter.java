@@ -52,13 +52,21 @@ public class PaletteRecyclerViewAdapter extends RecyclerView.Adapter<PaletteRecy
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         final String index = list.get(position);
+        final int location = holder.getAdapterPosition();
 
         holder.deleteIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                list.remove(index);
-                Log.d("APPNAME", list.indexOf(index) + " removed");
-                notifyItemRemoved(list.indexOf(index));
+                list.remove(location);
+                Log.d("APPNAME", location + " removed");
+                notifyDataSetChanged();
+            }
+        });
+
+        holder.frame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("APPNAME", location + " selected");
             }
         });
 

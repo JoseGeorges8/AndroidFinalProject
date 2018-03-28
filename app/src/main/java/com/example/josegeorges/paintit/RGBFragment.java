@@ -62,6 +62,12 @@ public class RGBFragment extends Fragment {
         redBar.setMax(255);
         greenBar.setMax(255);
         blueBar.setMax(255);
+        redBar.setProgress(160);
+        greenBar.setProgress(160);
+        blueBar.setProgress(160);
+        onSeekBarChange(redBar.getProgress(), RED);
+        onSeekBarChange(greenBar.getProgress(), GREEN);
+        onSeekBarChange(blueBar.getProgress(), BLUE);
 
         //listeners to update value while the SeekBars position changes
 
