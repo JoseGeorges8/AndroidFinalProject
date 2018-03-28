@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 /**
@@ -34,6 +35,7 @@ public class RegisterFragment extends Fragment {
     private EditText password;
     private EditText recoveryEmail;
     private EditText number;
+    private Button register;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -78,12 +80,34 @@ public class RegisterFragment extends Fragment {
         recoveryEmail = view.findViewById(R.id.register_recovery_email);
         number = view.findViewById(R.id.register_number);
 
+        register = view.findViewById(R.id.register_button);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                User newUser = new User(fname.getText().toString(),
+                            lname.getText().toString(),
+                            email.getText().toString(),
+                            password.getText().toString(),
+                            recoveryEmail.getText().toString(),
+                            number.getText().toString());
+
+                DatabaseHandler db = new DatabaseHandler(getContext());
+                Boolean result = db.addUser(newUser);
+                if(result){
+                    Toast.makeText(getContext(), "User successfully created", Toast.LENGTH_LONG);
+                    Log.d("DATABASE", "User successfully created");
+                }else{
+                    Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG);
+                    Log.d("DATABASE", "Something went wrong");
+                }
+
+            }
+        });
+
+
         return view;
     }
 
-    public void registerUser(View view){
-        Log.d("REGISTER", "pressed");
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

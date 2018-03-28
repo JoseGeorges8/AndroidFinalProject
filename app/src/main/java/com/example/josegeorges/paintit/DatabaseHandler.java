@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
 
     public static final String TABLE_USERS = "user";
-    public static final String TABLE_ORDERS = "order";
+    public static final String TABLE_ORDERS = "orders";
     public static final String TABLE_ITEMS = "item";
     public static final String TABLE_ITEMORDERS = "item_order";
     public static final String TABLE_COLORS = "colors";
@@ -136,7 +137,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Colors Table
     public static final String CREATE_COLORS_TABLE = "CREATE TABLE " +
             TABLE_COLORS + "(" + COLUMN_HEXVALUE + " INTEGER PRIMARY KEY,"
-            + COLUMN_COLORNAME + " TEXT," + COLUMN_TIMESTAMP + " TEXT,)";
+            + COLUMN_COLORNAME + " TEXT," + COLUMN_TIMESTAMP + " TEXT)";
 
     // PaletteColors Table
     public static final String CREATE_PALETTECOLORS_TABLE = "CREATE TABLE " +
@@ -176,7 +177,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_PALETTECOLORS_TABLE);
         db.execSQL(CREATE_FAVORITECOLORS_TABLE);
         db.execSQL(CREATE_FAVORITEPALETTES_TABLE);
-
+        Log.d("DATABASE", "onCreate: tables created");
     }
 
     @Override
@@ -197,7 +198,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Create Operations
      */
 
-    public void addUser(User user){
+    public boolean addUser(User user){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_FIRSTNAME, user.getFirstName());
@@ -205,8 +206,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COLUMN_EMAIL, user.getEmail());
         values.put(COLUMN_RECOVERYEMAIL, user.getRecoveryEmail());
         values.put(COLUMN_PHONENUMBER, user.getPhoneNumber());
-        db.insert(TABLE_USERS, null, values);
+        long result = db.insert(TABLE_USERS, null, values);
         db.close();
+        if (result == -1)
+            return false;
+        else
+            return true;
     }
 
     public void addOrder(Order order){
@@ -262,7 +267,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     cursor.getString(2),
                     cursor.getString(3),
                     cursor.getString(4),
-                    cursor.getString(5));
+                    cursor.getString(5),
+                    cursor.getString(6));
         }
         db.close();
         return user;
@@ -280,7 +286,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         cursor.getString(2),
                         cursor.getString(3),
                         cursor.getString(4),
-                        cursor.getString(5)));
+                        cursor.getString(5),
+                        cursor.getString(6)));
             } while (cursor.moveToNext());
         }
 

@@ -15,6 +15,7 @@ public class LoginActivity extends AppCompatActivity implements RegisterFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.login_content, new LoginFragment())

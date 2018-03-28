@@ -77,6 +77,7 @@ public class LoginFragment extends Fragment {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.login_content, new RegisterFragment())
+                        .addToBackStack(null)
                         .commit();
             }
         });
