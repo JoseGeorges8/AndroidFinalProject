@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.josegeorges.paintit.utils.SimpleFragmentPagerAdapter;
 import com.github.clans.fab.FloatingActionButton;
@@ -41,6 +42,11 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        if(getIntent() != null) {
+            User loggedInUser = getIntent().getParcelableExtra(LoginFragment.USER_LOGGED_IN);
+            Toast.makeText(this, loggedInUser.getEmail() + " logged in", Toast.LENGTH_LONG);
+        }
 
 
 

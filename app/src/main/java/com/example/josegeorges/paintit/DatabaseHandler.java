@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -204,6 +205,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COLUMN_FIRSTNAME, user.getFirstName());
         values.put(COLUMN_LASTNAME, user.getLastName());
         values.put(COLUMN_EMAIL, user.getEmail());
+        values.put(COLUMN_PASSWORD, user.getPassword());
         values.put(COLUMN_RECOVERYEMAIL, user.getRecoveryEmail());
         values.put(COLUMN_PHONENUMBER, user.getPhoneNumber());
         long result = db.insert(TABLE_USERS, null, values);
@@ -283,6 +285,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         db.close();
         return user;
+    }
+
+    public User getUser(String email, String password){
+        SQLiteDatabase db = null;
+        User user = null;
+        Cursor cursor = null;
+        try {
+            db = this.getReadableDatabase();
+            cursor = db.query(TABLE_USERS,
+                    new String[]{COLUMN_USERID, COLUMN_FIRSTNAME, COLUMN_LASTNAME, COLUMN_EMAIL, COLUMN_PASSWORD,
+                            COLUMN_RECOVERYEMAIL, COLUMN_PHONENUMBER},
+                    COLUMN_EMAIL + "=?" + " AND " + COLUMN_PASSWORD + "=?", new String[]{email, password},
+                    null, null, null, "1");
+            if (cursor != null && cursor.moveToFirst()) {
+                user = new User(Integer.parseInt(cursor.getString(0)),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5),
+                        cursor.getString(6));
+            }
+        }catch (final Exception e){
+            Log.d("DATABASE", "something went wrong");
+        }finally {
+            db.close();
+            cursor.close();
+        }
+        return  user;
     }
 
     public ArrayList<User> getAllUsers(){

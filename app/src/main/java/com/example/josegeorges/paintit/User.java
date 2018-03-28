@@ -1,10 +1,13 @@
 package com.example.josegeorges.paintit;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Keegan on 2018-03-25.
  */
 
-public class User {
+public class User implements Parcelable {
 
     private int userID;
     private String firstName;
@@ -103,4 +106,42 @@ public class User {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.userID);
+        dest.writeString(this.firstName);
+        dest.writeString(this.lastName);
+        dest.writeString(this.email);
+        dest.writeString(this.password);
+        dest.writeString(this.recoveryEmail);
+        dest.writeString(this.phoneNumber);
+    }
+
+    protected User(Parcel in) {
+        this.userID = in.readInt();
+        this.firstName = in.readString();
+        this.lastName = in.readString();
+        this.email = in.readString();
+        this.password = in.readString();
+        this.recoveryEmail = in.readString();
+        this.phoneNumber = in.readString();
+    }
+
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

@@ -1,15 +1,19 @@
 package com.example.josegeorges.paintit;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -21,6 +25,10 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class LoginFragment extends Fragment {
+
+    //key for when passing the logged user to the main Activity
+    public static final String USER_LOGGED_IN = "user_logged_in";
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,6 +43,11 @@ public class LoginFragment extends Fragment {
     public LoginFragment() {
         // Required empty public constructor
     }
+
+
+    //fields
+    EditText emailEditText;
+    EditText passwordEditText;
 
     /**
      * Use this factory method to create a new instance of
@@ -70,7 +83,26 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         //Sign as a user to the app
+        emailEditText = view.findViewById(R.id.input_email);
+        passwordEditText = view.findViewById(R.id.input_password);
 
+        //when click login, check for valid user and if found log it in
+        Button logInButton = view.findViewById(R.id.btn_login);
+        logInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseHandler db = new DatabaseHandler(getContext());
+                User isUser = db.getUser(emailEditText.getText().toString(), passwordEditText.getText().toString());
+                if (isUser != null){
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.putExtra(USER_LOGGED_IN, isUser);
+                    startActivity(intent);
+                }else{
+                    Log.d("LOGIN", "Wrong username or password");
+                    Toast.makeText(getActivity(), "Wrong username or password", Toast.LENGTH_LONG);
+                }
+            }
+        });
 
 
         //open the register fragment

@@ -99,10 +99,10 @@ public class RegisterFragment extends Fragment {
                     DatabaseHandler db = new DatabaseHandler(getContext());
                     Boolean result = db.addUser(newUser);
                     if (result) {
-                        Toast.makeText(getContext(), "User successfully created", Toast.LENGTH_LONG);
+                        Toast.makeText(getActivity(), "User successfully created", Toast.LENGTH_LONG);
                         Log.d("DATABASE", "User successfully created");
                     } else {
-                        Toast.makeText(getContext(), "Something went wrong", Toast.LENGTH_LONG);
+                        Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG);
                         Log.d("DATABASE", "Something went wrong");
                     }
                 }
@@ -116,7 +116,6 @@ public class RegisterFragment extends Fragment {
 
     //function checking that all the fields have been filled out and correctly
     public boolean validateData(String fname, String lname, String email, String password, String recoveryEmail, String number){
-
 
         if(TextUtils.isEmpty(fname)){
             fnameEditText.setError("Missing Field");
