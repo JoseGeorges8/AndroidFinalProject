@@ -1,5 +1,7 @@
 package com.example.josegeorges.paintit;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
@@ -21,16 +23,19 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
 
     //properties needed
 
+    private static final int REQUEST_CODE = 18;     //this request code is for when passing result from thr cameraActivity to this one
+    int colorPickedByCameraValue = 0; //color picked by the cameraActivity
+
+
+
     Toolbar toolbar; //custom Action Bar
 
     int redValue; //red value of the RGB
     int greenValue; //green value of the RGB
     int blueValue; //blue value of the RGB
 
-    //TODO: camera activity
     FloatingActionButton fab; //for launching the camera activity
     FrameLayout layout; //holds the color value that the user wants
-    ViewPager viewPager; //viewpager to show the fragments
 
 
     @Override
@@ -50,6 +55,17 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
             }
         });
 
+        //setting up the fab button
+        fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ColorPickerActivity.this, CameraActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
+            }
+        });
+
+
         //set up the frame for the color value
         layout = findViewById(R.id.frame_layout);
 
@@ -64,6 +80,25 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
         viewPager.setAdapter(new CustomAdapter(getSupportFragmentManager()));
 
 
+    }
+
+
+    /**
+     *  Will get call when we receive results from an activity, in this case CameraActivity
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode) {
+            case (REQUEST_CODE) : {
+                if (resultCode == Activity.RESULT_OK && data!=null) {
+                    colorPickedByCameraValue = data.getIntExtra(CameraActivity.SELECTED_COLOR, 0);
+                    layout.setBackgroundColor(colorPickedByCameraValue);
+                    layout.refreshDrawableState();
+                }
+                break;
+            }
+        }
     }
 
     /**
