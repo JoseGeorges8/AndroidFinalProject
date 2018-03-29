@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 
 /**
@@ -29,6 +30,9 @@ public class RGBFragment extends Fragment {
     SeekBar redBar;
     SeekBar greenBar;
     SeekBar blueBar;
+
+    //RGB TextViews
+    TextView redTextView;
 
     public RGBFragment() {
         // Required empty public constructor
@@ -52,11 +56,18 @@ public class RGBFragment extends Fragment {
         redBar = view.findViewById(R.id.red_value);
         greenBar = view.findViewById(R.id.green_value);
         blueBar = view.findViewById(R.id.blue_value);
+        redTextView = view.findViewById(R.id.red_textview);
 
         //max value in RGB is 255
         redBar.setMax(255);
         greenBar.setMax(255);
         blueBar.setMax(255);
+        redBar.setProgress(160);
+        greenBar.setProgress(160);
+        blueBar.setProgress(160);
+        onSeekBarChange(redBar.getProgress(), RED);
+        onSeekBarChange(greenBar.getProgress(), GREEN);
+        onSeekBarChange(blueBar.getProgress(), BLUE);
 
         //listeners to update value while the SeekBars position changes
 
@@ -64,6 +75,7 @@ public class RGBFragment extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 onSeekBarChange(i, RED);
+                redTextView.setText(""+i);
             }
 
             @Override

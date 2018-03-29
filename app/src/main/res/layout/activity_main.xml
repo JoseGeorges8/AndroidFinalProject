@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:background="@color/colorBackground"
     android:layout_height="match_parent"
+    android:id="@+id/main_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.josegeorges.paintit.MainActivity">
 
@@ -11,7 +12,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

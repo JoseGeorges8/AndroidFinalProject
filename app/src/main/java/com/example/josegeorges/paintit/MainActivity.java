@@ -8,8 +8,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.josegeorges.paintit.utils.SimpleFragmentPagerAdapter;
 import com.github.clans.fab.FloatingActionButton;
@@ -19,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements StoreFragment.OnFragmentInteractionListener,
-            ProfileFragment.OnFragmentInteractionListener{
+            ProfileFragment.OnFragmentInteractionListener, FavouriteColorsFragment.OnFragmentInteractionListener{
 
     //required elements
 
@@ -31,15 +34,24 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
 
     private FloatingActionMenu mainFab; //big main fab button
     private FloatingActionButton fabColour; //mini fab button for the colourPicker
+    private FloatingActionButton fabPalette; //mini fab button for the palettePicker
     private List<FloatingActionMenu> menus = new ArrayList<>();
     private Handler mUiHandler = new Handler();
 
+    private RecyclerView favouriteColoursRecyclerView; //max 3 colours to display
+
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        if(getIntent() != null) {
+            user = getIntent().getParcelableExtra(LoginFragment.USER_LOGGED_IN);
+            Log.d("USER", user.getEmail() + " logged in");
+        }
 
 
 
@@ -55,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
 
         //setting up the view pager
         viewPager = findViewById(R.id.view_pager);
-        adapter = new SimpleFragmentPagerAdapter(fm, getApplicationContext());
+        adapter = new SimpleFragmentPagerAdapter(fm, getApplicationContext(), user);
         viewPager.setAdapter(adapter);
 
         //setting up the tab layout
@@ -85,9 +97,21 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ColorPickerActivity.class);
+                intent.putExtra("USER", user);
                 startActivity(intent);
             }
         });
+
+        //link the mini fab button for the colour picker and when click open the activity.
+        fabPalette = (FloatingActionButton) findViewById(R.id.palette_picker_fab);
+        fabPalette.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, PalletePickerActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         mainFab.setClosedOnTouchOutside(true);
         mainFab.hideMenuButton(false);

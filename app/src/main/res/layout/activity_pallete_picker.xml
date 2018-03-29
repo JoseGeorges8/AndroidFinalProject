@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context="com.example.josegeorges.paintit.ColorPickerActivity">
+    tools:context="com.example.josegeorges.paintit.PalletePickerActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -20,8 +20,8 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <FrameLayout
-        android:id="@+id/frame_layout"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/palette_colors_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="242dp"
         android:layout_gravity="center"
@@ -31,40 +31,26 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_chainStyle="spread" />
+        app:layout_constraintVertical_chainStyle="spread"/>
 
-
-    <EditText
-        android:id="@+id/color_picker_color_name_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Color Name"
-        android:maxLines="1"
-        android:layout_marginLeft="@dimen/card_margin"
-        android:layout_marginRight="@dimen/card_margin"
-        android:textColor="@color/colorAccent"
-        android:textColorHint="@color/colorAccentDark"
-        app:layout_constraintStart_toEndOf="@+id/viewPager"
-        app:layout_constraintTop_toBottomOf="@id/frame_layout" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/color_picker_confirm_button"
+        app:layout_constraintBottom_toTopOf="@id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/color_picker_color_name_edit_text">
+        app:layout_constraintTop_toBottomOf="@id/palette_colors_recycler_view">
 
     </android.support.v4.view.ViewPager>
 
     <Button
-        android:id="@+id/color_picker_confirm_button"
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="Confirm"
-        android:onClick="addColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -76,8 +62,9 @@
         android:layout_margin="16dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/ic_camera_enhance_black_24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/frame_layout"
+        app:layout_constraintBottom_toBottomOf="@+id/palette_colors_recycler_view"
         app:layout_constraintRight_toRightOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
+
