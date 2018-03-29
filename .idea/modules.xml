@@ -3,8 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AndroidFinalProject.iml" filepath="$PROJECT_DIR$/AndroidFinalProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndroidFinalProject.iml" filepath="$PROJECT_DIR$/AndroidFinalProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/PaintIt.iml" filepath="$PROJECT_DIR$/PaintIt.iml" />
       <module fileurl="file://C:\Users\Keegan\Desktop\FinalAndroidProject\AndroidFinalProject\PaintIt.iml" filepath="C:\Users\Keegan\Desktop\FinalAndroidProject\AndroidFinalProject\PaintIt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
