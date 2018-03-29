@@ -76,7 +76,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Colors Table
     public static final String COLUMN_HEXVALUE = "hex_value";
-    public static final String COLUMN_COLORNAME = "color_name";
     // Uses TIMESTAMP
 
     /**
@@ -89,6 +88,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Uses USERID
      * Uses COLORID
      */
+    public static final String COLUMN_COLORNAME = "color_name";
 
     /**
      * FavoritePalettes Table
@@ -561,6 +561,66 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         return paletteList;
     }
+
+    /**
+     * UPDATE OPERATIONS
+     */
+
+
+    public int updateUser(User user){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_FIRSTNAME, user.getFirstName());
+        values.put(COLUMN_LASTNAME, user.getLastName());
+        values.put(COLUMN_EMAIL, user.getEmail());
+        values.put(COLUMN_PASSWORD, user.getPassword());
+        values.put(COLUMN_RECOVERYEMAIL, user.getRecoveryEmail());
+        values.put(COLUMN_PHONENUMBER, user.getPhoneNumber());
+        return db.update(TABLE_USERS, values, COLUMN_USERID + "= ?",
+                new String[]{String.valueOf(user.getUserID())});
+    }
+
+    // Order
+    public int updateOrder(Order order){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ORDERNUMBER, order.getOrderNumber());
+        values.put(COLUMN_DATEORDERED, order.getDateOrdered());;
+        return db.update(TABLE_ORDERS, values, COLUMN_ORDERID + "= ?",
+                new String[]{String.valueOf(order.getOrderID())});
+    }
+
+    // Item
+    public int updateItem(Item item){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_UPC, item.getUpc());
+        values.put(COLUMN_PRICE, item.getPrice());
+        values.put(COLUMN_DESCRIPTION, item.getDescription());;
+        return db.update(TABLE_ITEMS, values, COLUMN_ITEMID + "= ?",
+                new String[]{String.valueOf(item.getItemID())});
+    }
+
+    // Color
+    public int updateColor(Color color){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TIMESTAMP, color.getTimestamp());
+        return db.update(TABLE_COLORS, values, COLUMN_HEXVALUE + "= ?",
+                new String[]{String.valueOf(color.getHexValue())});
+    }
+
+    // Palette
+    public int updatePalette(Palette palette){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_PALETTENAME, palette.getPaletteName());
+        values.put(COLUMN_TIMESTAMP, palette.getTimestamp());
+        return db.update(TABLE_PALETTES, values, COLUMN_PALETTEID + "= ?",
+                new String[]{String.valueOf(palette.getPaletteID())});
+    }
+
+
 
     /**
      * DELETE OPERATIONS
