@@ -113,11 +113,10 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
         Log.d("ADDCOLOR", "Color details: " + name + " " + value + " " + currentTime.toString());
         com.example.josegeorges.paintit.Color color = new com.example.josegeorges.paintit.Color(value, name, currentTime, user.getUserID());
         DatabaseHandler db = new DatabaseHandler(this);
-        boolean result = false;
-            result = db.addColor(color);
+        boolean  result = db.addColor(color);
             if (result) {
                 Log.d("COLORPICKER", "Color successfully added on the db");
-                boolean secondResult = db.addFavoriteColor(color.getHexValue(), color.getUserId());
+                boolean secondResult = db.addFavoriteColor(color, color.getUserId());
                 if (secondResult) {
                     Log.d("COLORPICKER", "Color successfully added on the favourites table for user " + user.getEmail());
                 } else {
@@ -126,6 +125,7 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
                 onBackPressed();
             } else {
                 Log.d("COLORPICKER", "Something went wrong when adding the color");
+                onBackPressed();
             }
 
     }

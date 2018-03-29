@@ -139,7 +139,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Colors Table
     public static final String CREATE_COLORS_TABLE = "CREATE TABLE " +
             TABLE_COLORS + "(" + COLUMN_HEXVALUE + " INTEGER PRIMARY KEY,"
-            + COLUMN_COLORNAME + " TEXT,"
             + COLUMN_TIMESTAMP + " TEXT)";
 
     // PaletteColors Table
@@ -152,7 +151,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String CREATE_FAVORITECOLORS_TABLE = "CREATE TABLE " +
             TABLE_FAVORITECOLORS + "(" + COLUMN_USERID + " INTEGER REFERENCES " +
             TABLE_USERS + "(" + COLUMN_USERID + ")," + COLUMN_HEXVALUE +
-            " INTEGER REFERENCES " + TABLE_COLORS + "(" + COLUMN_HEXVALUE + "))";
+            " INTEGER REFERENCES " + TABLE_COLORS + "(" + COLUMN_HEXVALUE + "),"
+            + COLUMN_COLORNAME + " TEXT)";
 
     // FavoritePalettes Table
     public static final String CREATE_FAVORITEPALETTES_TABLE = "CREATE TABLE " +
@@ -248,15 +248,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_HEXVALUE, color.getHexValue());
-        values.put(COLUMN_COLORNAME, color.getColorName());
         values.put(COLUMN_TIMESTAMP, color.getTimestamp());
         long result = -1;
         try {
             result = db.insertOrThrow(TABLE_COLORS, null, values);
         }catch (SQLiteConstraintException e){
             Log.d("COLORPICKER", "Color already in table");
+            boolean secondResult = addFavoriteColor(color, color.getUserId());
+            if (secondResult) {
+                Log.d("COLORPICKER", "Color successfully added on the favourites table for user " + color.getUserId());
+            } else {
+                Log.d("COLORPICKER", "Something went wrong, probably the user already has this color");
+            }
+        }finally {
+            db.close();
         }
-        db.close();
         if (result == -1)
             return false;
         else
@@ -265,15 +271,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     /**
      * This method adds the color id and the user id to the linking table
-     * @param colorId
+     * @param color
      * @param userId
      * @return
      */
-    public boolean addFavoriteColor(int colorId, int userId){
+    public boolean addFavoriteColor(Color color, int userId){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_USERID, userId);
-        values.put(COLUMN_HEXVALUE, colorId);
+        values.put(COLUMN_HEXVALUE, color.getHexValue());
+        values.put(COLUMN_COLORNAME, color.getColorName());
         long result = db.insert(TABLE_FAVORITECOLORS, null, values);
         if (result == -1)
             return false;
