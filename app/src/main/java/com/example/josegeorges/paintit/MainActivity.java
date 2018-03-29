@@ -8,7 +8,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements StoreFragment.OnFragmentInteractionListener,
-            ProfileFragment.OnFragmentInteractionListener{
+            ProfileFragment.OnFragmentInteractionListener, FavouriteColorsFragment.OnFragmentInteractionListener{
 
     //required elements
 
@@ -36,6 +38,9 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
     private List<FloatingActionMenu> menus = new ArrayList<>();
     private Handler mUiHandler = new Handler();
 
+    private RecyclerView favouriteColoursRecyclerView; //max 3 colours to display
+
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +49,8 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
 
 
         if(getIntent() != null) {
-            User loggedInUser = getIntent().getParcelableExtra(LoginFragment.USER_LOGGED_IN);
-            Toast.makeText(this, loggedInUser.getEmail() + " logged in", Toast.LENGTH_LONG);
+            user = getIntent().getParcelableExtra(LoginFragment.USER_LOGGED_IN);
+            Log.d("USER", user.getEmail() + " logged in");
         }
 
 
@@ -62,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
 
         //setting up the view pager
         viewPager = findViewById(R.id.view_pager);
-        adapter = new SimpleFragmentPagerAdapter(fm, getApplicationContext());
+        adapter = new SimpleFragmentPagerAdapter(fm, getApplicationContext(), user);
         viewPager.setAdapter(adapter);
 
         //setting up the tab layout
@@ -92,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ColorPickerActivity.class);
+                intent.putExtra("USER", user);
                 startActivity(intent);
             }
         });

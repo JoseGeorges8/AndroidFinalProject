@@ -138,7 +138,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Colors Table
     public static final String CREATE_COLORS_TABLE = "CREATE TABLE " +
             TABLE_COLORS + "(" + COLUMN_HEXVALUE + " INTEGER PRIMARY KEY,"
-            + COLUMN_COLORNAME + " TEXT," + COLUMN_TIMESTAMP + " TEXT)";
+            + COLUMN_COLORNAME + " TEXT,"
+            + COLUMN_TIMESTAMP + " TEXT,"
+            + COLUMN_USERID + " INTEGER)";
 
     // PaletteColors Table
     public static final String CREATE_PALETTECOLORS_TABLE = "CREATE TABLE " +
@@ -243,6 +245,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COLUMN_HEXVALUE, color.getHexValue());
         values.put(COLUMN_COLORNAME, color.getColorName());
         values.put(COLUMN_TIMESTAMP, color.getTimestamp());
+        values.put(COLUMN_USERID, color.getUserId());
         long result = db.insert(TABLE_COLORS, null, values);
         db.close();
         if (result == -1)
@@ -418,23 +421,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Colors
-    public Color getColor(int id){
+    public ArrayList<Color> getColors(int user_id, String limit){
+        ArrayList<Color> colorList = new ArrayList<Color>();
         SQLiteDatabase db = this.getReadableDatabase();
         Color color = null;
         //table name, String Array of column names, query, String array of values that will
         // be inserted into the query
         Cursor cursor = db.query(TABLE_COLORS,
-                new String[]{COLUMN_HEXVALUE, COLUMN_COLORNAME, COLUMN_TIMESTAMP},
-                COLUMN_HEXVALUE + "=?", new String[]{String.valueOf(id)},
-                null, null, null, null);
+                new String[]{COLUMN_HEXVALUE, COLUMN_COLORNAME, COLUMN_TIMESTAMP, COLUMN_USERID},
+                COLUMN_USERID + "=?", new String[]{String.valueOf(user_id)},
+                null, null, null, limit);
         if(cursor != null){
-            cursor.moveToFirst();
-            color = new Color(Integer.parseInt(cursor.getString(0)),
-                    cursor.getString(1),
-                    cursor.getString(2));
+            if (cursor.moveToFirst()) {
+                do {
+                    colorList.add(new Color(Integer.parseInt(cursor.getString(0)),
+                            cursor.getString(1),
+                            cursor.getString(2),
+                            Integer.parseInt(cursor.getString(3))));
+                } while (cursor.moveToNext());
+            }
         }
         db.close();
-        return color;
+        return colorList;
     }
 
     public ArrayList<Color> getAllColors() {
@@ -446,13 +454,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do {
                 colorList.add(new Color(Integer.parseInt(cursor.getString(0)),
                         cursor.getString(1),
-                        cursor.getString(2)));
+                        cursor.getString(2),
+                        Integer.parseInt(cursor.getString(3))));
             } while (cursor.moveToNext());
         }
 
         db.close();
         return colorList;
     }
+
 
     // Palettes
     public Palette getPalette(int id){

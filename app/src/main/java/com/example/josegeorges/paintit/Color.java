@@ -8,14 +8,24 @@ public class Color {
     private int hexValue;
     private String colorName;
     private String timestamp;
+    private int userId;
 
     public Color() {
     }
 
-    public Color(int hexValue, String colorName, String timestamp) {
+    public Color(int hexValue, String colorName, String timestamp, int user_id) {
         this.hexValue = hexValue;
         this.colorName = colorName;
         this.timestamp = timestamp;
+        this.userId = user_id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public int getHexValue() {

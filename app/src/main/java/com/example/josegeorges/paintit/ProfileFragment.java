@@ -1,12 +1,21 @@
 package com.example.josegeorges.paintit;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -18,16 +27,23 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    //for the bundle
+    private static final String ARG_PARAM1 = "param1";
+
+    //user
+    private User loggedInUser;
+    ArrayList<Color> favouriteColors;
 
     private OnFragmentInteractionListener mListener;
+
+    //these two go together
+    private RecyclerView favouriteColoursRecyclerView;
+    private TextView seeAllFavColors;
+
+    //these two go together
+    private TextView noColors;
+    private Button addFavColor;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -37,16 +53,14 @@ public class ProfileFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param user logged in user.
      * @return A new instance of fragment ProfileFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
+    public static ProfileFragment newInstance(User user) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putParcelable(ARG_PARAM1, user);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,8 +69,8 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            loggedInUser = getArguments().getParcelable(ARG_PARAM1);
+            Log.d("USER", loggedInUser.getEmail() + "it's now on its profile");
         }
     }
 
@@ -64,7 +78,62 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        addFavColor = view.findViewById(R.id.addColor_button);
+        noColors = view.findViewById(R.id.no_favourite_colors_textView);
+        seeAllFavColors = view.findViewById(R.id.see_all_favourite_colours);
+        favouriteColoursRecyclerView = view.findViewById(R.id.favourite_colours_list);
+        DatabaseHandler db = new DatabaseHandler(getActivity());
+        if(loggedInUser != null) {
+            favouriteColors = db.getColors(loggedInUser.getUserID(), "3");
+        }
+
+        //linking recyclerView
+        LinearLayoutManager myLayoutManager = new LinearLayoutManager(getActivity()){
+            @Override
+            public boolean supportsPredictiveItemAnimations() {
+
+                return true;
+
+            }
+        };
+        myLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        favouriteColoursRecyclerView.setLayoutManager(myLayoutManager);
+        favouriteColoursRecyclerView.setAdapter(new FavouriteColorsAdapter(favouriteColors));
+
+        if(favouriteColors.size() > 0){
+            favouriteColoursRecyclerView.setVisibility(View.VISIBLE);
+            seeAllFavColors.setVisibility(View.VISIBLE);
+            noColors.setVisibility(View.GONE);
+            addFavColor.setVisibility(View.GONE);
+        }else{
+            favouriteColoursRecyclerView.setVisibility(View.GONE);
+            seeAllFavColors.setVisibility(View.GONE);
+            noColors.setVisibility(View.VISIBLE);
+            addFavColor.setVisibility(View.VISIBLE);
+        }
+
+        addFavColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ColorPickerActivity.class);
+                intent.putExtra("USER", loggedInUser);
+                startActivity(intent);
+            }
+        });
+
+        seeAllFavColors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_content, FavouriteColorsFragment.newInstance(loggedInUser))
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

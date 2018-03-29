@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.example.josegeorges.paintit.ProfileFragment;
 import com.example.josegeorges.paintit.R;
 import com.example.josegeorges.paintit.StoreFragment;
+import com.example.josegeorges.paintit.User;
 
 /**
  * Created by josegeorges on 2018-03-19.
@@ -26,12 +27,14 @@ public class SimpleFragmentPagerAdapter extends FragmentStatePagerAdapter {
     //context for string resources
     private Context mContext;
 
+    private User user;
     /*
     Constructor
      */
-    public SimpleFragmentPagerAdapter(FragmentManager fm, Context context) {
+    public SimpleFragmentPagerAdapter(FragmentManager fm, Context context, User user) {
         super(fm);
         mContext = context;
+        this.user = user;
     }
 
 
@@ -41,7 +44,7 @@ public class SimpleFragmentPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new ProfileFragment();
+                return new ProfileFragment().newInstance(user);
             case 1:
                 return new StoreFragment();
             default:

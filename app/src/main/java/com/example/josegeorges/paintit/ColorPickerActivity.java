@@ -46,12 +46,18 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
     EditText colorName; //name of the color to save
     Button confirmButton; //button to confirm and save the color to the database
 
+    User user; //user
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_color_picker);
 
+
+        if(getIntent() != null){
+            user = getIntent().getParcelableExtra("USER");
+            Log.d("USER", user.getEmail() + " is picking a color");
+        }
 
         //set up the toolbar
         toolbar = findViewById(R.id.toolbar);
@@ -107,7 +113,7 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
         int value = definitiveChosenColor;
         String currentTime = Calendar.getInstance().getTime().toString();
         Log.d("ADDCOLOR", "Color details: " + name + " " + value + " " + currentTime.toString());
-        com.example.josegeorges.paintit.Color color = new com.example.josegeorges.paintit.Color(value, name, currentTime);
+        com.example.josegeorges.paintit.Color color = new com.example.josegeorges.paintit.Color(value, name, currentTime, user.getUserID());
         DatabaseHandler db = new DatabaseHandler(this);
         boolean result = db.addColor(color);
         if(result){
