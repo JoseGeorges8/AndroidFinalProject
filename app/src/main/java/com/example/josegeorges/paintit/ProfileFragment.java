@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -45,6 +46,8 @@ public class ProfileFragment extends Fragment {
     private TextView noColors;
     private Button addFavColor;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -79,6 +82,17 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        swipeRefreshLayout = view.findViewById(R.id.swipe);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+
+
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         addFavColor = view.findViewById(R.id.addColor_button);
         noColors = view.findViewById(R.id.no_favourite_colors_textView);
