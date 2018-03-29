@@ -478,24 +478,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                strings[i] = String.valueOf(colorsId.get(i));
             }
             db.close();
-            getAllFavouriteColours(strings, limit);
             return colorList;
         }
         db.close();
         return colorList;
     }
 
-    public ArrayList<Color> getAllFavouriteColours(String[] strings, String limit){
+    public ArrayList<Color> getAllFavouriteColours(User user, String limit){
         ArrayList<Color> colorList = new ArrayList<Color>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_COLORS,
-                new String[]{COLUMN_HEXVALUE, COLUMN_COLORNAME, COLUMN_TIMESTAMP},
-                COLUMN_HEXVALUE + "=?", strings, null, null, null, limit);
+        Cursor cursor = db.query(TABLE_FAVORITECOLORS,
+                new String[]{COLUMN_USERID, COLUMN_HEXVALUE, COLUMN_COLORNAME},
+                COLUMN_USERID + "=?", new String[]{String.valueOf(user.getUserID())} , null, null, null, limit);
         if(cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
                     colorList.add(new Color(Integer.parseInt(cursor.getString(0)),
-                            cursor.getString(1),
+                            Integer.parseInt(cursor.getString(1)),
                             cursor.getString(2)));
                     Log.d("GETFAVORITECOLORS",Integer.parseInt(cursor.getString(1))+ " added to the list");
                 } while (cursor.moveToNext());

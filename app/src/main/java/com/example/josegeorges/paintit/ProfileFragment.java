@@ -87,7 +87,7 @@ public class ProfileFragment extends Fragment {
         DatabaseHandler db = new DatabaseHandler(getActivity());
         if(loggedInUser != null) {
             favouriteColors = new ArrayList<>();
-            //favouriteColors = db.getColorsId(loggedInUser.getUserID(), "3");
+            favouriteColors = db.getAllFavouriteColours(loggedInUser, "3");
             Log.d("PROFILE", favouriteColors.size() + " favourite colors for " + loggedInUser.getEmail());
         }
 

@@ -26,6 +26,14 @@ public class Color {
         this.timestamp = timestamp;
     }
 
+    public Color(int userId, int hexValue, String colorName) {
+        this.userId = userId;
+        this.hexValue = hexValue;
+        this.colorName = colorName;
+    }
+
+
+
     public int getUserId() {
         return userId;
     }
