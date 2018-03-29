@@ -86,7 +86,9 @@ public class ProfileFragment extends Fragment {
         favouriteColoursRecyclerView = view.findViewById(R.id.favourite_colours_list);
         DatabaseHandler db = new DatabaseHandler(getActivity());
         if(loggedInUser != null) {
-            favouriteColors = db.getColors(loggedInUser.getUserID(), "3");
+            favouriteColors = new ArrayList<>();
+            //favouriteColors = db.getColorsId(loggedInUser.getUserID(), "3");
+            Log.d("PROFILE", favouriteColors.size() + " favourite colors for " + loggedInUser.getEmail());
         }
 
         //linking recyclerView

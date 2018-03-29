@@ -3,7 +3,6 @@ package com.example.josegeorges.paintit;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,7 +18,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import java.util.Calendar;
-import java.util.Date;
 
 
 /**
@@ -115,13 +113,21 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
         Log.d("ADDCOLOR", "Color details: " + name + " " + value + " " + currentTime.toString());
         com.example.josegeorges.paintit.Color color = new com.example.josegeorges.paintit.Color(value, name, currentTime, user.getUserID());
         DatabaseHandler db = new DatabaseHandler(this);
-        boolean result = db.addColor(color);
-        if(result){
-            Log.d("COLORPICKER", "Color successfully added on the db");
-            onBackPressed();
-        }else{
-            Log.d("COLORPICKER", "Something went wrong when adding the color");
-        }
+        boolean result = false;
+            result = db.addColor(color);
+            if (result) {
+                Log.d("COLORPICKER", "Color successfully added on the db");
+                boolean secondResult = db.addFavoriteColor(color.getHexValue(), color.getUserId());
+                if (secondResult) {
+                    Log.d("COLORPICKER", "Color successfully added on the favourites table for user " + user.getEmail());
+                } else {
+                    Log.d("COLORPICKER", "Something went wrong, probably the user already has this color");
+                }
+                onBackPressed();
+            } else {
+                Log.d("COLORPICKER", "Something went wrong when adding the color");
+            }
+
     }
 
     /**

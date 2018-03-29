@@ -3,6 +3,7 @@ package com.example.josegeorges.paintit;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -139,8 +140,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String CREATE_COLORS_TABLE = "CREATE TABLE " +
             TABLE_COLORS + "(" + COLUMN_HEXVALUE + " INTEGER PRIMARY KEY,"
             + COLUMN_COLORNAME + " TEXT,"
-            + COLUMN_TIMESTAMP + " TEXT,"
-            + COLUMN_USERID + " INTEGER)";
+            + COLUMN_TIMESTAMP + " TEXT)";
 
     // PaletteColors Table
     public static final String CREATE_PALETTECOLORS_TABLE = "CREATE TABLE " +
@@ -239,15 +239,42 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Adding a color to the colors table
+     * @param color the color being added
+     * @return
+     */
     public boolean addColor(Color color){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_HEXVALUE, color.getHexValue());
         values.put(COLUMN_COLORNAME, color.getColorName());
         values.put(COLUMN_TIMESTAMP, color.getTimestamp());
-        values.put(COLUMN_USERID, color.getUserId());
-        long result = db.insert(TABLE_COLORS, null, values);
+        long result = -1;
+        try {
+            result = db.insertOrThrow(TABLE_COLORS, null, values);
+        }catch (SQLiteConstraintException e){
+            Log.d("COLORPICKER", "Color already in table");
+        }
         db.close();
+        if (result == -1)
+            return false;
+        else
+            return true;
+    }
+
+    /**
+     * This method adds the color id and the user id to the linking table
+     * @param colorId
+     * @param userId
+     * @return
+     */
+    public boolean addFavoriteColor(int colorId, int userId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USERID, userId);
+        values.put(COLUMN_HEXVALUE, colorId);
+        long result = db.insert(TABLE_FAVORITECOLORS, null, values);
         if (result == -1)
             return false;
         else
@@ -421,27 +448,54 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Colors
-    public ArrayList<Color> getColors(int user_id, String limit){
+    public ArrayList<Color> getColorsId(int user_id, String limit){
         ArrayList<Color> colorList = new ArrayList<Color>();
         SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Integer> colorsId = new ArrayList<>();
         Color color = null;
         //table name, String Array of column names, query, String array of values that will
         // be inserted into the query
-        Cursor cursor = db.query(TABLE_COLORS,
-                new String[]{COLUMN_HEXVALUE, COLUMN_COLORNAME, COLUMN_TIMESTAMP, COLUMN_USERID},
+        Cursor cursor = db.query(TABLE_FAVORITECOLORS,
+                new String[]{COLUMN_USERID, COLUMN_HEXVALUE},
                 COLUMN_USERID + "=?", new String[]{String.valueOf(user_id)},
-                null, null, null, limit);
+                null, null, null, null);
         if(cursor != null){
+            if (cursor.moveToFirst()) {
+                do {
+                    colorsId.add(Integer.parseInt(cursor.getString(1)));
+                    Log.d("GETCOLORS",Integer.parseInt(cursor.getString(1))+ " added to the list");
+                } while (cursor.moveToNext());
+            }
+            String[] strings = new String[colorsId.size()];
+            for (int i = 0; i < colorsId.size(); i++) {
+               strings[i] = String.valueOf(colorsId.get(i));
+            }
+            db.close();
+            getAllFavouriteColours(strings, limit);
+            return colorList;
+        }
+        db.close();
+        return colorList;
+    }
+
+    public ArrayList<Color> getAllFavouriteColours(String[] strings, String limit){
+        ArrayList<Color> colorList = new ArrayList<Color>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_COLORS,
+                new String[]{COLUMN_HEXVALUE, COLUMN_COLORNAME, COLUMN_TIMESTAMP},
+                COLUMN_HEXVALUE + "=?", strings, null, null, null, limit);
+        if(cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
                     colorList.add(new Color(Integer.parseInt(cursor.getString(0)),
                             cursor.getString(1),
-                            cursor.getString(2),
-                            Integer.parseInt(cursor.getString(3))));
+                            cursor.getString(2)));
+                    Log.d("GETFAVORITECOLORS",Integer.parseInt(cursor.getString(1))+ " added to the list");
                 } while (cursor.moveToNext());
+            }else{
+                Log.d("GETFAVORITECOLORS","No colours retrieved from the cursor");
             }
         }
-        db.close();
         return colorList;
     }
 

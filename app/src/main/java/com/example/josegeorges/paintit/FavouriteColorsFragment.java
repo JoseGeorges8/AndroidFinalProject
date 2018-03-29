@@ -78,7 +78,7 @@ public class FavouriteColorsFragment extends Fragment {
 
         DatabaseHandler db = new DatabaseHandler(getActivity());
         if(loggedInUser != null) {
-           favouriteColors = db.getColors(loggedInUser.getUserID(), null);
+           favouriteColors = db.getColorsId(loggedInUser.getUserID(), null);
         }
 
         //linking recyclerView
