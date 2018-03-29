@@ -116,13 +116,16 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
         boolean  result = db.addColor(color);
             if (result) {
                 Log.d("COLORPICKER", "Color successfully added on the db");
-                boolean secondResult = db.addFavoriteColor(color, color.getUserId());
-                if (secondResult) {
-                    Log.d("COLORPICKER", "Color successfully added on the favourites table for user " + user.getEmail());
-                } else {
-                    Log.d("COLORPICKER", "Something went wrong, probably the user already has this color");
+                boolean checkFavColorTable = db.isFavouriteColorOnDatabase(user.getUserID(), color.getHexValue());
+                if(checkFavColorTable){
+                    Log.d("COLORPICKER", "Color is already is favourites table");
+                }else {
+                    boolean secondResult = db.addFavoriteColor(color, color.getUserId());
+                    if (secondResult) {
+                        Log.d("COLORPICKER", "Color successfully added on the favourites table for user " + user.getEmail());
+                    }
+                    onBackPressed();
                 }
-                onBackPressed();
             } else {
                 Log.d("COLORPICKER", "Something went wrong when adding the color");
                 onBackPressed();

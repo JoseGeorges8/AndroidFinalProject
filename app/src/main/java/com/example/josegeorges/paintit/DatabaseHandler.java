@@ -254,11 +254,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             result = db.insertOrThrow(TABLE_COLORS, null, values);
         }catch (SQLiteConstraintException e){
             Log.d("COLORPICKER", "Color already in table");
-            boolean secondResult = addFavoriteColor(color, color.getUserId());
-            if (secondResult) {
-                Log.d("COLORPICKER", "Color successfully added on the favourites table for user " + color.getUserId());
-            } else {
-                Log.d("COLORPICKER", "Something went wrong, probably the user already has this color");
+            boolean checkFavColorTable = isFavouriteColorOnDatabase(color.getUserId(), color.getHexValue());
+            if(checkFavColorTable){
+                Log.d("COLORPICKER", "Color is already is favourites table");
+            }else {
+                boolean secondResult = addFavoriteColor(color, color.getUserId());
+                if (secondResult) {
+                    Log.d("COLORPICKER", "Color successfully added on the favourites table for user " + color.getUserId());
+                }
             }
         }finally {
             db.close();
@@ -454,34 +457,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return itemList;
     }
 
-    // Colors
-    public ArrayList<Color> getColorsId(int user_id, String limit){
-        ArrayList<Color> colorList = new ArrayList<Color>();
+    /**
+     * This method purpose is to check the favourite colours table to see if the selected color is already in the table
+     *
+     * @param user_id
+     * @param colorHex
+     * @return
+     */
+    public Boolean isFavouriteColorOnDatabase(int user_id, int colorHex){
         SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<Integer> colorsId = new ArrayList<>();
-        Color color = null;
         //table name, String Array of column names, query, String array of values that will
         // be inserted into the query
         Cursor cursor = db.query(TABLE_FAVORITECOLORS,
-                new String[]{COLUMN_USERID, COLUMN_HEXVALUE},
-                COLUMN_USERID + "=?", new String[]{String.valueOf(user_id)},
+                new String[]{COLUMN_USERID, COLUMN_HEXVALUE, COLUMN_COLORNAME},
+                COLUMN_USERID + "=?" + " AND " + COLUMN_HEXVALUE + "=?", new String[]{String.valueOf(user_id), String.valueOf(colorHex)},
                 null, null, null, null);
         if(cursor != null){
             if (cursor.moveToFirst()) {
-                do {
-                    colorsId.add(Integer.parseInt(cursor.getString(1)));
-                    Log.d("GETCOLORS",Integer.parseInt(cursor.getString(1))+ " added to the list");
-                } while (cursor.moveToNext());
+                    Log.d("GETCOLORS",Integer.parseInt(cursor.getString(1))+ " was on the table");
+                    db.close();
+                    return true;
             }
-            String[] strings = new String[colorsId.size()];
-            for (int i = 0; i < colorsId.size(); i++) {
-               strings[i] = String.valueOf(colorsId.get(i));
-            }
-            db.close();
-            return colorList;
         }
         db.close();
-        return colorList;
+        return false;
     }
 
     public ArrayList<Color> getAllFavouriteColours(User user, String limit){
