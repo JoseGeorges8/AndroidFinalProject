@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -119,11 +120,32 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
         mainFab.hideMenuButton(false);
     }
 
+    /*
+    This adds the toolbar_icons file to the toolbar, which shows the settings symbol
+
+    TODO: Add the cart icon to this xml file so it shows here
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_icons, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    /*
+    This method takes care of looking for which icon from the toolbar has been selected and run code depending on it
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_settings:
+             getFragmentManager().beginTransaction()
+                     .replace(R.id.main_content, new SettingsScreenFragment())
+                     .addToBackStack(null)
+                     .commit();
+             break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
