@@ -97,12 +97,14 @@ public class LoginFragment extends Fragment {
                 DatabaseHandler db = new DatabaseHandler(getContext());
                 User isUser = db.getUser(emailEditText.getText().toString(), passwordEditText.getText().toString());
                 if (isUser != null){
-                    //we state that the user is logged in. We make this so that we can check if the user is logged in or not to log it out
+                    //we state that the user is logged in.
+                    // We make this so that we can check if the user is logged in or not to log it out
                     SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putBoolean(USER_LOGGED_IN, true);
 
-                    //an Idea I have is to put all of the user properties in the sharepreferences
+                    //we add all the user information into the sharepreferences
+                    //that way, even though we have it on the database we know which user to load when the app opens again
                     editor.putInt(LoginActivity.USER_ID, isUser.getUserID());
                     editor.putString(LoginActivity.USER_EMAIL, isUser.getEmail());
                     editor.putString(LoginActivity.USER_FNAME, isUser.getFirstName());
@@ -112,13 +114,14 @@ public class LoginFragment extends Fragment {
                     editor.putString(LoginActivity.USER_PHONE, isUser.getPhoneNumber());
                     editor.apply();
 
-
+                    //open the main activity
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.putExtra(USER_LOGGED_IN, isUser);
                     startActivity(intent);
                 }else{
-                    Log.d("LOGIN", "Wrong username or password");
-                    Toast.makeText(getActivity(), "Wrong username or password", Toast.LENGTH_LONG).show();
+                    //show the user that the credentials are wrong
+                    Toast.makeText(getActivity(), "Wrong username or password", Toast.LENGTH_LONG)
+                            .show();
                 }
             }
         });

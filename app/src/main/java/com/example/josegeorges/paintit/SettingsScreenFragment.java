@@ -45,6 +45,7 @@ public class SettingsScreenFragment extends PreferenceFragment {
                 editor.putBoolean(LoginFragment.USER_LOGGED_IN, false).apply();
 
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
+                getActivity().finish();
                 startActivity(intent);
             }
         });

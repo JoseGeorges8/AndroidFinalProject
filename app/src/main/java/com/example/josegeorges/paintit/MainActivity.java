@@ -134,6 +134,8 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
 
     /*
     This method takes care of looking for which icon from the toolbar has been selected and run code depending on it
+
+     TODO: Add the cart icon function to open the cart fragment
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
