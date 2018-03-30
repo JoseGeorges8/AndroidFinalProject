@@ -21,13 +21,15 @@
             android:summary="Update your phone number with a new one"
             android:title="Change phone number"/>
     </PreferenceCategory>
-    <ListPreference
-        android:key="pref_key_color_display"
-        android:title="Color display"
-        android:summary="Change the amount of colors to display in your profile"
-        android:entries="@array/color_display_list"
-        android:defaultValue="3"/>
-    <Preference
-        android:title="Log out"
-        android:key="log_user"/>
+    <PreferenceCategory
+        android:title="Other Settings"
+        android:key="pref_key_other_settings">
+        <ListPreference
+            android:key="pref_key_color_display"
+            android:title="Color display"
+            android:summary="Change the amount of colors to display in your profile"
+            android:entries="@array/color_display_list"
+            android:entryValues="@array/color_display_list"
+            android:defaultValue="3"/>
+    </PreferenceCategory>
 </PreferenceScreen>

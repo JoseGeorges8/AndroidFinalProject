@@ -10,4 +10,8 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="PreferenceScreen" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
 </resources>
