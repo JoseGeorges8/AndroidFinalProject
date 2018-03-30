@@ -29,15 +29,6 @@ public class User implements Parcelable {
         this.phoneNumber = phoneNumber;
     }
 
-    public User(int userID, String firstName, String lastName, String email, String password, String recoveryEmail) {
-        this.userID = userID;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.recoveryEmail = recoveryEmail;
-        this.phoneNumber = phoneNumber;
-    }
 
     public User(int userID, String firstName, String lastName, String email, String password, String recoveryEmail, String phoneNumber) {
         this.userID = userID;

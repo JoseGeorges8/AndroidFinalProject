@@ -1,11 +1,15 @@
 package com.example.josegeorges.paintit;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 /**
@@ -30,6 +34,20 @@ public class SettingsScreenFragment extends PreferenceFragment {
         View view = inflater.inflate(R.layout.fragment_settings_screen, container, false);
 
         ListView lv =  view.findViewById(android.R.id.list);
+
+        //log out the user
+        Button logout = view.findViewById(R.id.btn_logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putBoolean(LoginFragment.USER_LOGGED_IN, false).apply();
+
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
