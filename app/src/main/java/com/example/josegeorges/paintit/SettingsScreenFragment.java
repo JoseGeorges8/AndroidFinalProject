@@ -17,6 +17,7 @@ public class SettingsScreenFragment extends PreferenceFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //adds the xml file!
         addPreferencesFromResource(R.xml.preferences);
     }
 }
