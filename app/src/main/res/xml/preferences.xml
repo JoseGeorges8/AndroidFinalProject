@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Personal Information"
+        android:key="pref_key_personal_settings">
+        <EditTextPreference
+            android:key="pref_key_change_fname"
+            android:summary="Update your first name if you think you misspelled!"
+            android:title="Change phone number"/>
+        <EditTextPreference
+            android:key="pref_key_change_lname"
+            android:summary="Update your last name if you think you misspelled!"
+            android:title="Change phone number"/>
+        <EditTextPreference
+            android:key="pref_key_change_password"
+            android:summary="Update your password with a new one"
+            android:title="Change password"/>
+        <EditTextPreference
+            android:key="pref_key_change_phone_number"
+            android:summary="Update your phone number with a new one"
+            android:title="Change phone number"/>
+    </PreferenceCategory>
+    <ListPreference
+        android:key="pref_key_color_display"
+        android:title="Color display"
+        android:summary="Change the amount of colors to display in your profile"
+        android:entries="@array/color_display_list"
+        android:defaultValue="3"/>
+    <Preference
+        android:title="Log out"
+        android:key="log_user"/>
+</PreferenceScreen>
