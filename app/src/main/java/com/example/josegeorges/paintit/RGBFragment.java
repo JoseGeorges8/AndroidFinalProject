@@ -1,7 +1,6 @@
 package com.example.josegeorges.paintit;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -32,7 +31,7 @@ public class RGBFragment extends Fragment {
     SeekBar blueBar;
 
     //RGB TextViews
-    TextView redTextView;
+    TextView redEditText;
 
     public RGBFragment() {
         // Required empty public constructor
@@ -49,14 +48,14 @@ public class RGBFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_rgb, container, false);
+        View view = inflater.inflate(R.layout.fragment_rgb2, container, false);
 
 
         //views
         redBar = view.findViewById(R.id.red_value);
         greenBar = view.findViewById(R.id.green_value);
         blueBar = view.findViewById(R.id.blue_value);
-        redTextView = view.findViewById(R.id.red_textview);
+        redEditText = view.findViewById(R.id.red_editText);
 
         //max value in RGB is 255
         redBar.setMax(255);
@@ -75,7 +74,7 @@ public class RGBFragment extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 onSeekBarChange(i, RED);
-                redTextView.setText(""+i);
+                redEditText.setText(""+i);
             }
 
             @Override

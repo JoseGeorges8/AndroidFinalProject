@@ -95,10 +95,10 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
         blueValue = 0;
 
 
-        //set up the view pager
-        ViewPager viewPager = findViewById(R.id.viewPager);
-        viewPager.setAdapter(new CustomAdapter(getSupportFragmentManager()));
-
+        //add the RGBFragment to the activity
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.viewPager, new RGBFragment())
+                .commit();
 
     }
 
@@ -168,34 +168,4 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
         layout.setBackgroundColor(definitiveChosenColor);
         layout.refreshDrawableState();
     }
-
-
-    /**
-     * Small simple custom adapter to show the different fragments
-     */
-    //TODO: As of right now I only have RGB. Create different fragments later
-    private class CustomAdapter extends FragmentPagerAdapter {
-
-        public CustomAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position){
-                case 0:
-                    return new RGBFragment();
-                case 1:
-                    return new RGBFragment();
-                default:
-                    return new RGBFragment();
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-    }
-
 }
