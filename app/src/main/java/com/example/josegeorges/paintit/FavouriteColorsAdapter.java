@@ -1,5 +1,9 @@
 package com.example.josegeorges.paintit;
 
+import android.content.Context;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by josegeorges on 2018-03-28.
@@ -61,6 +63,7 @@ public class FavouriteColorsAdapter extends RecyclerView.Adapter<FavouriteColors
 
 
     }
+
 
 }
 
