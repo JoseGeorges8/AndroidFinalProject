@@ -6,7 +6,11 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -21,6 +25,9 @@ import android.widget.ListView;
  */
 public class SettingsScreenFragment extends PreferenceFragment {
 
+    //setting up toolbar
+    private Toolbar toolbar;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +39,22 @@ public class SettingsScreenFragment extends PreferenceFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings_screen, container, false);
+
+        //setting up an action bar
+        toolbar = view.findViewById(R.id.toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        toolbar.setTitle(R.string.app_name);
+        toolbar.setNavigationIcon(R.drawable.ic_chevron_left_black_24dp);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorAccent));
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((AppCompatActivity) getActivity()).getSupportFragmentManager().popBackStack();
+            }
+        });
+        setHasOptionsMenu(true);
 
         ListView lv =  view.findViewById(android.R.id.list);
 
@@ -51,5 +74,13 @@ public class SettingsScreenFragment extends PreferenceFragment {
         });
 
         return view;
+    }
+
+    //this method takes care of changing the toolbar style
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.toolbar_noicons, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }
