@@ -104,7 +104,6 @@ public class FavouriteColorsFragment extends Fragment {
             public boolean supportsPredictiveItemAnimations() {
 
                 return true;
-
             }
         };
         myLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

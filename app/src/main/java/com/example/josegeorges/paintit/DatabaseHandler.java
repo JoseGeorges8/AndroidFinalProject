@@ -651,10 +651,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Color
-    public void deleteColor(int color){
+    public void deleteColor(Color color){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_COLORS, COLUMN_HEXVALUE + " = ?",
-                new String[]{String.valueOf(color)});
+        db.delete(TABLE_FAVORITECOLORS, COLUMN_HEXVALUE + " =? AND " + COLUMN_USERID + " =?"  ,
+                new String[]{String.valueOf(color.getHexValue()), String.valueOf(color.getUserId())});
         db.close();
     }
 
