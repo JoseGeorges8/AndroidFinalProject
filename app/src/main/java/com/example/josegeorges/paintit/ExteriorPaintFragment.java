@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,12 +16,12 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link InteriorPaintFragment.OnFragmentInteractionListener} interface
+ * {@link ExteriorPaintFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link InteriorPaintFragment#newInstance} factory method to
+ * Use the {@link ExteriorPaintFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class InteriorPaintFragment extends Fragment {
+public class ExteriorPaintFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,7 +33,7 @@ public class InteriorPaintFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public InteriorPaintFragment() {
+    public ExteriorPaintFragment() {
         // Required empty public constructor
     }
 
@@ -44,11 +43,11 @@ public class InteriorPaintFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment InteriorPaintFragment.
+     * @return A new instance of fragment ExteriorPaintFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static InteriorPaintFragment newInstance(String param1, String param2) {
-        InteriorPaintFragment fragment = new InteriorPaintFragment();
+    public static ExteriorPaintFragment newInstance(String param1, String param2) {
+        ExteriorPaintFragment fragment = new ExteriorPaintFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -69,15 +68,15 @@ public class InteriorPaintFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the view for this fragment
-        View view = inflater.inflate(R.layout.fragment_interior_paint, container, false);
+        View view = inflater.inflate(R.layout.fragment_exterior_paint, container, false);
 
-        ArrayList<InteriorPaint> interiorPaintList = new ArrayList<InteriorPaint>();
+        ArrayList<ExteriorPaint> exteriorPaintList = new ArrayList<ExteriorPaint>();
 
         RecyclerView.Adapter adapter;
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.interior_paint_recyclerView);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.exterior_paint_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        recyclerView.setAdapter(new InteriorPaintAdapter(interiorPaintList));
+        recyclerView.setAdapter(new ExteriorPaintAdapter(exteriorPaintList));
 
 
         //TODO Animate the Recycler View Skip For Now

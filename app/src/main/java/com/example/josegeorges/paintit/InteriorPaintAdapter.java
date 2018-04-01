@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
     @Override
     public void onBindViewHolder(InteriorPaintRecyclerViewHolder holder, int position) {
-        holder.paintImage.setImageResource(list.get(position).getPaintmage());
+        holder.paintImage.setImageResource(list.get(position).getPaintimage());
         holder.paintName.setText(list.get(position).getPaintName());
     }
 
@@ -50,8 +50,8 @@ import java.util.ArrayList;
 
         public InteriorPaintRecyclerViewHolder(View itemView) {
             super(itemView);
-            paintImage = itemView.findViewById(R.id.paintCanImageView);
-            paintName  = itemView.findViewById(R.id.paintName);
+            paintImage = itemView.findViewById(R.id.interiorPaint_imageView);
+            paintName  = itemView.findViewById(R.id.interiorPaint_name);
         }
 
 
