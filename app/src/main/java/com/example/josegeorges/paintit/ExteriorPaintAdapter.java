@@ -24,7 +24,7 @@ public class ExteriorPaintAdapter extends RecyclerView.Adapter<ExteriorPaintAdap
 
     @Override
     public ExteriorPaintRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // create a new view and inflate with interior_paint_item.xml
+        // create a new view and inflate with Exterior_paint_item.xml
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.exterior_paint_item, parent, false);
         ExteriorPaintRecyclerViewHolder holder = new ExteriorPaintRecyclerViewHolder(view);
         return holder;
