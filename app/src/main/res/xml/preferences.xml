@@ -7,11 +7,11 @@
         <EditTextPreference
             android:key="pref_key_change_fname"
             android:summary="Update your first name if you think you misspelled!"
-            android:title="Change phone number"/>
+            android:title="Change first name"/>
         <EditTextPreference
             android:key="pref_key_change_lname"
             android:summary="Update your last name if you think you misspelled!"
-            android:title="Change phone number"/>
+            android:title="Change last name"/>
         <EditTextPreference
             android:key="pref_key_change_password"
             android:summary="Update your password with a new one"

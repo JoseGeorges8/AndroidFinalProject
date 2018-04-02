@@ -35,6 +35,7 @@ public class ProfileFragment extends Fragment {
     //user
     private User loggedInUser;
     ArrayList<Color> favouriteColors;
+    FavouriteColorsAdapter favouriteColorsAdapter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -75,6 +76,12 @@ public class ProfileFragment extends Fragment {
             loggedInUser = getArguments().getParcelable(ARG_PARAM1);
             Log.d("USER", loggedInUser.getEmail() + "it's now on its profile");
         }
+        DatabaseHandler db = new DatabaseHandler(getActivity());
+        if(loggedInUser != null) {
+            favouriteColors = new ArrayList<>();
+            favouriteColors = db.getAllFavouriteColours(loggedInUser, "3");
+            Log.d("PROFILE", favouriteColors.size() + " favourite colors for " + loggedInUser.getEmail());
+        }
     }
 
     @Override
@@ -87,9 +94,10 @@ public class ProfileFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
-
-
+                //this does not work
+//                DatabaseHandler db = new DatabaseHandler(getActivity());
+//                favouriteColors = db.getAllFavouriteColours(loggedInUser, "3");
+//                favouriteColorsAdapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -98,12 +106,7 @@ public class ProfileFragment extends Fragment {
         noColors = view.findViewById(R.id.no_favourite_colors_textView);
         seeAllFavColors = view.findViewById(R.id.see_all_favourite_colours);
         favouriteColoursRecyclerView = view.findViewById(R.id.favourite_colours_list);
-        DatabaseHandler db = new DatabaseHandler(getActivity());
-        if(loggedInUser != null) {
-            favouriteColors = new ArrayList<>();
-            favouriteColors = db.getAllFavouriteColours(loggedInUser, "3");
-            Log.d("PROFILE", favouriteColors.size() + " favourite colors for " + loggedInUser.getEmail());
-        }
+
 
         //linking recyclerView
         LinearLayoutManager myLayoutManager = new LinearLayoutManager(getActivity()){
@@ -116,7 +119,8 @@ public class ProfileFragment extends Fragment {
         };
         myLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         favouriteColoursRecyclerView.setLayoutManager(myLayoutManager);
-        favouriteColoursRecyclerView.setAdapter(new FavouriteColorsAdapter(favouriteColors));
+        favouriteColorsAdapter = new FavouriteColorsAdapter(favouriteColors);
+        favouriteColoursRecyclerView.setAdapter(favouriteColorsAdapter);
 
         if(favouriteColors.size() > 0){
             favouriteColoursRecyclerView.setVisibility(View.VISIBLE);

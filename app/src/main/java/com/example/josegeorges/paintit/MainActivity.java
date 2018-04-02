@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
         switch (item.getItemId()){
             case R.id.action_settings:
              getFragmentManager().beginTransaction()
-                     .replace(R.id.main_content, new SettingsScreenFragment())
+                     .replace(R.id.main_content, SettingsScreenFragment.newInstance(user))
                      .addToBackStack(null)
                      .commit();
              break;

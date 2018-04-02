@@ -602,11 +602,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Color
-    public int updateColor(Color color){
+    public int updateColor(Color color, String newName){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_TIMESTAMP, color.getTimestamp());
-        return db.update(TABLE_COLORS, values, COLUMN_HEXVALUE + "= ?",
+        values.put(COLUMN_COLORNAME, newName);
+        return db.update(TABLE_FAVORITECOLORS, values, COLUMN_HEXVALUE + "= ?",
                 new String[]{String.valueOf(color.getHexValue())});
     }
 
