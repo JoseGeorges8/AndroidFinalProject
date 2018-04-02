@@ -25,11 +25,16 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <ImageButton
+            <!--<ImageButton-->
+            <!--android:id="@+id/interiorPaintButton"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@drawable/interiorpaint" />-->
+            <Button
                 android:id="@+id/interiorPaintButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/interiorpaint" />
+                android:text="Interior Paint" />
 
         </android.support.v7.widget.CardView>
 
@@ -39,11 +44,18 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <ImageButton
+            <!--<ImageButton-->
+            <!--android:id="@+id/exteriorPaintButton"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@drawable/exteriorpaint"/>-->
+
+            <Button
                 android:id="@+id/exteriorPaintButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/exteriorpaint"/>
+                android:text="Exterior Paint" />
+
 
         </android.support.v7.widget.CardView>
         <!--
@@ -66,11 +78,18 @@ two CardViews stainCardView and brushesCardView
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <ImageButton
+            <!--<ImageButton-->
+            <!--android:id="@+id/stainButton"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@drawable/stainsandfinishes"/>-->
+
+            <Button
                 android:id="@+id/stainButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/stainsandfinishes"/>
+                android:text="Stains And Finishes"/>
+
 
         </android.support.v7.widget.CardView>
 
@@ -80,11 +99,17 @@ two CardViews stainCardView and brushesCardView
             android:layout_height="match_parent"
             android:layout_weight="1">
 
+            <!--<ImageButton-->
+            <!--android:id="@+id/brushesButton"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@drawable/brushesandrollers"/>-->
+
             <ImageButton
                 android:id="@+id/brushesButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/brushesandrollers"/>
+                android:text="Brushes And Rollers"/>
 
         </android.support.v7.widget.CardView>
     </LinearLayout>
