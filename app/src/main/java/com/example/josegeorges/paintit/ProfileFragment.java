@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -79,7 +80,7 @@ public class ProfileFragment extends Fragment {
         DatabaseHandler db = new DatabaseHandler(getActivity());
         if(loggedInUser != null) {
             favouriteColors = new ArrayList<>();
-            favouriteColors = db.getAllFavouriteColours(loggedInUser, "3");
+            favouriteColors = db.getAllFavouriteColours(loggedInUser, PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).getString("pref_key_color_display", "3"));
             Log.d("PROFILE", favouriteColors.size() + " favourite colors for " + loggedInUser.getEmail());
         }
     }
