@@ -1,10 +1,15 @@
 package com.example.josegeorges.paintit;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
             ProfileFragment.OnFragmentInteractionListener, FavouriteColorsFragment.OnFragmentInteractionListener{
 
     //required elements
+
 
     private Toolbar toolbar; //action bat
     private ViewPager viewPager; //for swipe
@@ -160,4 +166,7 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
+
 }
