@@ -105,7 +105,7 @@ two CardViews stainCardView and brushesCardView
                 <!--android:layout_height="match_parent"-->
                 <!--android:src="@drawable/brushesandrollers"/>-->
 
-            <ImageButton
+            <Button
                 android:id="@+id/brushesButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
