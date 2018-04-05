@@ -1,12 +1,15 @@
 package com.example.josegeorges.paintit;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 /**
@@ -73,6 +76,15 @@ public class LoginActivity extends AppCompatActivity implements RegisterFragment
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
+        hideKeyboard();
+    }
+
+    private void hideKeyboard() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            Log.d("KEYBOARD", "Hiding keyboard");
+            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).
+                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 }

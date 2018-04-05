@@ -17,14 +17,22 @@ import com.example.josegeorges.paintit.utils.InputValidator;
  * Created by josegeorges on 2018-04-05.
  */
 
-public class RegisterNameEmailFragment extends Fragment {
+public class RegisterPasswordFragment extends Fragment {
 
+    //values from last fragment
+    String fname;
+    String lname;
+    String email;
+
+    //Keys to receive those values
+    public static final String F_NAME = "fname";
+    public static final String L_NAME = "lname";
+    public static final String EMAIL = "email";
 
 
     //fields
-    private EditText fnameEditText;
-    private EditText lnameEditText;
-    private EditText emailEditText;
+    private EditText passwordEditText;
+    private EditText repasswordEditText;
 
     //buttons
     private Button cancelButton;
@@ -32,19 +40,35 @@ public class RegisterNameEmailFragment extends Fragment {
 
 
     //needed public constructor
-    public RegisterNameEmailFragment(){
+    public RegisterPasswordFragment(){
 
+    }
+
+    /**
+     * receiving data from last fragment
+     * @param fname first name
+     * @param lname last name
+     * @param email email address
+     * @return
+     */
+    public static RegisterPasswordFragment newInstance(String fname, String lname, String email) {
+        RegisterPasswordFragment fragment = new RegisterPasswordFragment();
+        Bundle args = new Bundle();
+        args.putString(F_NAME, fname);
+        args.putString(L_NAME, lname);
+        args.putString(EMAIL, email);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_name_email_registration, container, false);
+        View view = inflater.inflate(R.layout.fragment_password_registration, container, false);
 
         //linking views
-        fnameEditText = view.findViewById(R.id.register_firstname);
-        lnameEditText = view.findViewById(R.id.register_lastname);
-        emailEditText = view.findViewById(R.id.register_email);
+        passwordEditText = view.findViewById(R.id.register_password);
+        repasswordEditText = view.findViewById(R.id.register_password_repeat);
         cancelButton = view.findViewById(R.id.cancel_button);
         continueButton = view.findViewById(R.id.next_button);
 
@@ -58,14 +82,13 @@ public class RegisterNameEmailFragment extends Fragment {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String fname = fnameEditText.getText().toString();
-                String lname = lnameEditText.getText().toString();
-                String email = emailEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+                String repassword = repasswordEditText.getText().toString();
 
-                if(validateData(fname, lname, email)){
+                if(validateData(password, repassword)){
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.login_content, RegisterPasswordFragment.newInstance(fname, lname, email))
+                            .replace(R.id.login_content, new RegisterNameEmailFragment())
                             .addToBackStack(null)
                             .commit();
                 }
@@ -77,28 +100,22 @@ public class RegisterNameEmailFragment extends Fragment {
 
 
     //function checking that all the fields have been filled out and correctly
-    public boolean validateData(String fname, String lname, String email){
+    public boolean validateData(String password, String repassword){
 
         //checking if they are empty
-        if(TextUtils.isEmpty(fname)){
-            fnameEditText.setError("Missing Field");
+        if(TextUtils.isEmpty(password)){
+            passwordEditText.setError("Missing Field");
             return false;
         }
-        if(TextUtils.isEmpty(lname)){
-            lnameEditText.setError("Missing Field");
+        if(TextUtils.isEmpty(repassword)){
+            repasswordEditText.setError("Missing Field");
             return false;
         }
-        if(TextUtils.isEmpty(email)){
-            emailEditText.setError("Missing Field");
-            return false;
-        }
+
 
         //checking for email validation
         InputValidator validator = new InputValidator();
-        if(!validator.validateEmail(email)){
-            emailEditText.setError("Invalid Email Address");
-            return false;
-        }
+
 
         Log.d("SIGNUP", "Validation successful");
         return true;

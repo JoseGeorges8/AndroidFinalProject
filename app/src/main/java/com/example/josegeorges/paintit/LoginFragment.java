@@ -134,7 +134,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.login_content, new RegisterFragment())
+                        .replace(R.id.login_content, new RegisterNameEmailFragment())
                         .addToBackStack(null)
                         .commit();
             }
