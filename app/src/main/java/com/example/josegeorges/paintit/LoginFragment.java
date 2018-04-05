@@ -3,8 +3,10 @@ package com.example.josegeorges.paintit;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +30,7 @@ public class LoginFragment extends Fragment {
 
     //key for when passing the logged user to the main Activity
     public static final String USER_LOGGED_IN = "user_logged_in";
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -94,12 +97,31 @@ public class LoginFragment extends Fragment {
                 DatabaseHandler db = new DatabaseHandler(getContext());
                 User isUser = db.getUser(emailEditText.getText().toString(), passwordEditText.getText().toString());
                 if (isUser != null){
+                    //we state that the user is logged in.
+                    // We make this so that we can check if the user is logged in or not to log it out
+                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putBoolean(USER_LOGGED_IN, true);
+
+                    //we add all the user information into the sharepreferences
+                    //that way, even though we have it on the database we know which user to load when the app opens again
+                    editor.putInt(LoginActivity.USER_ID, isUser.getUserID());
+                    editor.putString(LoginActivity.USER_EMAIL, isUser.getEmail());
+                    editor.putString(LoginActivity.USER_FNAME, isUser.getFirstName());
+                    editor.putString(LoginActivity.USER_LNAME, isUser.getLastName());
+                    editor.putString(LoginActivity.USER_PASSWORD, isUser.getPassword());
+                    editor.putString(LoginActivity.USER_RECOVERY_EMAIL, isUser.getRecoveryEmail());
+                    editor.putString(LoginActivity.USER_PHONE, isUser.getPhoneNumber());
+                    editor.apply();
+
+                    //open the main activity
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.putExtra(USER_LOGGED_IN, isUser);
                     startActivity(intent);
                 }else{
-                    Log.d("LOGIN", "Wrong username or password");
-                    Toast.makeText(getActivity(), "Wrong username or password", Toast.LENGTH_LONG);
+                    //show the user that the credentials are wrong
+                    Toast.makeText(getActivity(), "Wrong username or password", Toast.LENGTH_LONG)
+                            .show();
                 }
             }
         });

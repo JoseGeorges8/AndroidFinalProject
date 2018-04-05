@@ -1,9 +1,14 @@
 package com.example.josegeorges.paintit;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +25,8 @@ import com.example.josegeorges.paintit.utils.CameraPreview;
 public class CameraActivity extends AppCompatActivity implements View.OnClickListener, CameraPreview.OnColorSelectedListener {
 
     public static final String SELECTED_COLOR = "color_selected";
+
+
 
     Toolbar toolbar;
 
@@ -75,7 +82,6 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         // Setup the camera asynchronously.
         mCameraAsyncTask = new CameraAsyncTask();
         mCameraAsyncTask.execute();
-
     }
 
 

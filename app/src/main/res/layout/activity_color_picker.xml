@@ -47,24 +47,25 @@
         app:layout_constraintStart_toEndOf="@+id/viewPager"
         app:layout_constraintTop_toBottomOf="@id/frame_layout" />
 
-    <android.support.v4.view.ViewPager
+    <FrameLayout
         android:id="@+id/viewPager"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/color_picker_confirm_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/color_picker_color_name_edit_text">
 
-    </android.support.v4.view.ViewPager>
+    </FrameLayout>
 
     <Button
         android:id="@+id/color_picker_confirm_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="Confirm"
+        android:text="Add to favourites"
         android:onClick="addColor"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -75,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/ic_camera_enhance_black_24dp"
+        app:srcCompat="@drawable/ic_camera_enhance_black_24dp"
         app:layout_constraintBottom_toBottomOf="@+id/frame_layout"
         app:layout_constraintRight_toRightOf="parent" />
 

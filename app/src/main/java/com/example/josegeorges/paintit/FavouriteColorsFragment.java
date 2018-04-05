@@ -4,19 +4,17 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -41,6 +39,8 @@ public class FavouriteColorsFragment extends Fragment {
     //setting up recyclerView
     private RecyclerView recyclerView;
 
+    //setting up toolbar
+    private Toolbar toolbar;
 
     public FavouriteColorsFragment() {
         // Required empty public constructor
@@ -81,6 +81,22 @@ public class FavouriteColorsFragment extends Fragment {
            favouriteColors = db.getAllFavouriteColours(loggedInUser, null);
         }
 
+        //setting up an action bar
+        toolbar = view.findViewById(R.id.toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        toolbar.setTitle(R.string.app_name);
+        toolbar.setNavigationIcon(R.drawable.ic_chevron_left_black_24dp);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorAccent));
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+        setHasOptionsMenu(true);
+
         //linking recyclerView
         recyclerView = view.findViewById(R.id.favourite_colors_recyclerView);
         LinearLayoutManager myLayoutManager = new LinearLayoutManager(getActivity()){
@@ -88,7 +104,6 @@ public class FavouriteColorsFragment extends Fragment {
             public boolean supportsPredictiveItemAnimations() {
 
                 return true;
-
             }
         };
         myLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -137,6 +152,13 @@ public class FavouriteColorsFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    //this method takes care of changing the toolbar style
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.toolbar_noicons, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
 
 }
