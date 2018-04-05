@@ -48,7 +48,6 @@
                         android:paddingLeft="@dimen/standard_margin"
                         android:paddingTop="@dimen/standard_padding"
                         android:text="Recent Orders"
-                        android:textColor="@color/colorAccent"
                         android:textSize="@dimen/title_size" />
 
                     <FrameLayout
