@@ -26,8 +26,10 @@ public class InputValidator {
     public boolean emailUsed(String email, Context context){
         DatabaseHandler db = new DatabaseHandler(context);
         if(db.getUser(email)){
+            db.close();
             return true;
         }
+        db.close();
         return false;
     }
 

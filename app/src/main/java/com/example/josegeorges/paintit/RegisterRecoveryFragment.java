@@ -89,12 +89,30 @@ public class RegisterRecoveryFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                String recoveryemail = recoveryemailEditText.getText().toString();
-                String phone = phoneEditText.getText().toString();
+                if(getArguments() != null){
+                    fname = getArguments().getString(F_NAME);
+                    lname = getArguments().getString(L_NAME);
+                    email = getArguments().getString(EMAIL);
+                    password = getArguments().getString(PASSWORD);
+                }
 
-                if(validateData(recoveryemail)){
-                    Log.d("SIGNUP", "all credentials where checked, you can now add the user");
-                    Toast.makeText(getContext(), "all credentials where checked, you can now add the use", Toast.LENGTH_SHORT).show();
+                String recoveryEmail = recoveryemailEditText.getText().toString();
+                String number = phoneEditText.getText().toString();
+
+                if(validateData(recoveryEmail)){
+                    User newUser = new User(fname, lname, email, password, recoveryEmail, number);
+                    DatabaseHandler db = new DatabaseHandler(getContext());
+                    Boolean result = db.addUser(newUser);
+                    if (result) {
+                        Toast.makeText(getActivity(), "User successfully created", Toast.LENGTH_LONG).show();
+                        Log.d("DATABASE", newUser.getEmail() + " " + newUser.getPassword());
+                        getActivity().getSupportFragmentManager().popBackStack();
+                        getActivity().getSupportFragmentManager().popBackStack();
+                        getActivity().getSupportFragmentManager().popBackStack();
+                    } else {
+                        Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG).show();
+                        Log.d("DATABASE", "Something went wrong");
+                    }
                 }
             }
         });
