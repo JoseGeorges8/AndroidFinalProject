@@ -113,9 +113,22 @@ public class RegisterPasswordFragment extends Fragment {
         }
 
 
-        //checking for email validation
+        //checking for password equality
         InputValidator validator = new InputValidator();
+        if(!validator.validatePasswordEquality(password, repassword)){
+            repasswordEditText.setError("Passwords does not match");
+            passwordEditText.setText("");
+            repasswordEditText.setText("");
+            return false;
+        }
 
+        //checking lenght of password
+        if(!validator.validatePasswordLenght(password)){
+            passwordEditText.setError("Password is too short");
+            passwordEditText.setText("");
+            repasswordEditText.setText("");
+            return false;
+        }
 
         Log.d("SIGNUP", "Validation successful");
         return true;

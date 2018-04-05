@@ -27,4 +27,18 @@ public class InputValidator {
         matcher = pattern.matcher(email);
         return matcher.matches();
     }
+
+    public boolean validatePasswordEquality(String password, String repassword){
+        if(!password.equals(repassword)){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validatePasswordLenght(String password){
+        if(password.length() < 8){
+            return false;
+        }
+        return true;
+    }
 }
