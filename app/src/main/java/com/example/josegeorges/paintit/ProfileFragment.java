@@ -91,17 +91,17 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        swipeRefreshLayout = view.findViewById(R.id.swipe);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                //this does not work
-//                DatabaseHandler db = new DatabaseHandler(getActivity());
-//                favouriteColors = db.getAllFavouriteColours(loggedInUser, "3");
-//                favouriteColorsAdapter.notifyDataSetChanged();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+//        swipeRefreshLayout = view.findViewById(R.id.swipe);
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                //this does not work
+////                DatabaseHandler db = new DatabaseHandler(getActivity());
+////                favouriteColors = db.getAllFavouriteColours(loggedInUser, "3");
+////                favouriteColorsAdapter.notifyDataSetChanged();
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+//        });
 
         addFavColor = view.findViewById(R.id.addColor_button);
         noColors = view.findViewById(R.id.no_favourite_colors_textView);

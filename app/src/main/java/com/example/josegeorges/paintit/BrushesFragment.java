@@ -4,20 +4,24 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link StoreFragment.OnFragmentInteractionListener} interface
+ * {@link BrushesFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link StoreFragment#newInstance} factory method to
+ * Use the {@link BrushesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class StoreFragment extends Fragment {
+public class BrushesFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +33,7 @@ public class StoreFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public StoreFragment() {
+    public BrushesFragment() {
         // Required empty public constructor
     }
 
@@ -39,11 +43,11 @@ public class StoreFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment StoreFragment.
+     * @return A new instance of fragment BrushesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static StoreFragment newInstance(String param1, String param2) {
-        StoreFragment fragment = new StoreFragment();
+    public static BrushesFragment newInstance(String param1, String param2) {
+        BrushesFragment fragment = new BrushesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,7 +68,26 @@ public class StoreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.paint_types_large, container, false);
+        View view = inflater.inflate(R.layout.fragment_brushes, container, false);
+
+        ArrayList<Brushes> brushesList = new ArrayList<Brushes>();
+
+        RecyclerView.Adapter adapter;
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.brushes_recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        recyclerView.setAdapter(new BrushesAdapter(brushesList));
+
+
+        //TODO Animate the Recycler View Skip For Now
+//        RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
+//        itemAnimator.setAddDuration(1000);
+//        itemAnimator.setRemoveDuration(1000);
+//        recyclerView.setItemAnimator(itemAnimator);
+
+
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

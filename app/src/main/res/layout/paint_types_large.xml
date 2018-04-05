@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/paintTypeContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--
+    The following LinearLayout will be used to hold the first
+    two CardViews interiorCardView and exteriorCardView
+    -->
+
+    <LinearLayout
+        android:id="@+id/interior_exterior_linearLayoutHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/interiorCardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <!--<ImageButton-->
+            <!--android:id="@+id/interiorPaintButton"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@drawable/interiorpaint" />-->
+            <Button
+                android:id="@+id/interiorPaintButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Interior Paint" />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/exteriorCardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <!--<ImageButton-->
+            <!--android:id="@+id/exteriorPaintButton"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@drawable/exteriorpaint"/>-->
+
+            <Button
+                android:id="@+id/exteriorPaintButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Exterior Paint" />
+
+
+        </android.support.v7.widget.CardView>
+        <!--
+The following LinearLayout will be used to hold the last
+two CardViews stainCardView and brushesCardView
+-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/stain_brushes_linearLayoutHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/stainsCardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <!--<ImageButton-->
+            <!--android:id="@+id/stainButton"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@drawable/stainsandfinishes"/>-->
+
+            <Button
+                android:id="@+id/stainButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Stains And Finishes"/>
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/brushesCardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <!--<ImageButton-->
+            <!--android:id="@+id/brushesButton"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@drawable/brushesandrollers"/>-->
+
+            <Button
+                android:id="@+id/brushesButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Brushes And Rollers"/>
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</LinearLayout>
