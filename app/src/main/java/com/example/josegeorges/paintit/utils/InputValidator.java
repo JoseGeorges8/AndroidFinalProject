@@ -1,5 +1,9 @@
 package com.example.josegeorges.paintit.utils;
 
+import android.content.Context;
+
+import com.example.josegeorges.paintit.DatabaseHandler;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,6 +22,15 @@ public class InputValidator {
 
     }
 
+
+    public boolean emailUsed(String email, Context context){
+        DatabaseHandler db = new DatabaseHandler(context);
+        if(db.getUser(email)){
+            return true;
+        }
+        return false;
+    }
+
     /**
      * This method checks if the email is a valid email address
      * @param email checking to validate
@@ -28,6 +41,12 @@ public class InputValidator {
         return matcher.matches();
     }
 
+    /**
+     * Checks equality of passwords
+     * @param password password
+     * @param repassword re entered passwords
+     * @return
+     */
     public boolean validatePasswordEquality(String password, String repassword){
         if(!password.equals(repassword)){
             return false;
@@ -35,6 +54,11 @@ public class InputValidator {
         return true;
     }
 
+    /**
+     * checks lenght of password
+     * @param password
+     * @return
+     */
     public boolean validatePasswordLenght(String password){
         if(password.length() < 8){
             return false;

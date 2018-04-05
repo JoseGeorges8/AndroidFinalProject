@@ -100,6 +100,12 @@ public class RegisterNameEmailFragment extends Fragment {
             return false;
         }
 
+        if(validator.emailUsed(email, getContext())){
+            emailEditText.setError("This email as already been taken");
+            emailEditText.setText("");
+            return false;
+        }
+
         Log.d("SIGNUP", "Validation successful");
         return true;
     }

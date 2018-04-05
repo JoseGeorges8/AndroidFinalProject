@@ -360,6 +360,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return  user;
     }
 
+
+    public Boolean getUser(String email){
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        try {
+            db = this.getReadableDatabase();
+            cursor = db.query(TABLE_USERS,
+                    new String[]{COLUMN_USERID, COLUMN_FIRSTNAME, COLUMN_LASTNAME, COLUMN_EMAIL, COLUMN_PASSWORD,
+                            COLUMN_RECOVERYEMAIL, COLUMN_PHONENUMBER},
+                    COLUMN_EMAIL + "=?", new String[]{email},
+                    null, null, null, "1");
+            if (cursor != null && cursor.moveToFirst()) {
+                return true;
+            }
+        }catch (final Exception e){
+            Log.d("DATABASE", "something went wrong");
+        }finally {
+            assert db != null;
+            db.close();
+            assert cursor != null;
+            cursor.close();
+        }
+        return false;
+    }
+
     public ArrayList<User> getAllUsers(){
         ArrayList<User> userList = new ArrayList<User>();
         String query = "SELECT * FROM " + TABLE_USERS;

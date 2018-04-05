@@ -19,16 +19,15 @@ import com.example.josegeorges.paintit.utils.InputValidator;
 
 public class RegisterPasswordFragment extends Fragment {
 
-    //values from last fragment
-    String fname;
-    String lname;
-    String email;
-
     //Keys to receive those values
     public static final String F_NAME = "fname";
     public static final String L_NAME = "lname";
     public static final String EMAIL = "email";
 
+    //variables to store values from last fragment
+    String fname;
+    String lname;
+    String email;
 
     //fields
     private EditText passwordEditText;
@@ -82,13 +81,21 @@ public class RegisterPasswordFragment extends Fragment {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                if(getArguments() != null){
+                    fname = getArguments().getString(F_NAME);
+                    lname = getArguments().getString(L_NAME);
+                    email = getArguments().getString(EMAIL);
+                }
+
                 String password = passwordEditText.getText().toString();
                 String repassword = repasswordEditText.getText().toString();
 
                 if(validateData(password, repassword)){
                     getActivity().getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.login_content, new RegisterNameEmailFragment())
+                            .replace(R.id.login_content, RegisterRecoveryFragment.newInstance(fname, lname, email, password))
                             .addToBackStack(null)
                             .commit();
                 }
