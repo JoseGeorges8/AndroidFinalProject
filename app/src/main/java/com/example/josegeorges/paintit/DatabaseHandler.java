@@ -602,11 +602,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Color
-    public int updateColor(Color color){
+    public int updateColor(Color color, String newName){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_TIMESTAMP, color.getTimestamp());
-        return db.update(TABLE_COLORS, values, COLUMN_HEXVALUE + "= ?",
+        values.put(COLUMN_COLORNAME, newName);
+        return db.update(TABLE_FAVORITECOLORS, values, COLUMN_HEXVALUE + "= ?",
                 new String[]{String.valueOf(color.getHexValue())});
     }
 
@@ -651,10 +651,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Color
-    public void deleteColor(int color){
+    public void deleteColor(Color color){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_COLORS, COLUMN_HEXVALUE + " = ?",
-                new String[]{String.valueOf(color)});
+        db.delete(TABLE_FAVORITECOLORS, COLUMN_HEXVALUE + " =? AND " + COLUMN_USERID + " =?"  ,
+                new String[]{String.valueOf(color.getHexValue()), String.valueOf(color.getUserId())});
         db.close();
     }
 

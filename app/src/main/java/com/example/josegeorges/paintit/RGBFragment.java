@@ -1,12 +1,12 @@
 package com.example.josegeorges.paintit;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -32,7 +32,10 @@ public class RGBFragment extends Fragment {
     SeekBar blueBar;
 
     //RGB TextViews
-    TextView redTextView;
+    EditText redEditText;
+    EditText greenEditText;
+    EditText blueEditText;
+
 
     public RGBFragment() {
         // Required empty public constructor
@@ -49,22 +52,29 @@ public class RGBFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_rgb, container, false);
+        View view = inflater.inflate(R.layout.fragment_rgb2, container, false);
 
 
         //views
         redBar = view.findViewById(R.id.red_value);
         greenBar = view.findViewById(R.id.green_value);
         blueBar = view.findViewById(R.id.blue_value);
-        redTextView = view.findViewById(R.id.red_textview);
+        redEditText = view.findViewById(R.id.red_editText);
+        greenEditText = view.findViewById(R.id.green_editText);
+        blueEditText = view.findViewById(R.id.blue_editText);
 
         //max value in RGB is 255
         redBar.setMax(255);
         greenBar.setMax(255);
         blueBar.setMax(255);
+
+        //setting starting values to bars and edit texts
         redBar.setProgress(160);
         greenBar.setProgress(160);
         blueBar.setProgress(160);
+
+
+        //setting this initial values to the frame_layout
         onSeekBarChange(redBar.getProgress(), RED);
         onSeekBarChange(greenBar.getProgress(), GREEN);
         onSeekBarChange(blueBar.getProgress(), BLUE);
@@ -75,7 +85,7 @@ public class RGBFragment extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 onSeekBarChange(i, RED);
-                redTextView.setText(""+i);
+                redEditText.setText(String.valueOf(i));
             }
 
             @Override
@@ -93,6 +103,7 @@ public class RGBFragment extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 onSeekBarChange(i, GREEN);
+                greenEditText.setText(String.valueOf(i));
             }
 
             @Override
@@ -109,8 +120,8 @@ public class RGBFragment extends Fragment {
         blueBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                //pass the value to the activity
                 onSeekBarChange(i, BLUE);
+                blueEditText.setText(String.valueOf(i));
             }
 
             @Override

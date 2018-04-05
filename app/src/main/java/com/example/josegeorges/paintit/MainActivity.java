@@ -1,16 +1,24 @@
 package com.example.josegeorges.paintit;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -25,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
             ProfileFragment.OnFragmentInteractionListener, FavouriteColorsFragment.OnFragmentInteractionListener{
 
     //required elements
+
 
     private Toolbar toolbar; //action bat
     private ViewPager viewPager; //for swipe
@@ -117,6 +126,36 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
         mainFab.hideMenuButton(false);
     }
 
+    /*
+    This adds the toolbar_icons file to the toolbar, which shows the settings symbol
+
+    TODO: Add the cart icon to this xml file so it shows here
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_icons, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    /*
+    This method takes care of looking for which icon from the toolbar has been selected and run code depending on it
+
+     TODO: Add the cart icon function to open the cart fragment
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_settings:
+             getFragmentManager().beginTransaction()
+                     .replace(R.id.main_content, SettingsScreenFragment.newInstance(user))
+                     .addToBackStack(null)
+                     .commit();
+             break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -127,4 +166,7 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
+
 }

@@ -1,12 +1,17 @@
 package com.example.josegeorges.paintit;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +31,9 @@ import java.util.Calendar;
 public class ColorPickerActivity extends AppCompatActivity implements RGBFragment.OnFragmentInteractionListener {
 
     //properties needed
+
+
+    public static final int REQUEST_CAMERA_CODE = 2323; //this code is for when granting camera permissions
 
     private static final int REQUEST_CODE = 18;     //this request code is for when passing result from thr cameraActivity to this one
     int colorPickedByCameraValue = 0; //color picked by the cameraActivity
@@ -73,8 +81,7 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ColorPickerActivity.this, CameraActivity.class);
-                startActivityForResult(intent, REQUEST_CODE);
+                askForCameraPermission();
             }
         });
 
@@ -95,10 +102,10 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
         blueValue = 0;
 
 
-        //set up the view pager
-        ViewPager viewPager = findViewById(R.id.viewPager);
-        viewPager.setAdapter(new CustomAdapter(getSupportFragmentManager()));
-
+        //add the RGBFragment to the activity
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.viewPager, new RGBFragment())
+                .commit();
 
     }
 
@@ -169,33 +176,24 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
         layout.refreshDrawableState();
     }
 
-
     /**
-     * Small simple custom adapter to show the different fragments
+     * Method to ask the user permission to use the camera
+     *
      */
-    //TODO: As of right now I only have RGB. Create different fragments later
-    private class CustomAdapter extends FragmentPagerAdapter {
-
-        public CustomAdapter(FragmentManager fm) {
-            super(fm);
+    private void askForCameraPermission(){
+        Log.d("Camera_Permission", "asking user for permission");
+        String cameraPermission = Manifest.permission.CAMERA;
+        if(ContextCompat.checkSelfPermission(this.getApplicationContext(), cameraPermission) == PackageManager.PERMISSION_GRANTED){
+            Intent intent = new Intent(ColorPickerActivity.this, CameraActivity.class);
+            startActivityForResult(intent, REQUEST_CODE);
+        }else{
+            ActivityCompat.requestPermissions(ColorPickerActivity.this, new String[]{cameraPermission}, REQUEST_CAMERA_CODE);
         }
+    }
 
-        @Override
-        public Fragment getItem(int position) {
-            switch (position){
-                case 0:
-                    return new RGBFragment();
-                case 1:
-                    return new RGBFragment();
-                default:
-                    return new RGBFragment();
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        askForCameraPermission();
     }
 
 }

@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -34,6 +36,7 @@ public class ProfileFragment extends Fragment {
     //user
     private User loggedInUser;
     ArrayList<Color> favouriteColors;
+    FavouriteColorsAdapter favouriteColorsAdapter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -44,6 +47,8 @@ public class ProfileFragment extends Fragment {
     //these two go together
     private TextView noColors;
     private Button addFavColor;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -72,6 +77,12 @@ public class ProfileFragment extends Fragment {
             loggedInUser = getArguments().getParcelable(ARG_PARAM1);
             Log.d("USER", loggedInUser.getEmail() + "it's now on its profile");
         }
+        DatabaseHandler db = new DatabaseHandler(getActivity());
+        if(loggedInUser != null) {
+            favouriteColors = new ArrayList<>();
+            favouriteColors = db.getAllFavouriteColours(loggedInUser, PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).getString("pref_key_color_display", "3"));
+            Log.d("PROFILE", favouriteColors.size() + " favourite colors for " + loggedInUser.getEmail());
+        }
     }
 
     @Override
@@ -80,16 +91,23 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+//        swipeRefreshLayout = view.findViewById(R.id.swipe);
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                //this does not work
+////                DatabaseHandler db = new DatabaseHandler(getActivity());
+////                favouriteColors = db.getAllFavouriteColours(loggedInUser, "3");
+////                favouriteColorsAdapter.notifyDataSetChanged();
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+//        });
+
         addFavColor = view.findViewById(R.id.addColor_button);
         noColors = view.findViewById(R.id.no_favourite_colors_textView);
         seeAllFavColors = view.findViewById(R.id.see_all_favourite_colours);
         favouriteColoursRecyclerView = view.findViewById(R.id.favourite_colours_list);
-        DatabaseHandler db = new DatabaseHandler(getActivity());
-        if(loggedInUser != null) {
-            favouriteColors = new ArrayList<>();
-            favouriteColors = db.getAllFavouriteColours(loggedInUser, "3");
-            Log.d("PROFILE", favouriteColors.size() + " favourite colors for " + loggedInUser.getEmail());
-        }
+
 
         //linking recyclerView
         LinearLayoutManager myLayoutManager = new LinearLayoutManager(getActivity()){
@@ -102,7 +120,8 @@ public class ProfileFragment extends Fragment {
         };
         myLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         favouriteColoursRecyclerView.setLayoutManager(myLayoutManager);
-        favouriteColoursRecyclerView.setAdapter(new FavouriteColorsAdapter(favouriteColors));
+        favouriteColorsAdapter = new FavouriteColorsAdapter(favouriteColors);
+        favouriteColoursRecyclerView.setAdapter(favouriteColorsAdapter);
 
         if(favouriteColors.size() > 0){
             favouriteColoursRecyclerView.setVisibility(View.VISIBLE);
