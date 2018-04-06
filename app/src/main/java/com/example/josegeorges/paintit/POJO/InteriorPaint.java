@@ -1,11 +1,11 @@
-package com.example.josegeorges.paintit;
+package com.example.josegeorges.paintit.POJO;
 
-public class ExteriorPaint {
 
+public class InteriorPaint {
     private String paintName;
     private int paintimage;
 
-    public ExteriorPaint(String paintName, int paintimage) {
+    public InteriorPaint(String paintName, int paintimage) {
         this.paintName = paintName;
         this.paintimage = paintimage;
     }
@@ -26,5 +26,3 @@ public class ExteriorPaint {
         this.paintimage = paintimage;
     }
 }
-
-

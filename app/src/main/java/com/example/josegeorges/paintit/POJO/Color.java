@@ -1,4 +1,4 @@
-package com.example.josegeorges.paintit;
+package com.example.josegeorges.paintit.POJO;
 
 /**
  * Created by Keegan on 2018-03-25.

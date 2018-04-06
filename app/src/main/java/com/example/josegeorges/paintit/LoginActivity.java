@@ -10,7 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
+
+import com.example.josegeorges.paintit.POJO.User;
 
 /**
  * This activity hosts the login system and takes care of checking the user status

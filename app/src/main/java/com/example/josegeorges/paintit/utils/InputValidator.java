@@ -2,8 +2,6 @@ package com.example.josegeorges.paintit.utils;
 
 import android.content.Context;
 
-import com.example.josegeorges.paintit.DatabaseHandler;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

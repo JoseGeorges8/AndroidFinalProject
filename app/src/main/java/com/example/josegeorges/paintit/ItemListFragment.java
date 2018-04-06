@@ -10,18 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.josegeorges.paintit.POJO.Stains;
+import com.example.josegeorges.paintit.adapters.ItemsAdapter;
+
 import java.util.ArrayList;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link StainsFragment.OnFragmentInteractionListener} interface
+ * {@link ItemListFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link StainsFragment#newInstance} factory method to
+ * Use the {@link ItemListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class StainsFragment extends Fragment {
+public class ItemListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,7 +36,7 @@ public class StainsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public StainsFragment() {
+    public ItemListFragment() {
         // Required empty public constructor
     }
 
@@ -43,11 +46,11 @@ public class StainsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment StainsFragment.
+     * @return A new instance of fragment ItemListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static StainsFragment newInstance(String param1, String param2) {
-        StainsFragment fragment = new StainsFragment();
+    public static ItemListFragment newInstance(String param1, String param2) {
+        ItemListFragment fragment = new ItemListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -68,15 +71,15 @@ public class StainsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_stains, container, false);
+        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
         ArrayList<Stains> stainsList = new ArrayList<Stains>();
 
         RecyclerView.Adapter adapter;
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.stains_recyclerView);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.item_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        recyclerView.setAdapter(new StainsAdapter(stainsList));
+        recyclerView.setAdapter(new ItemsAdapter(stainsList));
 
 
         //TODO Animate the Recycler View Skip For Now

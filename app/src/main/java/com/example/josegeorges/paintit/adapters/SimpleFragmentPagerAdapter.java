@@ -1,4 +1,4 @@
-package com.example.josegeorges.paintit.utils;
+package com.example.josegeorges.paintit.adapters;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.example.josegeorges.paintit.ProfileFragment;
 import com.example.josegeorges.paintit.R;
 import com.example.josegeorges.paintit.StoreFragment;
-import com.example.josegeorges.paintit.User;
+import com.example.josegeorges.paintit.POJO.User;
 
 /**
  * Created by josegeorges on 2018-03-19.

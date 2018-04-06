@@ -18,6 +18,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.josegeorges.paintit.POJO.Color;
+import com.example.josegeorges.paintit.utils.DatabaseHandler;
+
 
 /**
  * Created by josegeorges on 2018-03-28.

@@ -1,4 +1,4 @@
-package com.example.josegeorges.paintit;
+package com.example.josegeorges.paintit.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,10 +7,14 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.example.josegeorges.paintit.POJO.Color;
+import com.example.josegeorges.paintit.POJO.Item;
+import com.example.josegeorges.paintit.POJO.Order;
+import com.example.josegeorges.paintit.POJO.Palette;
+import com.example.josegeorges.paintit.POJO.User;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by Keegan on 2018-03-24.
@@ -452,7 +456,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //table name, String Array of column names, query, String array of values that will
         // be inserted into the query
         Cursor cursor = db.query(TABLE_ITEMS,
-                new String[]{COLUMN_ITEMID, COLUMN_UPC, COLUMN_PRICE, COLUMN_PRICE},
+                new String[]{COLUMN_ITEMID, COLUMN_UPC, COLUMN_PRICE, COLUMN_DESCRIPTION},
                 COLUMN_ITEMID + "=?", new String[]{String.valueOf(id)},
                 null, null, null, null);
         if(cursor != null){

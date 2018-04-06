@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.josegeorges.paintit.POJO.User;
+import com.example.josegeorges.paintit.utils.DatabaseHandler;
 import com.example.josegeorges.paintit.utils.InputValidator;
 
 /**
