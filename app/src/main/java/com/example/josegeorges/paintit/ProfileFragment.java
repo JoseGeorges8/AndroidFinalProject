@@ -75,7 +75,7 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             loggedInUser = getArguments().getParcelable(ARG_PARAM1);
-            Log.d("USER", loggedInUser.getEmail() + "it's now on its profile");
+            Log.d("USER", loggedInUser.getEmail() + " it's now on its profile");
         }
         DatabaseHandler db = new DatabaseHandler(getActivity());
         if(loggedInUser != null) {
