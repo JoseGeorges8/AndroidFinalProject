@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.josegeorges.paintit.POJO.Stains;
+import com.example.josegeorges.paintit.POJO.Item;
 import com.example.josegeorges.paintit.R;
 
 import java.util.ArrayList;
@@ -16,27 +16,27 @@ import java.util.ArrayList;
  * This adapter will be used to display all the Stains and Finishes to the user
  */
 
-public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.StainsRecyclerViewHolder>{
+public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsRecyclerViewHolder>{
 
-    protected ArrayList<Stains> list;
+    protected ArrayList<Item> list;
 
 
-    public ItemsAdapter(ArrayList<Stains> list) {
+    public ItemsAdapter(ArrayList<Item> list) {
         this.list = list;
     }
 
     @Override
-    public StainsRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ItemsRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view and inflate with item_layout.xml
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
-        StainsRecyclerViewHolder holder = new StainsRecyclerViewHolder(view);
+        ItemsRecyclerViewHolder holder = new ItemsRecyclerViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(StainsRecyclerViewHolder holder, int position) {
-        holder.itemImage.setImageResource(list.get(position).getStainImageView());
-        holder.itemName.setText(list.get(position).getStainName());
+    public void onBindViewHolder(ItemsRecyclerViewHolder holder, int position) {
+        holder.itemImage.setImageResource(list.get(position).getImageView());
+        holder.itemName.setText(list.get(position).getName());
     }
 
     @Override
@@ -45,13 +45,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.StainsRecycl
     }
 
 
-    public class StainsRecyclerViewHolder extends RecyclerView.ViewHolder{
+    public class ItemsRecyclerViewHolder extends RecyclerView.ViewHolder{
 
         protected ImageView itemImage;
         protected TextView itemName;
 
 
-        public StainsRecyclerViewHolder(View itemView) {
+        public ItemsRecyclerViewHolder(View itemView) {
             super(itemView);
             itemImage = itemView.findViewById(R.id.item_imageView);
             itemName = itemView.findViewById(R.id.item_name);
