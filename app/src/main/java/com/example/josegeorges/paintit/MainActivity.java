@@ -2,9 +2,11 @@ package com.example.josegeorges.paintit;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -147,11 +149,30 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_settings:
-             getFragmentManager().beginTransaction()
-                     .replace(R.id.main_content, SettingsScreenFragment.newInstance(user))
-                     .addToBackStack(null)
-                     .commit();
+
+                if(user.getEmail().equals(LoginFragment.GUEST_EMAIL)){
+                    //don't show settings to the guest user
+
+                }else{
+                    //show settings if it's not the guest user
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.main_content, SettingsScreenFragment.newInstance(user))
+                            .addToBackStack(null)
+                            .commit();
+                }
              break;
+            //TODO: ADD About libraries for the credits
+            case R.id.action_about:
+                break;
+            //log the user out
+            case R.id.action_log_out:
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putBoolean(LoginFragment.USER_LOGGED_IN, false).apply();
+                Intent intent = new Intent(this, LoginActivity.class);
+                finish();
+                startActivity(intent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
