@@ -17,6 +17,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.josegeorges.paintit.POJO.User;
+import com.example.josegeorges.paintit.utils.DatabaseHandler;
+
 /**
  * Created by josegeorges on 2018-03-30.
  */
@@ -149,6 +152,4 @@ public class SettingsScreenFragment extends PreferenceFragment implements Shared
         }
         db.close();
     }
-
-
 }

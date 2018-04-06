@@ -1,4 +1,4 @@
-package com.example.josegeorges.paintit;
+package com.example.josegeorges.paintit.POJO;
 
 
 public class Brushes {

@@ -1,14 +1,30 @@
-package com.example.josegeorges.paintit;
+package com.example.josegeorges.paintit.POJO;
 
 /**
  * Created by Keegan on 2018-03-25.
  */
 
 public class Item {
+
+    /*
+    Properties
+     */
+
     private int itemID;
     private int upc;
     private double price;
     private String description;
+    private String name;
+    private int imageView;
+
+    /*
+    Constructors
+     */
+
+    public Item(String name, int imageView) {
+        this.name = name;
+        this.imageView = imageView;
+    }
 
     public Item(int itemID, int upc, double price, String description) {
         this.itemID = itemID;
@@ -17,9 +33,9 @@ public class Item {
         this.description = description;
     }
 
-    public Item() {
-    }
-
+    /*
+        Getters and Setters
+         */
     public int getItemID() {
         return itemID;
     }
@@ -50,5 +66,21 @@ public class Item {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(int imageView) {
+        this.imageView = imageView;
     }
 }

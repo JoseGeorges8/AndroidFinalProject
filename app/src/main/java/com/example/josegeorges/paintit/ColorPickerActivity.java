@@ -8,11 +8,7 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +17,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+
+import com.example.josegeorges.paintit.POJO.User;
+import com.example.josegeorges.paintit.utils.DatabaseHandler;
 
 import java.util.Calendar;
 
@@ -118,7 +117,7 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
         int value = definitiveChosenColor;
         String currentTime = Calendar.getInstance().getTime().toString();
         Log.d("ADDCOLOR", "Color details: " + name + " " + value + " " + currentTime.toString());
-        com.example.josegeorges.paintit.Color color = new com.example.josegeorges.paintit.Color(value, name, currentTime, user.getUserID());
+        com.example.josegeorges.paintit.POJO.Color color = new com.example.josegeorges.paintit.POJO.Color(value, name, currentTime, user.getUserID());
         DatabaseHandler db = new DatabaseHandler(this);
         boolean  result = db.addColor(color);
             if (result) {

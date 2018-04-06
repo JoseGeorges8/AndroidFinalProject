@@ -1,4 +1,4 @@
-package com.example.josegeorges.paintit;
+package com.example.josegeorges.paintit.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,7 +7,12 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.example.josegeorges.paintit.POJO.Color;
+import com.example.josegeorges.paintit.POJO.Item;
+import com.example.josegeorges.paintit.POJO.Order;
+import com.example.josegeorges.paintit.POJO.Palette;
+import com.example.josegeorges.paintit.POJO.User;
 
 import java.util.ArrayList;
 
@@ -360,6 +365,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return  user;
     }
 
+
+    public Boolean getUser(String email){
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        try {
+            db = this.getReadableDatabase();
+            cursor = db.query(TABLE_USERS,
+                    new String[]{COLUMN_USERID, COLUMN_FIRSTNAME, COLUMN_LASTNAME, COLUMN_EMAIL, COLUMN_PASSWORD,
+                            COLUMN_RECOVERYEMAIL, COLUMN_PHONENUMBER},
+                    COLUMN_EMAIL + "=?", new String[]{email},
+                    null, null, null, "1");
+            if (cursor != null && cursor.moveToFirst()) {
+                return true;
+            }
+        }catch (final Exception e){
+            Log.d("DATABASE", "something went wrong");
+        }finally {
+            assert db != null;
+            db.close();
+            assert cursor != null;
+            cursor.close();
+        }
+        return false;
+    }
+
     public ArrayList<User> getAllUsers(){
         ArrayList<User> userList = new ArrayList<User>();
         String query = "SELECT * FROM " + TABLE_USERS;
@@ -426,7 +456,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //table name, String Array of column names, query, String array of values that will
         // be inserted into the query
         Cursor cursor = db.query(TABLE_ITEMS,
-                new String[]{COLUMN_ITEMID, COLUMN_UPC, COLUMN_PRICE, COLUMN_PRICE},
+                new String[]{COLUMN_ITEMID, COLUMN_UPC, COLUMN_PRICE, COLUMN_DESCRIPTION},
                 COLUMN_ITEMID + "=?", new String[]{String.valueOf(id)},
                 null, null, null, null);
         if(cursor != null){
