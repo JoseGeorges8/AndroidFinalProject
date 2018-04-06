@@ -1,6 +1,8 @@
 package com.example.josegeorges.paintit;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -152,7 +154,10 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
 
                 if(user.getEmail().equals(LoginFragment.GUEST_EMAIL)){
                     //don't show settings to the guest user
-
+                    new AlertDialog.Builder(this)
+                            .setTitle("Access Denied")
+                            .setMessage("This portion of the app is accessible only for logged in users!")
+                            .show();
                 }else{
                     //show settings if it's not the guest user
                     getFragmentManager().beginTransaction()
