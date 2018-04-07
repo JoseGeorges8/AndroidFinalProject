@@ -131,6 +131,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String CREATE_ITEMS_TABLE = "CREATE TABLE " +
             TABLE_ITEMS + "(" + COLUMN_ITEMID + " INTEGER PRIMARY KEY,"
             + COLUMN_UPC + " INTEGER," + COLUMN_PRICE + " DECIMAL,"
+            + COLUMN_TYPEID + " INTEGER REFERENCES " + TABLE_TYPES +
+            "(" + COLUMN_TYPEID + ") ," + COLUMN_SIZE + " Integer,"
             + COLUMN_DESCRIPTION + " TEXT)";
 
     // OrderItems Table
