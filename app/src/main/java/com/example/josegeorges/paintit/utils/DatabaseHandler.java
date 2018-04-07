@@ -38,6 +38,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String TABLE_ITEMORDERS = "item_order";
     public static final String TABLE_COLORS = "colors";
     public static final String TABLE_PALETTES = "palette";
+    public static final String TABLE_TYPES = "types";
     public static final String TABLE_PALETTECOLORS = "palette_color";
     public static final String TABLE_FAVORITECOLORS = "favorite_color";
     public static final String TABLE_FAVORITEPALETTES = "favorite_palette";
@@ -67,6 +68,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_UPC = "upc";
     public static final String COLUMN_PRICE = "price";
     public static final String COLUMN_DESCRIPTION = "description";
+    public static final String COLUMN_SIZE = "size";
+    // Uses ITEMTYPE
 
     // OrderItems Table **** Linking Table ****
     public static final String COLUMN_ORDERQUANTITY = "order_quantity";
@@ -78,6 +81,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_PALETTENAME = "palette_name";
     public static final String COLUMN_TIMESTAMP = "timestamp";
     // Uses USERID
+
+    // Types table
+    public static final String COLUMN_TYPEID = "type_id";
+    public static final String COLUMN_ITEMTYPE = "item_type";
 
     // Colors Table
     public static final String COLUMN_HEXVALUE = "hex_value";
@@ -107,7 +114,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Users Table
     public static final String CREATE_USERS_TABLE = "CREATE TABLE " +
-            TABLE_USERS + "(" + COLUMN_USERID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            TABLE_USERS + "(" + COLUMN_USERID + " INTEGER PRIMARY KEY,"
             + COLUMN_FIRSTNAME + " VARCHAR(25)," + COLUMN_LASTNAME + " VARCHAR(25),"
             + COLUMN_EMAIL + " TEXT," + COLUMN_PASSWORD + " TEXT,"
             + COLUMN_RECOVERYEMAIL + " TEXT," + COLUMN_PHONENUMBER + " CHAR(10))";
@@ -141,6 +148,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             " INTEGER REFERENCES " + TABLE_USERS + "(" + COLUMN_USERID
             + "))";
 
+    // Types Table
+    public static final String CREATE_TYPES_TABLE = "CREATE TABLE " +
+            TABLE_TYPES + "(" + COLUMN_TYPEID + " INTEGER PRIMARY KEY,"
+            + COLUMN_ITEMTYPE + " VARCHAR(50))";
+
+
     // Colors Table
     public static final String CREATE_COLORS_TABLE = "CREATE TABLE " +
             TABLE_COLORS + "(" + COLUMN_HEXVALUE + " INTEGER PRIMARY KEY,"
@@ -164,10 +177,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             TABLE_FAVORITEPALETTES + "(" + COLUMN_PALETTEID + " INTEGER REFERENCES " +
             TABLE_PALETTES + "(" + COLUMN_PALETTEID + ")," + COLUMN_USERID +
             " INTEGER REFERENCES " + TABLE_USERS + "(" + COLUMN_USERID + "))";
-
-
-
-
 
 
     public DatabaseHandler(Context context){
@@ -199,6 +208,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PALETTECOLORS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FAVORITEPALETTES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FAVORITECOLORS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TYPES);
 
     }
 
@@ -240,6 +250,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COLUMN_UPC, item.getUpc());
         values.put(COLUMN_DESCRIPTION, item.getDescription());
         values.put(COLUMN_PRICE, item.getPrice());
+        values.put(COLUMN_ITEMTYPE, item.getPrice());
+        values.put(COLUMN_SIZE, item.getPrice());
         db.insert(TABLE_ITEMS, null, values);
         db.close();
     }
@@ -456,7 +468,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //table name, String Array of column names, query, String array of values that will
         // be inserted into the query
         Cursor cursor = db.query(TABLE_ITEMS,
-                new String[]{COLUMN_ITEMID, COLUMN_UPC, COLUMN_PRICE, COLUMN_DESCRIPTION},
+                new String[]{COLUMN_ITEMID, COLUMN_UPC, COLUMN_PRICE, COLUMN_DESCRIPTION, COLUMN_ITEMTYPE, COLUMN_SIZE},
                 COLUMN_ITEMID + "=?", new String[]{String.valueOf(id)},
                 null, null, null, null);
         if(cursor != null){
@@ -464,7 +476,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             item = new Item(Integer.parseInt(cursor.getString(0)),
                     Integer.parseInt(cursor.getString(1)),
                     Double.parseDouble(cursor.getString(2)),
-                    cursor.getString(1));
+                    cursor.getString(3),
+                    Integer.parseInt(cursor.getString(4)),
+                    Integer.parseInt(cursor.getString(5)));
         }
         db.close();
         return item;
@@ -480,7 +494,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 itemList.add(new Item(Integer.parseInt(cursor.getString(0)),
                         Integer.parseInt(cursor.getString(1)),
                         Double.parseDouble(cursor.getString(2)),
-                        cursor.getString(1)));
+                        cursor.getString(3),
+                        Integer.parseInt(cursor.getString(4)),
+                        Integer.parseInt(cursor.getString(5))));
             } while (cursor.moveToNext());
         }
         db.close();

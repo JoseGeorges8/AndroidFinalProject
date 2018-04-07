@@ -16,6 +16,8 @@ public class Item {
     private String description;
     private String name;
     private int imageView;
+    private int size;
+    private int itemType;
 
     /*
     Constructors
@@ -33,9 +35,18 @@ public class Item {
         this.description = description;
     }
 
+    public Item(int itemID, int upc, double price, String description, int size, int itemType) {
+        this.itemID = itemID;
+        this.upc = upc;
+        this.price = price;
+        this.description = description;
+        this.size = size;
+        this.itemType = itemType;
+    }
+
     /*
-        Getters and Setters
-         */
+            Getters and Setters
+             */
     public int getItemID() {
         return itemID;
     }
@@ -82,5 +93,21 @@ public class Item {
 
     public void setImageView(int imageView) {
         this.imageView = imageView;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public int getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
     }
 }

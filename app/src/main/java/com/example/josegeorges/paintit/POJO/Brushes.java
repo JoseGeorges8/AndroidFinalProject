@@ -1,11 +1,12 @@
 package com.example.josegeorges.paintit.POJO;
 
 
-public class Brushes {
+public class Brushes extends Item {
     private int brushImageView;
     private String brushName;
 
-    public Brushes(int brushImageView, String brushName) {
+    public Brushes(String name, int imageView, int brushImageView, String brushName) {
+        super(name, imageView);
         this.brushImageView = brushImageView;
         this.brushName = brushName;
     }

@@ -1,11 +1,12 @@
 package com.example.josegeorges.paintit.POJO;
 
-public class ExteriorPaint {
+public class ExteriorPaint extends Item {
 
     private String paintName;
     private int paintimage;
 
-    public ExteriorPaint(String paintName, int paintimage) {
+    public ExteriorPaint(String name, int imageView, String paintName, int paintimage) {
+        super(name, imageView);
         this.paintName = paintName;
         this.paintimage = paintimage;
     }
