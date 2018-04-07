@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.josegeorges.paintit.POJO.Item;
 import com.example.josegeorges.paintit.POJO.Stains;
 import com.example.josegeorges.paintit.adapters.ItemsAdapter;
 
@@ -73,13 +74,13 @@ public class ItemListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
-        ArrayList<Stains> stainsList = new ArrayList<Stains>();
+        ArrayList<Item> itemList = new ArrayList<Item>();
 
         RecyclerView.Adapter adapter;
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.item_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        recyclerView.setAdapter(new ItemsAdapter(stainsList));
+        recyclerView.setAdapter(new ItemsAdapter(itemList));
 
 
         //TODO Animate the Recycler View Skip For Now
