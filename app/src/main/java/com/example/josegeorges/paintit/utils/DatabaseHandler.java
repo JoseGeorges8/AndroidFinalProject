@@ -645,6 +645,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COLUMN_UPC, item.getUpc());
         values.put(COLUMN_PRICE, item.getPrice());
         values.put(COLUMN_DESCRIPTION, item.getDescription());;
+        values.put(COLUMN_TYPEID, item.getItemType());;
+        values.put(COLUMN_SIZE, item.getSize());;
         return db.update(TABLE_ITEMS, values, COLUMN_ITEMID + "= ?",
                 new String[]{String.valueOf(item.getItemID())});
     }

@@ -13,7 +13,7 @@ import com.example.josegeorges.paintit.R;
 import java.util.ArrayList;
 
 /**
- * This adapter will be used to display all the Stains and Finishes to the user
+ * This adapter will be used to display all the Items to the user
  */
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsRecyclerViewHolder>{
