@@ -21,6 +21,10 @@ public class Item {
     Constructors
      */
 
+    public Item(){
+
+    }
+
     public Item(String name, int imageView) {
         this.name = name;
         this.imageView = imageView;
@@ -33,9 +37,18 @@ public class Item {
         this.description = description;
     }
 
+    public Item(int itemID, int upc, double price, String description, String name, int imageView) {
+        this.itemID = itemID;
+        this.upc = upc;
+        this.price = price;
+        this.description = description;
+        this.name = name;
+        this.imageView = imageView;
+    }
+
     /*
-        Getters and Setters
-         */
+            Getters and Setters
+             */
     public int getItemID() {
         return itemID;
     }

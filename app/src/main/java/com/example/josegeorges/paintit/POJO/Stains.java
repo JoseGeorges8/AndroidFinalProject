@@ -1,6 +1,6 @@
 package com.example.josegeorges.paintit.POJO;
 
-public class Stains {
+public class Stains extends Item{
     private int stainImageView;
     private String stainName;
 
