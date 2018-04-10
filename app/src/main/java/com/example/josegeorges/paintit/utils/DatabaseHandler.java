@@ -258,6 +258,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void insertItem(Item item){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_DESCRIPTION, item.getUpc());
+        db.insert(TABLE_ITEMS, null, values);
+        db.close();
+    }
+
     /**
      * Adding a color to the colors table
      * @param color the color being added

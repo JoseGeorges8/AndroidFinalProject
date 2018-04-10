@@ -4,16 +4,22 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.josegeorges.paintit.POJO.Brushes;
+import com.example.josegeorges.paintit.POJO.ExteriorPaint;
+import com.example.josegeorges.paintit.POJO.InteriorPaint;
 import com.example.josegeorges.paintit.POJO.Item;
 import com.example.josegeorges.paintit.POJO.Stains;
 import com.example.josegeorges.paintit.adapters.ItemsAdapter;
+import com.example.josegeorges.paintit.utils.DatabaseHandler;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -36,6 +42,15 @@ public class ItemListFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    ArrayList<InteriorPaint> interiorPaintList;
+    ArrayList<ExteriorPaint> exteriorPaintList;
+    ArrayList<Stains> stainsList;
+    ArrayList<Brushes> brushesList;
+    ArrayList<Item> itemsList;
+
+
+    FragmentManager fm;
 
     public ItemListFragment() {
         // Required empty public constructor
@@ -73,14 +88,93 @@ public class ItemListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        ColorPickerActivity.fab.hide();
 
-        ArrayList<Item> itemList = new ArrayList<Item>();
+        // List of Interior Paints
+        interiorPaintList.add(new InteriorPaint("Acrylic Flat", R.drawable.ic_camera_enhance_black_24dp));
+        interiorPaintList.add(new InteriorPaint("Acrylic Eggshell", R.drawable.ic_camera_enhance_black_24dp));
+        interiorPaintList.add(new InteriorPaint("Acrylic Satin", R.drawable.ic_camera_enhance_black_24dp));
+        interiorPaintList.add(new InteriorPaint("Acrylic Semi-Gloss", R.drawable.ic_camera_enhance_black_24dp));
+        interiorPaintList.add(new InteriorPaint("Acrylic Gloss", R.drawable.ic_camera_enhance_black_24dp));
+        interiorPaintList.add(new InteriorPaint("Alkyed Flat", R.drawable.ic_camera_enhance_black_24dp));
+        interiorPaintList.add(new InteriorPaint("Alkyed Semi-Gloss", R.drawable.ic_camera_enhance_black_24dp));
+        interiorPaintList.add(new InteriorPaint("Alyked Gloss", R.drawable.ic_camera_enhance_black_24dp));
+
+        //                //Get an instance of the database
+        //                DatabaseHandler db = new DatabaseHandler(getContext());
+        //                //Add the interior paints to the database
+        //                db.addItem(interiorPaintList);
+        //                //Close the database
+        //                db.close();
+        //                //Grab the fragment manager and move us back a page/fragment
+        //                fm = getActivity().getSupportFragmentManager();
+        //                fm.popBackStack();
+
+        // List of Exterior Paints
+        exteriorPaintList.add(new ExteriorPaint("Exterior Flat", R.drawable.ic_camera_enhance_black_24dp));
+        exteriorPaintList.add(new ExteriorPaint("Exterior Satin Enamel", R.drawable.ic_camera_enhance_black_24dp));
+        exteriorPaintList.add(new ExteriorPaint("Exterior Semi-Gloss Enamel", R.drawable.ic_camera_enhance_black_24dp));
+        exteriorPaintList.add(new ExteriorPaint("Exterior Gloss Enamel", R.drawable.ic_camera_enhance_black_24dp));
+        exteriorPaintList.add(new ExteriorPaint("Exterior Matte", R.drawable.ic_camera_enhance_black_24dp));
+
+        //                //Get an instance of the database
+        //                DatabaseHandler db = new DatabaseHandler(getContext());
+        //                //Add the interior paints to the database
+        //                db.addItem(exteriorPaintList);
+        //                //Close the database
+        //                db.close();
+        //                //Grab the fragment manager and move us back a page/fragment
+        //                fm = getActivity().getSupportFragmentManager();
+        //                fm.popBackStack();
+
+
+        // List of Stains
+        stainsList.add(new Stains("Hardwood Finish", R.drawable.ic_camera_enhance_black_24dp));
+        stainsList.add(new Stains("Clearwood Finish", R.drawable.ic_camera_enhance_black_24dp));
+        stainsList.add(new Stains("Semi-Transparent Oil Finish", R.drawable.ic_camera_enhance_black_24dp));
+        stainsList.add(new Stains("Semi-Transparent Deck Stain", R.drawable.ic_camera_enhance_black_24dp));
+        stainsList.add(new Stains("Solid Deck Stain", R.drawable.ic_camera_enhance_black_24dp));
+        stainsList.add(new Stains("All Purpose Deck Wash", R.drawable.ic_camera_enhance_black_24dp));
+        stainsList.add(new Stains("Stain Remover", R.drawable.ic_camera_enhance_black_24dp));
+
+        //                //Get an instance of the database
+        //                DatabaseHandler db = new DatabaseHandler(getContext());
+        //                //Add the interior paints to the database
+        //                db.addItem(stainsList);
+        //                //Close the database
+        //                db.close();
+        //                //Grab the fragment manager and move us back a page/fragment
+        //                fm = getActivity().getSupportFragmentManager();
+        //                fm.popBackStack();
+
+        // List of Brushes
+        brushesList.add(new Brushes("Round Brush", R.drawable.ic_camera_enhance_black_24dp));
+        brushesList.add(new Brushes("Flat Brush", R.drawable.ic_camera_enhance_black_24dp));
+        brushesList.add(new Brushes("Angular Brush", R.drawable.ic_camera_enhance_black_24dp));
+        brushesList.add(new Brushes("Bright Brush", R.drawable.ic_camera_enhance_black_24dp));
+        brushesList.add(new Brushes("Filbert Brush", R.drawable.ic_camera_enhance_black_24dp));
+        brushesList.add(new Brushes("Fan Brush", R.drawable.ic_camera_enhance_black_24dp));
+        itemsList.add(new Item("Roller", R.drawable.ic_camera_enhance_black_24dp));
+
+
+        //                //Get an instance of the database
+        //                DatabaseHandler db = new DatabaseHandler(getContext());
+        //                //Add the interior paints to the database
+        //                db.addItem(brushesList);
+        //                //Close the database
+        //                db.close();
+        //                //Grab the fragment manager and move us back a page/fragment
+        //                fm = getActivity().getSupportFragmentManager();
+        //                fm.popBackStack();
+
 
         RecyclerView.Adapter adapter;
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.item_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        recyclerView.setAdapter(new ItemsAdapter(itemList));
+        adapter = new ItemsAdapter(itemsList, getContext());
+
+        recyclerView.setAdapter(adapter);
 
 
         //TODO Animate the Recycler View Skip For Now

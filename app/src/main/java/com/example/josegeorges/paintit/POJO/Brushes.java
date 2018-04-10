@@ -5,10 +5,8 @@ public class Brushes extends Item {
     private int brushImageView;
     private String brushName;
 
-    public Brushes(String name, int imageView, int brushImageView, String brushName) {
+    public Brushes(String name, int imageView) {
         super(name, imageView);
-        this.brushImageView = brushImageView;
-        this.brushName = brushName;
     }
 
     public int getBrushImageView() {

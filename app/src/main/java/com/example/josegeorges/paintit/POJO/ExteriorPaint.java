@@ -5,10 +5,8 @@ public class ExteriorPaint extends Item {
     private String paintName;
     private int paintimage;
 
-    public ExteriorPaint(String name, int imageView, String paintName, int paintimage) {
+    public ExteriorPaint(String name, int imageView) {
         super(name, imageView);
-        this.paintName = paintName;
-        this.paintimage = paintimage;
     }
 
     public String getPaintName() {
