@@ -4,8 +4,9 @@ public class Stains extends Item {
     private int stainImageView;
     private String stainName;
 
-    public Stains(String name, int imageView) {
-        super(name, imageView);
+    public Stains(int upc, double price, String description, int imageView, int size, int itemTypeId, String paintName) {
+        super(upc, price, description, imageView, size, itemTypeId);
+        this.stainName = paintName;
     }
 
     public int getStainImageView() {

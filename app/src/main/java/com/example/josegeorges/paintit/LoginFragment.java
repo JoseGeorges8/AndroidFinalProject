@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.josegeorges.paintit.POJO.Item;
 import com.example.josegeorges.paintit.POJO.User;
 import com.example.josegeorges.paintit.utils.DatabaseHandler;
 
@@ -181,6 +182,10 @@ public class LoginFragment extends Fragment {
                 editor.putString(LoginActivity.USER_RECOVERY_EMAIL, isUser.getRecoveryEmail());
                 editor.putString(LoginActivity.USER_PHONE, isUser.getPhoneNumber());
                 editor.apply();
+
+                //Populate the list of needed items in the items table right here
+
+                //Get an instance of the database handler
 
                 //open the main activity
                 Intent intent = new Intent(getActivity(), MainActivity.class);

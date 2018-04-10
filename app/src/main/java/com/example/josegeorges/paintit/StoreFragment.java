@@ -7,6 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.example.josegeorges.paintit.POJO.Item;
+import com.example.josegeorges.paintit.utils.DatabaseHandler;
+
+import java.util.ArrayList;
 
 
 /**
@@ -64,7 +70,23 @@ public class StoreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.paint_types_large, container, false);
+        View view = inflater.inflate(R.layout.paint_types_large, container, false);
+
+        Button interiorPaintsButton = view.findViewById(R.id.interiorPaintButton);
+        interiorPaintsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
+                ArrayList<Item> interiorPaints = db.getItems("0");
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_content, ItemListFragment.newInstance(interiorPaints))
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

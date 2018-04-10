@@ -1,10 +1,13 @@
 package com.example.josegeorges.paintit.POJO;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Keegan on 2018-03-25.
  */
 
-public class Item {
+public class Item implements Parcelable {
 
     /*
     Properties
@@ -17,31 +20,30 @@ public class Item {
     private String name;
     private int imageView;
     private int size;
-    private int itemType;
+    private int itemTypeId;
 
     /*
     Constructors
      */
 
-    public Item(String name, int imageView) {
-        this.name = name;
-        this.imageView = imageView;
-    }
 
-    public Item(int itemID, int upc, double price, String description) {
-        this.itemID = itemID;
+
+    public Item(int upc, double price, String description, int imageView, int size, int itemTypeId) {
         this.upc = upc;
         this.price = price;
         this.description = description;
+        this.imageView = imageView;
+        this.size = size;
+        this.itemTypeId = itemTypeId;
     }
 
-    public Item(int itemID, int upc, double price, String description, int size, int itemType) {
+    public Item(int itemID, int upc, double price, int itemTypeId, int size, String description) {
         this.itemID = itemID;
         this.upc = upc;
         this.price = price;
         this.description = description;
         this.size = size;
-        this.itemType = itemType;
+        this.itemTypeId = itemTypeId;
     }
 
     /*
@@ -103,11 +105,51 @@ public class Item {
         this.size = size;
     }
 
-    public int getItemType() {
-        return itemType;
+    public int getItemTypeId() {
+        return itemTypeId;
     }
 
-    public void setItemType(int itemType) {
-        this.itemType = itemType;
+    public void setItemTypeId(int itemTypeId) {
+        this.itemTypeId = itemTypeId;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.itemID);
+        dest.writeInt(this.upc);
+        dest.writeDouble(this.price);
+        dest.writeString(this.description);
+        dest.writeString(this.name);
+        dest.writeInt(this.imageView);
+        dest.writeInt(this.size);
+        dest.writeInt(this.itemTypeId);
+    }
+
+    protected Item(Parcel in) {
+        this.itemID = in.readInt();
+        this.upc = in.readInt();
+        this.price = in.readDouble();
+        this.description = in.readString();
+        this.name = in.readString();
+        this.imageView = in.readInt();
+        this.size = in.readInt();
+        this.itemTypeId = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Item> CREATOR = new Parcelable.Creator<Item>() {
+        @Override
+        public Item createFromParcel(Parcel source) {
+            return new Item(source);
+        }
+
+        @Override
+        public Item[] newArray(int size) {
+            return new Item[size];
+        }
+    };
 }

@@ -48,7 +48,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsRecycle
     @Override
     public void onBindViewHolder(ItemsRecyclerViewHolder holder, final int position) {
         holder.itemImage.setImageResource(list.get(position).getImageView());
-        holder.itemName.setText(list.get(position).getName());
+        holder.itemName.setText(list.get(position).getDescription());
         holder.itemName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -28,7 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements StoreFragment.OnFragmentInteractionListener,
-            ProfileFragment.OnFragmentInteractionListener, FavouriteColorsFragment.OnFragmentInteractionListener{
+            ProfileFragment.OnFragmentInteractionListener, FavouriteColorsFragment.OnFragmentInteractionListener,
+            ItemListFragment.OnFragmentInteractionListener{
 
     //required elements
 
