@@ -60,6 +60,8 @@ public class StoreFragment extends Fragment {
 
         we look for the list and pass it through the new instance method to the item list fragment
          */
+
+        // INTERIOR PAINTS BUTTON
         Button interiorPaintsButton = view.findViewById(R.id.interiorPaintButton);
         interiorPaintsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +70,48 @@ public class StoreFragment extends Fragment {
                 ArrayList<Item> interiorPaints = db.getItems("0");
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.main_content, ItemListFragment.newInstance(interiorPaints))
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        // EXTERIOR PAINTS BUTTON
+        Button exteriorPaintsButton = view.findViewById(R.id.exteriorPaintButton);
+        exteriorPaintsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
+                ArrayList<Item> exteriorPaints = db.getItems("1");
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_content, ItemListFragment.newInstance(exteriorPaints))
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        // STAINS BUTTON
+        Button stainsButton = view.findViewById(R.id.stainButton);
+        stainsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
+                ArrayList<Item> stainsList = db.getItems("2");
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_content, ItemListFragment.newInstance(stainsList))
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        // BRUSHES BUTTON
+        Button brushesButton = view.findViewById(R.id.brushesButton);
+        brushesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
+                ArrayList<Item> brushesList = db.getItems("3");
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_content, ItemListFragment.newInstance(brushesList))
                         .addToBackStack(null)
                         .commit();
             }
