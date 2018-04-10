@@ -1,12 +1,13 @@
 package com.example.josegeorges.paintit.POJO;
 
-public class Stains extends Item{
+
+public class Stains extends Item {
     private int stainImageView;
     private String stainName;
 
-    public Stains(int stainImageView, String stainName) {
-        this.stainImageView = stainImageView;
-        this.stainName = stainName;
+    public Stains(int upc, double price, String description, int imageView, int size, int itemTypeId, String paintName) {
+        super(upc, price, description, imageView, size, itemTypeId);
+        this.stainName = paintName;
     }
 
     public int getStainImageView() {

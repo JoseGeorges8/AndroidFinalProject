@@ -1,15 +1,14 @@
 package com.example.josegeorges.paintit.POJO;
 
 
-public class InteriorPaint {
+public class InteriorPaint extends Item {
     private String paintName;
     private int paintimage;
 
-    public InteriorPaint(String paintName, int paintimage) {
+    public InteriorPaint(int upc, double price, String description, int imageView, int size, int itemTypeId, String paintName) {
+        super(upc, price, description, imageView, size, itemTypeId);
         this.paintName = paintName;
-        this.paintimage = paintimage;
     }
-
     public String getPaintName() {
         return paintName;
     }
@@ -26,3 +25,5 @@ public class InteriorPaint {
         this.paintimage = paintimage;
     }
 }
+
+

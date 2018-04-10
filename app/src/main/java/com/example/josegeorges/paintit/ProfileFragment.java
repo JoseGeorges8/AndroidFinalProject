@@ -2,6 +2,7 @@ package com.example.josegeorges.paintit;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -17,10 +18,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.josegeorges.paintit.POJO.Color;
+import com.example.josegeorges.paintit.POJO.Item;
 import com.example.josegeorges.paintit.POJO.User;
 import com.example.josegeorges.paintit.utils.DatabaseHandler;
 
 import java.util.ArrayList;
+
+import static com.example.josegeorges.paintit.LoginActivity.FIRST_TIME;
 
 
 /**
@@ -86,6 +90,8 @@ public class ProfileFragment extends Fragment {
             favouriteColors = db.getAllFavouriteColours(loggedInUser, PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).getString("pref_key_color_display", "3"));
             Log.d("PROFILE", favouriteColors.size() + " favourite colors for " + loggedInUser.getEmail());
         }
+
+
     }
 
     @Override
@@ -93,6 +99,9 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        //TODO: THIS METHOD CONSTANTLY CREATES DATA, WE GOTTA FIND A WAY TO MAKE IT UNIQUE
+        initializeData();
 
         swipeRefreshLayout = view.findViewById(R.id.swipe);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -174,7 +183,6 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -198,18 +206,36 @@ public class ProfileFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+
+    /**
+     * This method initializes the TYPE and ITEM table
+     */
+    public void initializeData(){
+        //get the shared pref
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+            DatabaseHandler db = new DatabaseHandler(getContext());
+            db.addType("Interior Paints");
+            db.addType("Exterior Paints");
+            db.addType("Stains");
+            db.addType("Brushes");
+
+
+            //Add the interior paints to the database
+            db.addItem(new Item(1, 22, "Acrylic Flat", R.drawable.ic_edit_black_24dp, 10, 0));
+            db.addItem(new Item(2, 22, "Acrylic Eggshell", R.drawable.ic_edit_black_24dp, 10, 0));
+            db.addItem(new Item(3, 22, "Acrylic Satin", R.drawable.ic_edit_black_24dp, 10, 0));
+            db.addItem(new Item(4, 22, "Acrylic Semi-Gloss", R.drawable.ic_edit_black_24dp, 10, 0));
+            db.addItem(new Item(5, 22, "Acrylic Gloss", R.drawable.ic_edit_black_24dp, 10, 0));
+            db.addItem(new Item(6, 22, "Alkyed Flat", R.drawable.ic_edit_black_24dp, 10, 0));
+            db.addItem(new Item(7, 22, "Alkyed Semi-Gloss", R.drawable.ic_edit_black_24dp, 10, 0));
+            db.addItem(new Item(8, 22, "Acrylic Gloss", R.drawable.ic_edit_black_24dp, 10, 0));
+
+            //Close the database
+            db.close();
     }
 }

@@ -11,13 +11,18 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.example.josegeorges.paintit.POJO.InteriorPaint;
+import com.example.josegeorges.paintit.POJO.Item;
 import com.example.josegeorges.paintit.POJO.User;
+import com.example.josegeorges.paintit.utils.DatabaseHandler;
 
 /**
  * This activity hosts the login system and takes care of checking the user status
  */
 public class LoginActivity extends AppCompatActivity implements RegisterFragment.OnFragmentInteractionListener,
             LoginFragment.OnFragmentInteractionListener{
+
+    public static final String FIRST_TIME = "FIRST_TIME";
 
     //keys for user sharedPref
     public static final String USER_EMAIL = "EMAIL";
@@ -33,8 +38,10 @@ public class LoginActivity extends AppCompatActivity implements RegisterFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         //get the shared pref
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
 
         //we check to see if the user is logged in by checking the shared preferences
         boolean isLoggedIn = sharedPref.getBoolean(LoginFragment.USER_LOGGED_IN, false);
