@@ -100,6 +100,7 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        //TODO: THIS METHOD CONSTANTLY CREATES DATA, WE GOTTA FIND A WAY TO MAKE IT UNIQUE
         initializeData();
 
         swipeRefreshLayout = view.findViewById(R.id.swipe);
@@ -182,7 +183,6 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -206,22 +206,15 @@ public class ProfileFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
 
+    /**
+     * This method initializes the TYPE and ITEM table
+     */
     public void initializeData(){
         //get the shared pref
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
@@ -244,11 +237,5 @@ public class ProfileFragment extends Fragment {
 
             //Close the database
             db.close();
-
-
-            Log.d("ITEMS", "should have been populated");
-
-            sharedPref.edit().putBoolean(FIRST_TIME, false).apply();
-
     }
 }

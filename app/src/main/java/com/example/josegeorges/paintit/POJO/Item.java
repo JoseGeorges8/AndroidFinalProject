@@ -26,8 +26,6 @@ public class Item implements Parcelable {
     Constructors
      */
 
-
-
     public Item(int upc, double price, String description, int imageView, int size, int itemTypeId) {
         this.upc = upc;
         this.price = price;

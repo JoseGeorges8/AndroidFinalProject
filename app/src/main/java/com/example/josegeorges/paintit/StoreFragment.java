@@ -24,14 +24,7 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class StoreFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -39,20 +32,9 @@ public class StoreFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment StoreFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static StoreFragment newInstance(String param1, String param2) {
         StoreFragment fragment = new StoreFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,8 +43,7 @@ public class StoreFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -72,6 +53,13 @@ public class StoreFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.paint_types_large, container, false);
 
+        /*
+        Basically, when the button is pressed, we search for the type id that is supposed to
+
+        types available: interior paints, exterior paints, stains and brushes
+
+        we look for the list and pass it through the new instance method to the item list fragment
+         */
         Button interiorPaintsButton = view.findViewById(R.id.interiorPaintButton);
         interiorPaintsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +77,6 @@ public class StoreFragment extends Fragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -113,16 +100,6 @@ public class StoreFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
