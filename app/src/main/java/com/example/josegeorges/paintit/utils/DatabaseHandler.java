@@ -124,7 +124,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Orders Table
     public static final String CREATE_ORDERS_TABLE = "CREATE TABLE " +
             TABLE_ORDERS + "(" + COLUMN_ORDERID + " INTEGER PRIMARY KEY," +
-            COLUMN_ORDERNUMBER + " TEXT," + COLUMN_DATEORDERED + " TEXT,"
+            COLUMN_ORDERNUMBER + " TEXT," + COLUMN_DATEORDERED + " TIMESTAMP,"
             + COLUMN_USERID +
             " INTEGER REFERENCES " + TABLE_USERS + "(" + COLUMN_USERID
             + "))";
@@ -132,10 +132,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Items Table
     public static final String CREATE_ITEMS_TABLE = "CREATE TABLE " + TABLE_ITEMS
             + "(" + COLUMN_ITEMID + " INTEGER PRIMARY KEY,"
-            + COLUMN_UPC + " INTEGER,"
+            + COLUMN_UPC + " BIGINT,"
             + COLUMN_PRICE + " DECIMAL,"
             + COLUMN_TYPEID + " INTEGER REFERENCES " + TABLE_TYPES + "(" + COLUMN_TYPEID + ") ,"
-            + COLUMN_SIZE + " Integer,"
+            + COLUMN_SIZE + " INTEGER,"
             + COLUMN_DESCRIPTION + " TEXT)";
 
     // OrderItems Table
@@ -148,7 +148,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Palettes Table
     public static final String CREATE_PALETTES_TABLE = "CREATE TABLE " +
             TABLE_PALETTES + "(" + COLUMN_PALETTEID + " INTEGER PRIMARY KEY," +
-            COLUMN_PALETTENAME + " TEXT," + COLUMN_TIMESTAMP + " TEXT,"
+            COLUMN_PALETTENAME + " TEXT," + COLUMN_TIMESTAMP + " TIMESTAMP,"
             + COLUMN_USERID +
             " INTEGER REFERENCES " + TABLE_USERS + "(" + COLUMN_USERID
             + "))";
@@ -162,7 +162,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Colors Table
     public static final String CREATE_COLORS_TABLE = "CREATE TABLE " +
             TABLE_COLORS + "(" + COLUMN_HEXVALUE + " INTEGER PRIMARY KEY,"
-            + COLUMN_TIMESTAMP + " TEXT)";
+            + COLUMN_TIMESTAMP + " TIMESTAMP)";
 
     // PaletteColors Table
     public static final String CREATE_PALETTECOLORS_TABLE = "CREATE TABLE " +

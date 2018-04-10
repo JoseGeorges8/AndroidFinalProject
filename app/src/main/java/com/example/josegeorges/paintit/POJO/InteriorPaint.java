@@ -5,7 +5,7 @@ public class InteriorPaint extends Item {
     private String paintName;
     private int paintimage;
 
-    public InteriorPaint(int upc, double price, String description, int imageView, int size, int itemTypeId, String paintName) {
+    public InteriorPaint(long upc, double price, String description, int imageView, int size, int itemTypeId, String paintName) {
         super(upc, price, description, imageView, size, itemTypeId);
         this.paintName = paintName;
     }

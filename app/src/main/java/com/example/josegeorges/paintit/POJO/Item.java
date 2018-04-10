@@ -14,7 +14,7 @@ public class Item implements Parcelable {
      */
 
     private int itemID;
-    private int upc;
+    private long upc;
     private double price;
     private String description;
     private String name;
@@ -25,7 +25,7 @@ public class Item implements Parcelable {
     /*
     Constructors
      */
-    public Item(int upc, double price, String description, int imageView, int size, int itemTypeId) {
+    public Item(long upc, double price, String description, int imageView, int size, int itemTypeId) {
         this.upc = upc;
         this.price = price;
         this.description = description;
@@ -34,7 +34,7 @@ public class Item implements Parcelable {
         this.itemTypeId = itemTypeId;
     }
 
-    public Item(int itemID, int upc, double price, int itemTypeId, int size, String description) {
+    public Item(int itemID, long upc, double price, int itemTypeId, int size, String description) {
         this.itemID = itemID;
         this.upc = upc;
         this.price = price;
@@ -54,11 +54,11 @@ public class Item implements Parcelable {
         this.itemID = itemID;
     }
 
-    public int getUpc() {
+    public long getUpc() {
         return upc;
     }
 
-    public void setUpc(int upc) {
+    public void setUpc(long upc) {
         this.upc = upc;
     }
 
@@ -118,7 +118,7 @@ public class Item implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.itemID);
-        dest.writeInt(this.upc);
+        dest.writeLong(this.upc);
         dest.writeDouble(this.price);
         dest.writeString(this.description);
         dest.writeString(this.name);
@@ -129,7 +129,7 @@ public class Item implements Parcelable {
 
     protected Item(Parcel in) {
         this.itemID = in.readInt();
-        this.upc = in.readInt();
+        this.upc = in.readLong();
         this.price = in.readDouble();
         this.description = in.readString();
         this.name = in.readString();

@@ -54,66 +54,6 @@ public class ItemListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
-//        ColorPickerActivity.fab.hide();
-
-//
-//        // List of Exterior Paints
-//        exteriorPaintList.add(new ExteriorPaint("Exterior Flat", R.drawable.ic_camera_enhance_black_24dp));
-//        exteriorPaintList.add(new ExteriorPaint("Exterior Satin Enamel", R.drawable.ic_camera_enhance_black_24dp));
-//        exteriorPaintList.add(new ExteriorPaint("Exterior Semi-Gloss Enamel", R.drawable.ic_camera_enhance_black_24dp));
-//        exteriorPaintList.add(new ExteriorPaint("Exterior Gloss Enamel", R.drawable.ic_camera_enhance_black_24dp));
-//        exteriorPaintList.add(new ExteriorPaint("Exterior Matte", R.drawable.ic_camera_enhance_black_24dp));
-//
-//        //                //Get an instance of the database
-//        //                DatabaseHandler db = new DatabaseHandler(getContext());
-//        //                //Add the interior paints to the database
-//        //                db.addItem(exteriorPaintList);
-//        //                //Close the database
-//        //                db.close();
-//        //                //Grab the fragment manager and move us back a page/fragment
-//        //                fm = getActivity().getSupportFragmentManager();
-//        //                fm.popBackStack();
-//
-//
-//        // List of Stains
-//        stainsList.add(new Stains("Hardwood Finish", R.drawable.ic_camera_enhance_black_24dp));
-//        stainsList.add(new Stains("Clearwood Finish", R.drawable.ic_camera_enhance_black_24dp));
-//        stainsList.add(new Stains("Semi-Transparent Oil Finish", R.drawable.ic_camera_enhance_black_24dp));
-//        stainsList.add(new Stains("Semi-Transparent Deck Stain", R.drawable.ic_camera_enhance_black_24dp));
-//        stainsList.add(new Stains("Solid Deck Stain", R.drawable.ic_camera_enhance_black_24dp));
-//        stainsList.add(new Stains("All Purpose Deck Wash", R.drawable.ic_camera_enhance_black_24dp));
-//        stainsList.add(new Stains("Stain Remover", R.drawable.ic_camera_enhance_black_24dp));
-//
-//        //                //Get an instance of the database
-//        //                DatabaseHandler db = new DatabaseHandler(getContext());
-//        //                //Add the interior paints to the database
-//        //                db.addItem(stainsList);
-//        //                //Close the database
-//        //                db.close();
-//        //                //Grab the fragment manager and move us back a page/fragment
-//        //                fm = getActivity().getSupportFragmentManager();
-//        //                fm.popBackStack();
-//
-//        // List of Brushes
-//        brushesList.add(new Brushes("Round Brush", R.drawable.ic_camera_enhance_black_24dp));
-//        brushesList.add(new Brushes("Flat Brush", R.drawable.ic_camera_enhance_black_24dp));
-//        brushesList.add(new Brushes("Angular Brush", R.drawable.ic_camera_enhance_black_24dp));
-//        brushesList.add(new Brushes("Bright Brush", R.drawable.ic_camera_enhance_black_24dp));
-//        brushesList.add(new Brushes("Filbert Brush", R.drawable.ic_camera_enhance_black_24dp));
-//        brushesList.add(new Brushes("Fan Brush", R.drawable.ic_camera_enhance_black_24dp));
-//        itemsList.add(new Item("Roller", R.drawable.ic_camera_enhance_black_24dp));
-//
-//
-//        //                //Get an instance of the database
-//        //                DatabaseHandler db = new DatabaseHandler(getContext());
-//        //                //Add the interior paints to the database
-//        //                db.addItem(brushesList);
-//        //                //Close the database
-//        //                db.close();
-//        //                //Grab the fragment manager and move us back a page/fragment
-//        //                fm = getActivity().getSupportFragmentManager();
-//        //                fm.popBackStack();
-
 
         /*
         All we need to do here is basically inflate the recycler view, along with passing the adapter and the list received from the
