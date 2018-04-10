@@ -21,6 +21,7 @@ import android.view.View;
 
 import com.example.josegeorges.paintit.POJO.User;
 import com.example.josegeorges.paintit.adapters.SimpleFragmentPagerAdapter;
+import com.example.josegeorges.paintit.utils.DatabaseHandler;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
@@ -166,6 +167,10 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
                 break;
             //log the user out
             case R.id.action_log_out:
+                DatabaseHandler db = new DatabaseHandler(this);
+                db.deleteAllItems();
+                db.deleteAllTypes();
+                db.close();
                 SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putBoolean(LoginFragment.USER_LOGGED_IN, false).apply();

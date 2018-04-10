@@ -89,9 +89,16 @@ public class ItemDetailsFragment extends Fragment{
         cancel = view.findViewById(R.id.cancel_button);
         addToCart = view.findViewById(R.id.next_button);
 
+        if(item != null) {
+            //add the information from the item
+            itemTitle.setText(item.getDescription());
+            itemPrice.setText(String.valueOf(item.getPrice()));
+            itemImage.setImageResource(item.getImageView());
+        }
+
         //getting the sizes and colors from the db
         DatabaseHandler db = new DatabaseHandler(getContext());
-        ArrayList<String> availableSizes = db.getSizes();
+        ArrayList<String> availableSizes = db.getSizes(String.valueOf(item.getItemTypeId()), item.getDescription());
         ArrayList<Color> availableColors = db.getAllFavouriteColours(getLoggedInUser(), null);
         //making the quantities array. It will go up to 5 so that's the limit per customer
         ArrayList<Integer> quantities = new ArrayList<>();
@@ -112,14 +119,9 @@ public class ItemDetailsFragment extends Fragment{
         itemQuantitySpinner.setAdapter(quantitiesAdapter);
 
 
-        if(item != null) {
-            //add the information from the item
-            itemTitle.setText(item.getDescription());
-            itemPrice.setText(String.valueOf(item.getPrice()));
-            itemImage.setImageResource(item.getImageView());
-        }
 
 
+        db.close();
         return view;
     }
 
