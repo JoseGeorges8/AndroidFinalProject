@@ -42,8 +42,8 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
     @Override
     public void onBindViewHolder(ShoppingCartViewHolder holder, int position) {
         holder.itemName.setText(list.get(position).getDescription());
-        holder.itemPrice.setText(String.valueOf(list.get(position).getPrice()));
-        holder.itemDescription.setText(list.get(position).getDescription() + " (" + list.get(position).getSize() + ")");
+        holder.itemPrice.setText("$" + String.valueOf(list.get(position).getPrice()));
+        holder.itemDescription.setText(list.get(position).getDescription() + " (" + list.get(position).getSize() + " Gallons)");
     }
 
     @Override

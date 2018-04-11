@@ -61,7 +61,8 @@ public class ItemDetailsFragment extends Fragment{
 
     //values of spinners
     int quantity = 1; //default quantity is 1
-    String sizePrice = "3"; //default size is 3
+    String sizePrice = "20"; //default price is 20
+    String size = "3"; //default size is 3
 
     //buttons to cancel and add to cart
     Button cancel;
@@ -136,7 +137,8 @@ public class ItemDetailsFragment extends Fragment{
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
                 DatabaseHandler db = new DatabaseHandler(getContext());
-                sizePrice = db.getPrice(String.valueOf(item.getItemTypeId()), item.getDescription(), (String) parent.getItemAtPosition(i));
+                size = (String) parent.getItemAtPosition(i);
+                sizePrice = db.getPrice(String.valueOf(item.getItemTypeId()), item.getDescription(), size);
                 itemPrice.setText("$"+String.valueOf(Double.parseDouble(sizePrice) * quantity));
                 itemIndividualPrice.setText("($"+sizePrice+")");
             }
@@ -189,7 +191,7 @@ public class ItemDetailsFragment extends Fragment{
                             .show();
                 }else {
                     //show shopping cart if it's not the guest user
-                    Item tempItem = new Item(item.getItemID(), item.getUpc(), Double.parseDouble(sizePrice) * quantity, item.getItemTypeId(), Integer.parseInt(sizePrice), item.getDescription());
+                    Item tempItem = new Item(item.getItemID(), item.getUpc(), Double.parseDouble(sizePrice) * quantity, item.getItemTypeId(), Integer.parseInt(size), item.getDescription());
                     if(shoppingCartList != null) {
                         shoppingCartList.getList().add(tempItem);
                         Snackbar mySnackbar = Snackbar.make(myCoordinatorLayout,
