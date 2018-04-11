@@ -4,6 +4,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +16,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.josegeorges.paintit.POJO.Color;
 import com.example.josegeorges.paintit.POJO.Item;
+import com.example.josegeorges.paintit.POJO.ShoppingCartList;
 import com.example.josegeorges.paintit.POJO.User;
 import com.example.josegeorges.paintit.utils.DatabaseHandler;
 
@@ -27,6 +31,9 @@ import java.util.ArrayList;
  */
 
 public class ItemDetailsFragment extends Fragment{
+
+    //Main Layout
+    CoordinatorLayout myCoordinatorLayout;
 
     //item being passed
     public static final String ITEM_PASSED = "item_passed";
@@ -46,6 +53,9 @@ public class ItemDetailsFragment extends Fragment{
 
     //image of the item
     ImageView itemImage;
+
+    //Shopping Cart List
+    ShoppingCartList shoppingCartList;
 
     //values of spinners
     int quantity = 1; //default quantity is 1
@@ -74,6 +84,9 @@ public class ItemDetailsFragment extends Fragment{
         if (getArguments() != null) {
             item = getArguments().getParcelable(ITEM_PASSED);
         }
+
+        //the shopping cart
+        shoppingCartList = ShoppingCartList.getIntance();
     }
 
     @Override
@@ -83,6 +96,7 @@ public class ItemDetailsFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_item_details, container, false);
 
         //Link The Views
+        myCoordinatorLayout = getActivity().findViewById(R.id.myCoordinatorLayout);
         itemTitle = view.findViewById(R.id.item_title);
         itemImage = view.findViewById(R.id.item_image);
         itemPrice = view.findViewById(R.id.item_price);
@@ -151,6 +165,27 @@ public class ItemDetailsFragment extends Fragment{
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
+        addToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Item tempItem = new Item(item.getItemID(), item.getUpc(), Double.parseDouble(sizePrice) * quantity, item.getItemTypeId(), Integer.parseInt(sizePrice), item.getDescription());
+                if(shoppingCartList != null) {
+                    //shoppingCartList.getList().add(tempItem);
+                    Snackbar mySnackbar = Snackbar.make(myCoordinatorLayout,
+                            R.string.item_added_cart, Snackbar.LENGTH_SHORT);
+                    mySnackbar.show();
+                }
             }
         });
 
