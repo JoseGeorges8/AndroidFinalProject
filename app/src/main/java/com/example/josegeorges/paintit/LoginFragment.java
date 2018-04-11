@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -100,7 +101,6 @@ public class LoginFragment extends Fragment {
         //Sign as a user to the app
         emailEditText = view.findViewById(R.id.input_email);
         passwordEditText = view.findViewById(R.id.input_password);
-
         //when click login, check for valid user and if found log it in
         Button logInButton = view.findViewById(R.id.btn_login);
         logInButton.setOnClickListener(new View.OnClickListener() {
@@ -237,4 +237,5 @@ public class LoginFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

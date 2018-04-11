@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.josegeorges.paintit.POJO.Color;
@@ -224,7 +226,6 @@ public class ProfileFragment extends Fragment {
         db.addType("Stains");
         db.addType("Brushes");
 
-
         //Add the interior paints to the database
         db.addItem(new Item(422987391, 50, "Acrylic Flat", R.drawable.ic_edit_black_24dp, 10, 0));
         db.addItem(new Item(422987392, 50, "Acrylic Eggshell", R.drawable.ic_edit_black_24dp, 10, 0));
@@ -295,5 +296,21 @@ public class ProfileFragment extends Fragment {
 //        Log.d("ITEMS", "should have been populated");
 //
 //        sharedPref.edit().putBoolean(FIRST_TIME, false).apply();
+    }
+
+    /**
+     * this method loads the image from the name of the file and gets the resource id.
+     *
+     * with this method we can now store image names in the db and to display them just use this method.
+     *
+     *         loadImage("image name", (MainActivity) getActivity());
+     *
+     * @param mImageName
+     */
+    private static Integer loadImage(String mImageName, MainActivity activity){
+        int resID = activity.getApplicationContext().getResources().getIdentifier(mImageName , "drawable", activity.getApplicationContext().getPackageName());
+        if(resID>1)
+            return resID;
+        return 0;
     }
 }
