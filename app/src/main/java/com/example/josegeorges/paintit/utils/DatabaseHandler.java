@@ -532,6 +532,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return sizes;
     }
 
+
+    /*
+    Get the sizes available in the table
+
+    I only get them by one Id because we know there are all the same sizes
+     */
+    public String getPrice(String typeId, String description, String size){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String price = "";
+        Cursor cursor = db.query(TABLE_ITEMS,
+                new String[]{COLUMN_PRICE},
+                COLUMN_TYPEID + "=? AND " + COLUMN_DESCRIPTION + "=? AND " + COLUMN_SIZE + "=?", new String[]{typeId, description, size},
+                null, null, null, null);
+        if(cursor.moveToFirst()){
+            do {
+                price = cursor.getString(0);
+            }while (cursor.moveToNext());
+        }
+        return price;
+    }
+
     /**
      * This method purpose is to check the favourite colours table to see if the selected color is already in the table
      *

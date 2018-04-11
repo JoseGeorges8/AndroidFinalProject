@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +18,6 @@ import android.widget.TextView;
 import com.example.josegeorges.paintit.POJO.Color;
 import com.example.josegeorges.paintit.POJO.Item;
 import com.example.josegeorges.paintit.POJO.User;
-import com.example.josegeorges.paintit.adapters.ItemsAdapter;
 import com.example.josegeorges.paintit.utils.DatabaseHandler;
 
 import java.util.ArrayList;
@@ -40,6 +37,7 @@ public class ItemDetailsFragment extends Fragment{
 
     //price of the item
     TextView itemPrice;
+    TextView itemIndividualPrice;
 
     //Spinners to show options available
     Spinner itemSizeSpinner;
@@ -48,6 +46,10 @@ public class ItemDetailsFragment extends Fragment{
 
     //image of the item
     ImageView itemImage;
+
+    //values of spinners
+    int quantity = 1; //default quantity is 1
+    String sizePrice = "3"; //default size is 3
 
     //buttons to cancel and add to cart
     Button cancel;
@@ -84,6 +86,7 @@ public class ItemDetailsFragment extends Fragment{
         itemTitle = view.findViewById(R.id.item_title);
         itemImage = view.findViewById(R.id.item_image);
         itemPrice = view.findViewById(R.id.item_price);
+        itemIndividualPrice = view.findViewById(R.id.item_individual_price);
         itemSizeSpinner = view.findViewById(R.id.item_size);
         itemColorSpinner = view.findViewById(R.id.item_color);
         itemQuantitySpinner = view.findViewById(R.id.item_quantity);
@@ -94,6 +97,7 @@ public class ItemDetailsFragment extends Fragment{
             //add the information from the item
             itemTitle.setText(item.getDescription());
             itemPrice.setText(String.valueOf(item.getPrice()));
+            itemIndividualPrice.setText(String.valueOf(item.getPrice()));
             itemImage.setImageResource(item.getImageView());
         }
 
@@ -108,12 +112,17 @@ public class ItemDetailsFragment extends Fragment{
         }
 
         //setting up the sizes spinner
-        ArrayAdapter<String> sizesAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, availableSizes);
+
+        final ArrayAdapter<String> sizesAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, availableSizes);
         itemSizeSpinner.setAdapter(sizesAdapter);
+        //Change the price of the item depending on the size they select
         itemSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
-                itemPrice.setText(String.valueOf(item.getPrice()));
+                DatabaseHandler db = new DatabaseHandler(getContext());
+                sizePrice = db.getPrice(String.valueOf(item.getItemTypeId()), item.getDescription(), (String) parent.getItemAtPosition(i));
+                itemPrice.setText("$"+String.valueOf(Double.parseDouble(sizePrice) * quantity));
+                itemIndividualPrice.setText("($"+sizePrice+")");
             }
 
             @Override
@@ -123,18 +132,20 @@ public class ItemDetailsFragment extends Fragment{
         });
 
         //setting up the colors spinner
+
         ArrayAdapter<Color> colorsAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, availableColors);
         itemColorSpinner.setAdapter(colorsAdapter);
 
         //setting up the quantities spinner
+
         ArrayAdapter<Integer> quantitiesAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, quantities);
         itemQuantitySpinner.setAdapter(quantitiesAdapter);
-
         //Change the price of the item depending on the quantity they select
         itemQuantitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
-                itemPrice.setText(String.valueOf(item.getPrice() * (Integer) parent.getItemAtPosition(i)));
+                quantity = (Integer) parent.getItemAtPosition(i);
+                itemPrice.setText("$"+String.valueOf(Double.parseDouble(sizePrice) * quantity));
             }
 
             @Override
