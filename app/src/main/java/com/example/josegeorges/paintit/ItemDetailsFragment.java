@@ -1,5 +1,6 @@
 package com.example.josegeorges.paintit;
 
+import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -7,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -179,12 +181,22 @@ public class ItemDetailsFragment extends Fragment{
         addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Item tempItem = new Item(item.getItemID(), item.getUpc(), Double.parseDouble(sizePrice) * quantity, item.getItemTypeId(), Integer.parseInt(sizePrice), item.getDescription());
-                if(shoppingCartList != null) {
-                    //shoppingCartList.getList().add(tempItem);
-                    Snackbar mySnackbar = Snackbar.make(myCoordinatorLayout,
-                            R.string.item_added_cart, Snackbar.LENGTH_SHORT);
-                    mySnackbar.show();
+                if(PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).getString(LoginActivity.USER_EMAIL, "").equals(LoginFragment.GUEST_EMAIL)){
+                    //don't show shopping cart to the guest user
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Access Denied")
+                            .setMessage("This portion of the app is accessible only for logged in users!")
+                            .show();
+                }else {
+                    //show shopping cart if it's not the guest user
+                    Item tempItem = new Item(item.getItemID(), item.getUpc(), Double.parseDouble(sizePrice) * quantity, item.getItemTypeId(), Integer.parseInt(sizePrice), item.getDescription());
+                    if(shoppingCartList != null) {
+                        shoppingCartList.getList().add(tempItem);
+                        Snackbar mySnackbar = Snackbar.make(myCoordinatorLayout,
+                                R.string.item_added_cart, Snackbar.LENGTH_SHORT);
+                        mySnackbar.setAction(R.string.checkout_string, new MyCheckoutListener());
+                        mySnackbar.show();
+                    }
                 }
             }
         });
@@ -210,6 +222,15 @@ public class ItemDetailsFragment extends Fragment{
         User isUser = new User(id, fname, lname, email, password, emailRecovery, phone);
 
         return isUser;
+    }
+
+    public class MyCheckoutListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.main_content, new ShoppingCartFragment()).commit();
+        }
     }
 
 
