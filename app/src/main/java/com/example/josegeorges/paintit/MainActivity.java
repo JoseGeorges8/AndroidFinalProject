@@ -30,7 +30,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements StoreFragment.OnFragmentInteractionListener,
             ProfileFragment.OnFragmentInteractionListener, FavouriteColorsFragment.OnFragmentInteractionListener,
-            ItemListFragment.OnFragmentInteractionListener{
+            ItemListFragment.OnFragmentInteractionListener,
+            ShoppingCartFragment.OnFragmentInteractionListener{
 
     //required elements
 
@@ -146,6 +147,21 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
+            case R.id.action_cart:
+                if(user.getEmail().equals(LoginFragment.GUEST_EMAIL)){
+                    //don't show settings to the guest user
+                    new AlertDialog.Builder(this)
+                            .setTitle("Access Denied")
+                            .setMessage("This portion of the app is accessible only for logged in users!")
+                            .show();
+                }else{
+                    //show settings if it's not the guest user
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_content, new ShoppingCartFragment())
+                            .addToBackStack(null)
+                            .commit();
+                }
+                break;
             case R.id.action_settings:
 
                 if(user.getEmail().equals(LoginFragment.GUEST_EMAIL)){
