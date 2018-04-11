@@ -218,38 +218,38 @@ public class ProfileFragment extends Fragment {
     public void initializeData(){
         //get the shared pref
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-            DatabaseHandler db = new DatabaseHandler(getContext());
-            db.addType("Interior Paints");
-            db.addType("Exterior Paints");
-            db.addType("Stains");
-            db.addType("Brushes");
+        DatabaseHandler db = new DatabaseHandler(getContext());
+        db.addType("Interior Paints");
+        db.addType("Exterior Paints");
+        db.addType("Stains");
+        db.addType("Brushes");
 
 
-            //Add the interior paints to the database
-            db.addItem(new Item(422987391, 22, "Acrylic Flat", R.drawable.ic_edit_black_24dp, 10, 0));
-            db.addItem(new Item(422987392, 22, "Acrylic Eggshell", R.drawable.ic_edit_black_24dp, 10, 0));
-            db.addItem(new Item(422987393, 22, "Acrylic Satin", R.drawable.ic_edit_black_24dp, 10, 0));
-            db.addItem(new Item(422987394, 22, "Acrylic Semi-Gloss", R.drawable.ic_edit_black_24dp, 10, 0));
-            db.addItem(new Item(422787395, 22, "Acrylic Gloss", R.drawable.ic_edit_black_24dp, 10, 0));
-            db.addItem(new Item(422987396, 22, "Alkyed Flat", R.drawable.ic_edit_black_24dp, 10, 0));
-            db.addItem(new Item(422987397, 22, "Alkyed Semi-Gloss", R.drawable.ic_edit_black_24dp, 10, 0));
-            db.addItem(new Item(422987398, 22, "Alkyed Gloss", R.drawable.ic_edit_black_24dp, 10, 0));
-        db.addItem(new Item(422987391, 22, "Acrylic Flat", R.drawable.ic_edit_black_24dp, 5, 0));
-        db.addItem(new Item(422987392, 22, "Acrylic Eggshell", R.drawable.ic_edit_black_24dp, 5, 0));
-        db.addItem(new Item(422987393, 22, "Acrylic Satin", R.drawable.ic_edit_black_24dp, 5, 0));
-        db.addItem(new Item(422987394, 22, "Acrylic Semi-Gloss", R.drawable.ic_edit_black_24dp, 5, 0));
-        db.addItem(new Item(422787395, 22, "Acrylic Gloss", R.drawable.ic_edit_black_24dp, 5, 0));
-        db.addItem(new Item(422987396, 22, "Alkyed Flat", R.drawable.ic_edit_black_24dp, 5, 0));
-        db.addItem(new Item(422987397, 22, "Alkyed Semi-Gloss", R.drawable.ic_edit_black_24dp, 5, 0));
-        db.addItem(new Item(422987398, 22, "Alkyed Gloss", R.drawable.ic_edit_black_24dp, 5, 0));
-        db.addItem(new Item(422987391, 22, "Acrylic Flat", R.drawable.ic_edit_black_24dp, 3, 0));
-        db.addItem(new Item(422987392, 22, "Acrylic Eggshell", R.drawable.ic_edit_black_24dp, 3, 0));
-        db.addItem(new Item(422987393, 22, "Acrylic Satin", R.drawable.ic_edit_black_24dp, 3, 0));
-        db.addItem(new Item(422987394, 22, "Acrylic Semi-Gloss", R.drawable.ic_edit_black_24dp, 3, 0));
-        db.addItem(new Item(422787395, 22, "Acrylic Gloss", R.drawable.ic_edit_black_24dp, 3, 0));
-        db.addItem(new Item(422987396, 22, "Alkyed Flat", R.drawable.ic_edit_black_24dp, 3, 0));
-        db.addItem(new Item(422987397, 22, "Alkyed Semi-Gloss", R.drawable.ic_edit_black_24dp, 3, 0));
-        db.addItem(new Item(422987398, 22, "Alkyed Gloss", R.drawable.ic_edit_black_24dp, 3, 0));
+        //Add the interior paints to the database
+        db.addItem(new Item(422987391, 50, "Acrylic Flat", R.drawable.ic_edit_black_24dp, 10, 0));
+        db.addItem(new Item(422987392, 50, "Acrylic Eggshell", R.drawable.ic_edit_black_24dp, 10, 0));
+        db.addItem(new Item(422987393, 50, "Acrylic Satin", R.drawable.ic_edit_black_24dp, 10, 0));
+        db.addItem(new Item(422987394, 50, "Acrylic Semi-Gloss", R.drawable.ic_edit_black_24dp, 10, 0));
+        db.addItem(new Item(422787395, 50, "Acrylic Gloss", R.drawable.ic_edit_black_24dp, 10, 0));
+        db.addItem(new Item(422987396, 50, "Alkyed Flat", R.drawable.ic_edit_black_24dp, 10, 0));
+        db.addItem(new Item(422987397, 50, "Alkyed Semi-Gloss", R.drawable.ic_edit_black_24dp, 10, 0));
+        db.addItem(new Item(422987398, 50, "Alkyed Gloss", R.drawable.ic_edit_black_24dp, 10, 0));
+        db.addItem(new Item(422987391, 30, "Acrylic Flat", R.drawable.ic_edit_black_24dp, 5, 0));
+        db.addItem(new Item(422987392, 30, "Acrylic Eggshell", R.drawable.ic_edit_black_24dp, 5, 0));
+        db.addItem(new Item(422987393, 30, "Acrylic Satin", R.drawable.ic_edit_black_24dp, 5, 0));
+        db.addItem(new Item(422987394, 30, "Acrylic Semi-Gloss", R.drawable.ic_edit_black_24dp, 5, 0));
+        db.addItem(new Item(422787395, 30, "Acrylic Gloss", R.drawable.ic_edit_black_24dp, 5, 0));
+        db.addItem(new Item(422987396, 30, "Alkyed Flat", R.drawable.ic_edit_black_24dp, 5, 0));
+        db.addItem(new Item(422987397, 30, "Alkyed Semi-Gloss", R.drawable.ic_edit_black_24dp, 5, 0));
+        db.addItem(new Item(422987398, 30, "Alkyed Gloss", R.drawable.ic_edit_black_24dp, 5, 0));
+        db.addItem(new Item(422987391, 20, "Acrylic Flat", R.drawable.ic_edit_black_24dp, 3, 0));
+        db.addItem(new Item(422987392, 20, "Acrylic Eggshell", R.drawable.ic_edit_black_24dp, 3, 0));
+        db.addItem(new Item(422987393, 20, "Acrylic Satin", R.drawable.ic_edit_black_24dp, 3, 0));
+        db.addItem(new Item(422987394, 20, "Acrylic Semi-Gloss", R.drawable.ic_edit_black_24dp, 3, 0));
+        db.addItem(new Item(422787395, 20, "Acrylic Gloss", R.drawable.ic_edit_black_24dp, 3, 0));
+        db.addItem(new Item(422987396, 20, "Alkyed Flat", R.drawable.ic_edit_black_24dp, 3, 0));
+        db.addItem(new Item(422987397, 20, "Alkyed Semi-Gloss", R.drawable.ic_edit_black_24dp, 3, 0));
+        db.addItem(new Item(422987398, 20, "Alkyed Gloss", R.drawable.ic_edit_black_24dp, 3, 0));
 
 
 
@@ -270,27 +270,27 @@ public class ProfileFragment extends Fragment {
         db.addItem(new Item(322987394, 22, "Exterior Semi-Gloss Enamel", R.drawable.ic_edit_black_24dp, 3, 1));
         db.addItem(new Item(322987395, 22, "Exterior Matte", R.drawable.ic_edit_black_24dp, 3, 1));
 
-            //Add the stains to the database
-            db.addItem(new Item(222987391, 22, "Hardwood Finish", R.drawable.ic_edit_black_24dp, 0, 2));
-            db.addItem(new Item(222987392, 22, "Clearwood Finish", R.drawable.ic_edit_black_24dp, 0, 2));
-            db.addItem(new Item(222987393, 22, "Semi-Transparent Oil Finish", R.drawable.ic_edit_black_24dp, 0, 2));
-            db.addItem(new Item(222987394, 22, "Semi-Transparent Deck Stain", R.drawable.ic_edit_black_24dp, 0, 2));
-            db.addItem(new Item(222987395, 22, "Solid Deck Stain", R.drawable.ic_edit_black_24dp, 0, 2));
-            db.addItem(new Item(222987396, 22, "All Purpose Deck Wash", R.drawable.ic_edit_black_24dp, 0, 2));
-            db.addItem(new Item(222987397, 22, "Stain Remover", R.drawable.ic_edit_black_24dp, 0, 2));
+        //Add the stains to the database
+        db.addItem(new Item(222987391, 22, "Hardwood Finish", R.drawable.ic_edit_black_24dp, 0, 2));
+        db.addItem(new Item(222987392, 22, "Clearwood Finish", R.drawable.ic_edit_black_24dp, 0, 2));
+        db.addItem(new Item(222987393, 22, "Semi-Transparent Oil Finish", R.drawable.ic_edit_black_24dp, 0, 2));
+        db.addItem(new Item(222987394, 22, "Semi-Transparent Deck Stain", R.drawable.ic_edit_black_24dp, 0, 2));
+        db.addItem(new Item(222987395, 22, "Solid Deck Stain", R.drawable.ic_edit_black_24dp, 0, 2));
+        db.addItem(new Item(222987396, 22, "All Purpose Deck Wash", R.drawable.ic_edit_black_24dp, 0, 2));
+        db.addItem(new Item(222987397, 22, "Stain Remover", R.drawable.ic_edit_black_24dp, 0, 2));
 
-            //Add the brushes the database
-            db.addItem(new Item(122987391, 22, "Round Brush", R.drawable.ic_edit_black_24dp, 0, 3));
-            db.addItem(new Item(122987392, 22, "Flat Brush", R.drawable.ic_edit_black_24dp, 0, 3));
-            db.addItem(new Item(122987393, 22, "Angular Flat Brush", R.drawable.ic_edit_black_24dp, 0, 3));
-            db.addItem(new Item(122987394, 22, "Bright Brush", R.drawable.ic_edit_black_24dp, 0, 3));
-            db.addItem(new Item(122987395, 22, "Filbert Brush", R.drawable.ic_edit_black_24dp, 0, 3));
-            db.addItem(new Item(122987396, 22, "Fan Brush", R.drawable.ic_edit_black_24dp, 0, 3));
-            db.addItem(new Item(122987397, 22, "Roller", R.drawable.ic_edit_black_24dp, 0, 3));
+        //Add the brushes the database
+        db.addItem(new Item(122987391, 22, "Round Brush", R.drawable.ic_edit_black_24dp, 0, 3));
+        db.addItem(new Item(122987392, 22, "Flat Brush", R.drawable.ic_edit_black_24dp, 0, 3));
+        db.addItem(new Item(122987393, 22, "Angular Flat Brush", R.drawable.ic_edit_black_24dp, 0, 3));
+        db.addItem(new Item(122987394, 22, "Bright Brush", R.drawable.ic_edit_black_24dp, 0, 3));
+        db.addItem(new Item(122987395, 22, "Filbert Brush", R.drawable.ic_edit_black_24dp, 0, 3));
+        db.addItem(new Item(122987396, 22, "Fan Brush", R.drawable.ic_edit_black_24dp, 0, 3));
+        db.addItem(new Item(122987397, 22, "Roller", R.drawable.ic_edit_black_24dp, 0, 3));
 
 
-            //Close the database
-            db.close();
+        //Close the database
+        db.close();
 
 //        Log.d("ITEMS", "should have been populated");
 //

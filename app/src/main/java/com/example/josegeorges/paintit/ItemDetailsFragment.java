@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -109,6 +110,17 @@ public class ItemDetailsFragment extends Fragment{
         //setting up the sizes spinner
         ArrayAdapter<String> sizesAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, availableSizes);
         itemSizeSpinner.setAdapter(sizesAdapter);
+        itemSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+                itemPrice.setText(String.valueOf(item.getPrice()));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         //setting up the colors spinner
         ArrayAdapter<Color> colorsAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, availableColors);
@@ -118,7 +130,18 @@ public class ItemDetailsFragment extends Fragment{
         ArrayAdapter<Integer> quantitiesAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, quantities);
         itemQuantitySpinner.setAdapter(quantitiesAdapter);
 
+        //Change the price of the item depending on the quantity they select
+        itemQuantitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+                itemPrice.setText(String.valueOf(item.getPrice() * (Integer) parent.getItemAtPosition(i)));
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
         db.close();
@@ -142,6 +165,7 @@ public class ItemDetailsFragment extends Fragment{
 
         return isUser;
     }
+
 
 
 }

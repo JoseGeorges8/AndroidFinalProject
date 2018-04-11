@@ -106,6 +106,7 @@ public class SettingsScreenFragment extends PreferenceFragment implements Shared
         return view;
     }
 
+
     //this method takes care of changing the toolbar style
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
