@@ -255,21 +255,21 @@ public class ProfileFragment extends Fragment {
 
 
         //Add the exterior paints to the database
-        db.addItem(new Item(322987391, 22, "Exterior Flat", R.drawable.ic_edit_black_24dp, 10, 1));
-        db.addItem(new Item(322987392, 22, "Exterior Satin Enamel", R.drawable.ic_edit_black_24dp, 10, 1));
-        db.addItem(new Item(322987393, 22, "Exterior Gloss Enamel", R.drawable.ic_edit_black_24dp, 10, 1));
-        db.addItem(new Item(322987394, 22, "Exterior Semi-Gloss Enamel", R.drawable.ic_edit_black_24dp, 10, 1));
-        db.addItem(new Item(322987395, 22, "Exterior Matte", R.drawable.ic_edit_black_24dp, 10, 1));
-        db.addItem(new Item(322987391, 22, "Exterior Flat", R.drawable.ic_edit_black_24dp, 5, 1));
-        db.addItem(new Item(322987392, 22, "Exterior Satin Enamel", R.drawable.ic_edit_black_24dp, 5, 1));
-        db.addItem(new Item(322987393, 22, "Exterior Gloss Enamel", R.drawable.ic_edit_black_24dp, 5, 1));
-        db.addItem(new Item(322987394, 22, "Exterior Semi-Gloss Enamel", R.drawable.ic_edit_black_24dp, 5, 1));
-        db.addItem(new Item(322987395, 22, "Exterior Matte", R.drawable.ic_edit_black_24dp, 5, 1));
-        db.addItem(new Item(322987391, 22, "Exterior Flat", R.drawable.ic_edit_black_24dp, 3, 1));
-        db.addItem(new Item(322987392, 22, "Exterior Satin Enamel", R.drawable.ic_edit_black_24dp, 3, 1));
-        db.addItem(new Item(322987393, 22, "Exterior Gloss Enamel", R.drawable.ic_edit_black_24dp, 3, 1));
-        db.addItem(new Item(322987394, 22, "Exterior Semi-Gloss Enamel", R.drawable.ic_edit_black_24dp, 3, 1));
-        db.addItem(new Item(322987395, 22, "Exterior Matte", R.drawable.ic_edit_black_24dp, 3, 1));
+        db.addItem(new Item(322987391, 50, "Exterior Flat", R.drawable.ic_edit_black_24dp, 10, 1));
+        db.addItem(new Item(322987392, 50, "Exterior Satin Enamel", R.drawable.ic_edit_black_24dp, 10, 1));
+        db.addItem(new Item(322987393, 50, "Exterior Gloss Enamel", R.drawable.ic_edit_black_24dp, 10, 1));
+        db.addItem(new Item(322987394, 50, "Exterior Semi-Gloss Enamel", R.drawable.ic_edit_black_24dp, 10, 1));
+        db.addItem(new Item(322987395, 50, "Exterior Matte", R.drawable.ic_edit_black_24dp, 10, 1));
+        db.addItem(new Item(322987391, 30, "Exterior Flat", R.drawable.ic_edit_black_24dp, 5, 1));
+        db.addItem(new Item(322987392, 30, "Exterior Satin Enamel", R.drawable.ic_edit_black_24dp, 5, 1));
+        db.addItem(new Item(322987393, 30, "Exterior Gloss Enamel", R.drawable.ic_edit_black_24dp, 5, 1));
+        db.addItem(new Item(322987394, 30, "Exterior Semi-Gloss Enamel", R.drawable.ic_edit_black_24dp, 5, 1));
+        db.addItem(new Item(322987395, 30, "Exterior Matte", R.drawable.ic_edit_black_24dp, 5, 1));
+        db.addItem(new Item(322987391, 20, "Exterior Flat", R.drawable.ic_edit_black_24dp, 3, 1));
+        db.addItem(new Item(322987392, 20, "Exterior Satin Enamel", R.drawable.ic_edit_black_24dp, 3, 1));
+        db.addItem(new Item(322987393, 20, "Exterior Gloss Enamel", R.drawable.ic_edit_black_24dp, 3, 1));
+        db.addItem(new Item(322987394, 20, "Exterior Semi-Gloss Enamel", R.drawable.ic_edit_black_24dp, 3, 1));
+        db.addItem(new Item(322987395, 20, "Exterior Matte", R.drawable.ic_edit_black_24dp, 3, 1));
 
         //Add the stains to the database
         db.addItem(new Item(222987391, 22, "Hardwood Finish", R.drawable.ic_edit_black_24dp, 0, 2));

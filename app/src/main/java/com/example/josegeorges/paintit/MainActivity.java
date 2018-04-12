@@ -24,6 +24,8 @@ import com.example.josegeorges.paintit.adapters.SimpleFragmentPagerAdapter;
 import com.example.josegeorges.paintit.utils.DatabaseHandler;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.LibsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -163,7 +165,6 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
                 }
                 break;
             case R.id.action_settings:
-
                 if(user.getEmail().equals(LoginFragment.GUEST_EMAIL)){
                     //don't show settings to the guest user
                     new AlertDialog.Builder(this)
@@ -178,8 +179,12 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
                             .commit();
                 }
              break;
-            //TODO: ADD About libraries for the credits
             case R.id.action_about:
+                new LibsBuilder()
+                        .withLicenseShown(true)
+                        .withActivityTitle("About Us")
+                        .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                    .start(this);
                 break;
             //log the user out
             case R.id.action_log_out:
