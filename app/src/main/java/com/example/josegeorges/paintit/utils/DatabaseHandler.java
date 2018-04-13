@@ -491,12 +491,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     // Items
-    public ArrayList<Item> getItems(String typeId){
+    public ArrayList<Item> getItems(String typeId, String size){
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Item> items = new ArrayList<>();
         Cursor cursor = db.query(TABLE_ITEMS,
                 new String[]{COLUMN_ITEMID, COLUMN_UPC, COLUMN_PRICE, COLUMN_TYPEID, COLUMN_SIZE, COLUMN_DESCRIPTION},
-                COLUMN_TYPEID + "=?", new String[]{typeId},
+                COLUMN_TYPEID + "=? AND " + COLUMN_SIZE + "=?", new String[]{typeId, size},
                 null, null, null, null);
         if(cursor.moveToFirst()){
             do {
@@ -510,6 +510,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return items;
     };
+
+
+    /*
+    Get the sizes available in the table
+
+    I only get them by one Id because we know there are all the same sizes
+     */
+    public ArrayList<String> getSizes(String typeId, String description){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<String> sizes = new ArrayList<>();
+        Cursor cursor = db.query(TABLE_ITEMS,
+                new String[]{COLUMN_SIZE},
+                COLUMN_TYPEID + "=? AND " + COLUMN_DESCRIPTION + "=?", new String[]{typeId, description},
+                null, null, null, null);
+        if(cursor.moveToFirst()){
+            do {
+                sizes.add(cursor.getString(0));
+            }while (cursor.moveToNext());
+        }
+        return sizes;
+    }
 
     /**
      * This method purpose is to check the favourite colours table to see if the selected color is already in the table
@@ -723,4 +744,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
+    public void deleteAllItems() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from "+ TABLE_ITEMS);
+        db.close();
+    }
+
+    public void deleteAllTypes() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from "+ TABLE_TYPES);
+        db.close();
+    }
 }

@@ -67,7 +67,7 @@ public class StoreFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
-                ArrayList<Item> interiorPaints = db.getItems("0");
+                ArrayList<Item> interiorPaints = db.getItems("0", "3");
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.main_content, ItemListFragment.newInstance(interiorPaints))
                         .addToBackStack(null)
@@ -81,7 +81,7 @@ public class StoreFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
-                ArrayList<Item> exteriorPaints = db.getItems("1");
+                ArrayList<Item> exteriorPaints = db.getItems("1", "3");
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.main_content, ItemListFragment.newInstance(exteriorPaints))
                         .addToBackStack(null)
@@ -95,7 +95,7 @@ public class StoreFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
-                ArrayList<Item> stainsList = db.getItems("2");
+                ArrayList<Item> stainsList = db.getItems("2", "0");
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.main_content, ItemListFragment.newInstance(stainsList))
                         .addToBackStack(null)
@@ -109,7 +109,7 @@ public class StoreFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
-                ArrayList<Item> brushesList = db.getItems("3");
+                ArrayList<Item> brushesList = db.getItems("3", "0");
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.main_content, ItemListFragment.newInstance(brushesList))
                         .addToBackStack(null)

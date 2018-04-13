@@ -65,4 +65,9 @@ public class Color {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
+
+    @Override
+    public String toString() {
+        return colorName;
+    }
 }

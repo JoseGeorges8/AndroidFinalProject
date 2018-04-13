@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.josegeorges.paintit.ItemDetailsFragment;
+import com.example.josegeorges.paintit.MainActivity;
 import com.example.josegeorges.paintit.POJO.Brushes;
 import com.example.josegeorges.paintit.POJO.ExteriorPaint;
 import com.example.josegeorges.paintit.POJO.InteriorPaint;
@@ -25,10 +27,6 @@ import java.util.ArrayList;
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsRecyclerViewHolder>{
 
     protected ArrayList<Item> list;
-    protected ArrayList<InteriorPaint> interiorPaintArrayList;
-    protected ArrayList<ExteriorPaint> exteriorPaintArrayList;
-    protected ArrayList<Stains> stainsArrayList;
-    protected ArrayList<Brushes> brushesArrayList;
     private Context context;
 
 
@@ -41,7 +39,19 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsRecycle
     public ItemsRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view and inflate with item_layout.xml
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
-        ItemsRecyclerViewHolder holder = new ItemsRecyclerViewHolder(view);
+        final ItemsRecyclerViewHolder holder = new ItemsRecyclerViewHolder(view);
+
+        //if an item is clicked, open the detailsFragment
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity activity = (MainActivity) context;
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_content, ItemDetailsFragment.newInstance(list.get(holder.getAdapterPosition())))
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
         return holder;
     }
 
@@ -49,12 +59,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsRecycle
     public void onBindViewHolder(ItemsRecyclerViewHolder holder, final int position) {
         holder.itemImage.setImageResource(list.get(position).getImageView());
         holder.itemName.setText(list.get(position).getDescription());
-        holder.itemName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, list.get(position).getDescription(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
