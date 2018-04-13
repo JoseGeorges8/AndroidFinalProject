@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 
 /**
@@ -28,6 +31,21 @@ public class ShoppingCartFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    // Item name
+    TextView itemName;
+
+    // Item description
+    TextView itemDescription;
+
+    // Item price
+    TextView itemPrice;
+
+    // Item image
+    ImageView itemImage;
+
+    // Button to delete an item from the shopping cart
+    ImageButton deleteItem;
 
     public ShoppingCartFragment() {
         // Required empty public constructor
@@ -64,7 +82,17 @@ public class ShoppingCartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shopping_cart, container, false);
+        View view = inflater.inflate(R.layout.fragment_shopping_cart, container, false);
+
+        // Link up the Views
+        itemImage = view.findViewById(R.id.cart_image);
+        itemName = view.findViewById(R.id.cart_item);
+        itemDescription = view.findViewById(R.id.cart_item_description);
+        itemPrice = view.findViewById(R.id.cart_item_price);
+        deleteItem = view.findViewById(R.id.remove_from_cart);
+
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
