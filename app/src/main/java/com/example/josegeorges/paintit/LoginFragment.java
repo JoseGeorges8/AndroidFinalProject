@@ -20,6 +20,14 @@ import com.example.josegeorges.paintit.POJO.Item;
 import com.example.josegeorges.paintit.POJO.User;
 import com.example.josegeorges.paintit.utils.DatabaseHandler;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
+
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+
 
 /**
  * A simple {@link Fragment} subclass.
