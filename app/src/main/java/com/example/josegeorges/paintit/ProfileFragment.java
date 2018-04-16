@@ -252,41 +252,39 @@ public class ProfileFragment extends Fragment {
         db.addItem(new Item(422987397, 20, "bucket", 0, 3, "Alkyed Semi-Gloss"));
         db.addItem(new Item(422987398, 20, "bucket", 0, 3, "Alkyed Gloss"));
 
-//        //Add the exterior paints to the database
-//        db.addItem(new Item(322987391, 50, "Exterior Flat", R.drawable.ic_edit_black_24dp, 10, 1));
-//        db.addItem(new Item(322987392, 50, "Exterior Satin Enamel", R.drawable.ic_edit_black_24dp, 10, 1));
-//        db.addItem(new Item(322987393, 50, "Exterior Gloss Enamel", R.drawable.ic_edit_black_24dp, 10, 1));
-//        db.addItem(new Item(322987394, 50, "Exterior Semi-Gloss Enamel", R.drawable.ic_edit_black_24dp, 10, 1));
-//        db.addItem(new Item(322987395, 50, "Exterior Matte", R.drawable.ic_edit_black_24dp, 10, 1));
-//        db.addItem(new Item(322987391, 30, "Exterior Flat", R.drawable.ic_edit_black_24dp, 5, 1));
-//        db.addItem(new Item(322987392, 30, "Exterior Satin Enamel", R.drawable.ic_edit_black_24dp, 5, 1));
-//        db.addItem(new Item(322987393, 30, "Exterior Gloss Enamel", R.drawable.ic_edit_black_24dp, 5, 1));
-//        db.addItem(new Item(322987394, 30, "Exterior Semi-Gloss Enamel", R.drawable.ic_edit_black_24dp, 5, 1));
-//        db.addItem(new Item(322987395, 30, "Exterior Matte", R.drawable.ic_edit_black_24dp, 5, 1));
-//        db.addItem(new Item(322987391, 20, "Exterior Flat", R.drawable.ic_edit_black_24dp, 3, 1));
-//        db.addItem(new Item(322987392, 20, "Exterior Satin Enamel", R.drawable.ic_edit_black_24dp, 3, 1));
-//        db.addItem(new Item(322987393, 20, "Exterior Gloss Enamel", R.drawable.ic_edit_black_24dp, 3, 1));
-//        db.addItem(new Item(322987394, 20, "Exterior Semi-Gloss Enamel", R.drawable.ic_edit_black_24dp, 3, 1));
-//        db.addItem(new Item(322987395, 20, "Exterior Matte", R.drawable.ic_edit_black_24dp, 3, 1));
-//
+        //Add the exterior paints to the database
+        db.addItem(new Item(422987398, 50, "bucket", 1, 10, "Exterior Flat"));
+        db.addItem(new Item(422987398, 50, "bucket", 1, 10, "Exterior Satin Enamel"));
+        db.addItem(new Item(422987398, 50, "bucket", 1, 10, "Exterior Gloss Enamel"));
+        db.addItem(new Item(422987398, 50, "bucket", 1, 10, "Exterior Semi-Gloss Enamel"));
+        db.addItem(new Item(422987398, 50, "bucket", 1, 10, "Exterior Matte"));
+        db.addItem(new Item(422987398, 30, "bucket", 1, 5, "Exterior Flat"));
+        db.addItem(new Item(422987398, 30, "bucket", 1, 5, "Exterior Satin Enamel"));
+        db.addItem(new Item(422987398, 30, "bucket", 1, 5, "Exterior Gloss Enamel"));
+        db.addItem(new Item(422987398, 30, "bucket", 1, 5, "Exterior Semi-Gloss Enamel"));
+        db.addItem(new Item(422987398, 30, "bucket", 1, 5, "Exterior Matte"));
+        db.addItem(new Item(422987398, 20, "bucket", 1, 3, "Exterior Flat"));
+        db.addItem(new Item(422987398, 20, "bucket", 1, 3, "Exterior Satin Enamel"));
+        db.addItem(new Item(422987398, 20, "bucket", 1, 3, "Exterior Gloss Enamel"));
+        db.addItem(new Item(422987398, 20, "bucket", 1, 3, "Exterior Semi-Gloss Enamel"));
+        db.addItem(new Item(422987398, 20, "bucket", 1, 3, "Exterior Matte"));
+
 //        //Add the stains to the database
-//        db.addItem(new Item(222987391, 22, "Hardwood Finish", R.drawable.ic_edit_black_24dp, 0, 2));
-//        db.addItem(new Item(222987392, 22, "Clearwood Finish", R.drawable.ic_edit_black_24dp, 0, 2));
-//        db.addItem(new Item(222987393, 22, "Semi-Transparent Oil Finish", R.drawable.ic_edit_black_24dp, 0, 2));
-//        db.addItem(new Item(222987394, 22, "Semi-Transparent Deck Stain", R.drawable.ic_edit_black_24dp, 0, 2));
-//        db.addItem(new Item(222987395, 22, "Solid Deck Stain", R.drawable.ic_edit_black_24dp, 0, 2));
-//        db.addItem(new Item(222987396, 22, "All Purpose Deck Wash", R.drawable.ic_edit_black_24dp, 0, 2));
-//        db.addItem(new Item(222987397, 22, "Stain Remover", R.drawable.ic_edit_black_24dp, 0, 2));
-//
+        db.addItem(new Item(422987398, 20, "bucket", 2, 0, "Hardwood Finish"));
+        db.addItem(new Item(422987398, 20, "bucket", 2, 0, "Clearwood Finish"));
+        db.addItem(new Item(422987398, 20, "bucket", 2, 0, "Semi-Transparent Oil Finish"));
+        db.addItem(new Item(422987398, 20, "bucket", 2, 0, "Semi-Transparent Deck Stain"));
+        db.addItem(new Item(422987398, 20, "bucket", 2, 0, "Solid Deck Stain"));
+        db.addItem(new Item(422987398, 20, "bucket", 2, 0, "All Purpose Deck Wash"));
+        db.addItem(new Item(422987398, 20, "bucket", 2, 0, "Stain Remover"));
 //        //Add the brushes the database
-//        db.addItem(new Item(122987391, 22, "Round Brush", R.drawable.ic_edit_black_24dp, 0, 3));
-//        db.addItem(new Item(122987392, 22, "Flat Brush", R.drawable.ic_edit_black_24dp, 0, 3));
-//        db.addItem(new Item(122987393, 22, "Angular Flat Brush", R.drawable.ic_edit_black_24dp, 0, 3));
-//        db.addItem(new Item(122987394, 22, "Bright Brush", R.drawable.ic_edit_black_24dp, 0, 3));
-//        db.addItem(new Item(122987395, 22, "Filbert Brush", R.drawable.ic_edit_black_24dp, 0, 3));
-//        db.addItem(new Item(122987396, 22, "Fan Brush", R.drawable.ic_edit_black_24dp, 0, 3));
-//        db.addItem(new Item(122987397, 22, "Roller", R.drawable.ic_edit_black_24dp, 0, 3));
-//
+        db.addItem(new Item(422987398, 20, "bucket", 3, 0, "Round Brush"));
+        db.addItem(new Item(422987398, 20, "bucket", 3, 0, "Flat Brush"));
+        db.addItem(new Item(422987398, 20, "bucket", 3, 0, "Angular Flat Brush"));
+        db.addItem(new Item(422987398, 20, "bucket", 3, 0, "Bright Brush"));
+        db.addItem(new Item(422987398, 20, "bucket", 3, 0, "Filbert Brush"));
+        db.addItem(new Item(422987398, 20, "bucket", 3, 0, "Fan Brush"));
+        db.addItem(new Item(422987398, 20, "bucket", 3, 0, "Roller"));
 
         //Close the database
         db.close();
