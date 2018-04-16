@@ -7,16 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.josegeorges.paintit.ItemDetailsFragment;
 import com.example.josegeorges.paintit.MainActivity;
-import com.example.josegeorges.paintit.POJO.Brushes;
-import com.example.josegeorges.paintit.POJO.ExteriorPaint;
-import com.example.josegeorges.paintit.POJO.InteriorPaint;
 import com.example.josegeorges.paintit.POJO.Item;
-import com.example.josegeorges.paintit.POJO.Stains;
+import com.example.josegeorges.paintit.ProfileFragment;
 import com.example.josegeorges.paintit.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -57,8 +54,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsRecycle
 
     @Override
     public void onBindViewHolder(ItemsRecyclerViewHolder holder, final int position) {
-        holder.itemImage.setImageResource(list.get(position).getImageView());
         holder.itemName.setText(list.get(position).getDescription());
+        //adding image using picasso
+        Picasso.with(context).load(ProfileFragment.loadImage(list.get(position).getImageView(), (MainActivity) context)).resize(60,
+                80).centerCrop().into(holder.itemImage);
     }
 
     @Override

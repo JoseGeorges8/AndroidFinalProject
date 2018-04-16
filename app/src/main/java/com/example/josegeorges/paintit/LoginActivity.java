@@ -11,10 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.example.josegeorges.paintit.POJO.InteriorPaint;
-import com.example.josegeorges.paintit.POJO.Item;
 import com.example.josegeorges.paintit.POJO.User;
-import com.example.josegeorges.paintit.utils.DatabaseHandler;
 
 /**
  * This activity hosts the login system and takes care of checking the user status

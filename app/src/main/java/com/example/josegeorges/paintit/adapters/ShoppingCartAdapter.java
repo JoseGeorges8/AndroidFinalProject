@@ -7,8 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.josegeorges.paintit.MainActivity;
 import com.example.josegeorges.paintit.POJO.Item;
+import com.example.josegeorges.paintit.ProfileFragment;
 import com.example.josegeorges.paintit.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -20,10 +23,12 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
 
     protected ArrayList<Item> list;
+    private MainActivity activity;
 
 
-    public ShoppingCartAdapter(ArrayList<Item> list) {
+    public ShoppingCartAdapter(ArrayList<Item> list, MainActivity activity) {
         this.list = list;
+        this.activity = activity;
     }
 
 
@@ -41,6 +46,9 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
     @Override
     public void onBindViewHolder(ShoppingCartViewHolder holder, int position) {
+        //adding image using picasso
+        Picasso.with(activity).load(ProfileFragment.loadImage(list.get(position).getImageView(), activity)).resize(60,
+                80).centerCrop().into(holder.itemImage);
         holder.itemName.setText(list.get(position).getDescription());
         holder.itemPrice.setText("$" + String.valueOf(list.get(position).getPrice()));
         holder.itemDescription.setText(list.get(position).getDescription() + " (" + list.get(position).getSize() + " Gallons)");

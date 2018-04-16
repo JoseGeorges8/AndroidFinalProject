@@ -94,6 +94,9 @@ public class SettingsScreenFragment extends PreferenceFragment implements Shared
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DatabaseHandler db = new DatabaseHandler(getActivity());
+                db.deleteAllItems();
+                db.deleteAllTypes();
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putBoolean(LoginFragment.USER_LOGGED_IN, false).apply();
 

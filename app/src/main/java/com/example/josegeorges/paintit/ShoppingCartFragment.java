@@ -88,7 +88,7 @@ public class ShoppingCartFragment extends Fragment {
         };
         myLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(myLayoutManager);
-        recyclerView.setAdapter(new ShoppingCartAdapter(ShoppingCartList.getIntance().getList()));
+        recyclerView.setAdapter(new ShoppingCartAdapter(ShoppingCartList.getIntance().getList(), (MainActivity) getActivity()));
 
         return view;
     }

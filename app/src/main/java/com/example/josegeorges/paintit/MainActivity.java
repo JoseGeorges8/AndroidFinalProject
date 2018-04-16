@@ -36,8 +36,6 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
             ShoppingCartFragment.OnFragmentInteractionListener{
 
     //required elements
-
-
     private Toolbar toolbar; //action bat
     private ViewPager viewPager; //for swipe
     private SimpleFragmentPagerAdapter adapter; //adapter for the viewPager

@@ -18,34 +18,38 @@ public class Item implements Parcelable {
     private double price;
     private String description;
     private String name;
-    private int imageView;
+    private String imageName;
     private int size;
     private int itemTypeId;
+
+
+
 
     /*
     Constructors
      */
-    public Item(long upc, double price, String description, int imageView, int size, int itemTypeId) {
+    public Item(long upc, double price, String imageName, int itemTypeId,  int size, String description) {
         this.upc = upc;
         this.price = price;
         this.description = description;
-        this.imageView = imageView;
+        this.imageName = imageName;
         this.size = size;
         this.itemTypeId = itemTypeId;
     }
 
-    public Item(int itemID, long upc, double price, int itemTypeId, int size, String description) {
+    public Item(int itemID, long upc, double price, String imageName, int itemTypeId,  int size, String description) {
         this.itemID = itemID;
         this.upc = upc;
         this.price = price;
         this.description = description;
+        this.imageName = imageName;
         this.size = size;
         this.itemTypeId = itemTypeId;
     }
 
     /*
-            Getters and Setters
-             */
+                Getters and Setters
+                 */
     public int getItemID() {
         return itemID;
     }
@@ -86,12 +90,12 @@ public class Item implements Parcelable {
         this.name = name;
     }
 
-    public int getImageView() {
-        return imageView;
+    public String getImageView() {
+        return imageName;
     }
 
-    public void setImageView(int imageView) {
-        this.imageView = imageView;
+    public void setImageView(String imageView) {
+        this.imageName = imageView;
     }
 
     public int getSize() {
@@ -122,7 +126,7 @@ public class Item implements Parcelable {
         dest.writeDouble(this.price);
         dest.writeString(this.description);
         dest.writeString(this.name);
-        dest.writeInt(this.imageView);
+        dest.writeString(this.imageName);
         dest.writeInt(this.size);
         dest.writeInt(this.itemTypeId);
     }
@@ -133,7 +137,7 @@ public class Item implements Parcelable {
         this.price = in.readDouble();
         this.description = in.readString();
         this.name = in.readString();
-        this.imageView = in.readInt();
+        this.imageName = in.readString();
         this.size = in.readInt();
         this.itemTypeId = in.readInt();
     }

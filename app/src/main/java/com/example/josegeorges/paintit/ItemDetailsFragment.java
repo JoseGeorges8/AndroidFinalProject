@@ -25,6 +25,7 @@ import com.example.josegeorges.paintit.POJO.Item;
 import com.example.josegeorges.paintit.POJO.ShoppingCartList;
 import com.example.josegeorges.paintit.POJO.User;
 import com.example.josegeorges.paintit.utils.DatabaseHandler;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -115,7 +116,10 @@ public class ItemDetailsFragment extends Fragment{
             itemTitle.setText(item.getDescription());
             itemPrice.setText(String.valueOf(item.getPrice()));
             itemIndividualPrice.setText(String.valueOf(item.getPrice()));
-            itemImage.setImageResource(item.getImageView());
+
+            //adding image using picasso
+            Picasso.with(getActivity()).load(ProfileFragment.loadImage(item.getImageView(), (MainActivity) getActivity())).resize(280,
+                    400).centerCrop().into(itemImage);
         }
 
         //getting the sizes and colors from the db
@@ -191,7 +195,7 @@ public class ItemDetailsFragment extends Fragment{
                             .show();
                 }else {
                     //show shopping cart if it's not the guest user
-                    Item tempItem = new Item(item.getItemID(), item.getUpc(), Double.parseDouble(sizePrice) * quantity, item.getItemTypeId(), Integer.parseInt(size), item.getDescription());
+                    Item tempItem = new Item(item.getItemID(), item.getUpc(), Double.parseDouble(sizePrice) * quantity, item.getImageView(),  item.getItemTypeId(), Integer.parseInt(size), item.getDescription() );
                     if(shoppingCartList != null) {
                         shoppingCartList.getList().add(tempItem);
                         Snackbar mySnackbar = Snackbar.make(myCoordinatorLayout,

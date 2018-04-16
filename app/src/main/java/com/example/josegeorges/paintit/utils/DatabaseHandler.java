@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Database version
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
 
     // name the database
     public static final String DATABASE_NAME = "paintit";
@@ -69,6 +69,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_PRICE = "price";
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_SIZE = "size";
+    public static final String COLUMN_IMAGE_NAME = "img_name";
     private static final String COLUMN_COLORID = "color_hex";
 
     // Uses ITEMTYPE
@@ -134,6 +135,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + "(" + COLUMN_ITEMID + " INTEGER PRIMARY KEY,"
             + COLUMN_UPC + " BIGINT,"
             + COLUMN_PRICE + " DECIMAL,"
+            + COLUMN_IMAGE_NAME + " TEXT,"
             + COLUMN_TYPEID + " INTEGER REFERENCES " + TABLE_TYPES + "(" + COLUMN_TYPEID + ") ,"
             + COLUMN_SIZE + " INTEGER,"
             + COLUMN_DESCRIPTION + " TEXT)";
@@ -266,6 +268,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_UPC, item.getUpc());
         values.put(COLUMN_PRICE, item.getPrice());
+        values.put(COLUMN_IMAGE_NAME, item.getImageView());
         values.put(COLUMN_TYPEID, item.getItemTypeId());
         values.put(COLUMN_SIZE, item.getSize());
         values.put(COLUMN_DESCRIPTION, item.getDescription());
@@ -490,22 +493,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
 
+
     // Items
     public ArrayList<Item> getItems(String typeId, String size){
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<Item> items = new ArrayList<>();
         Cursor cursor = db.query(TABLE_ITEMS,
-                new String[]{COLUMN_ITEMID, COLUMN_UPC, COLUMN_PRICE, COLUMN_TYPEID, COLUMN_SIZE, COLUMN_DESCRIPTION},
+                new String[]{COLUMN_ITEMID, COLUMN_UPC, COLUMN_PRICE, COLUMN_IMAGE_NAME, COLUMN_TYPEID, COLUMN_SIZE, COLUMN_DESCRIPTION},
                 COLUMN_TYPEID + "=? AND " + COLUMN_SIZE + "=?", new String[]{typeId, size},
                 null, null, null, null);
         if(cursor.moveToFirst()){
             do {
                 items.add(new Item(Integer.parseInt(cursor.getString(0)),
-                        Integer.parseInt(cursor.getString(1)),
+                        Long.parseLong(cursor.getString(1)),
                         Double.parseDouble(cursor.getString(2)),
-                        Integer.parseInt(cursor.getString(3)),
+                        cursor.getString(3),
                         Integer.parseInt(cursor.getString(4)),
-                        cursor.getString(5)));
+                        Integer.parseInt(cursor.getString(5)),
+                        cursor.getString(6)));
             }while (cursor.moveToNext());
         }
         return items;
