@@ -19,6 +19,8 @@ import com.example.josegeorges.paintit.POJO.User;
 public class LoginActivity extends AppCompatActivity implements RegisterFragment.OnFragmentInteractionListener,
             LoginFragment.OnFragmentInteractionListener{
 
+    public static final String FIRST_TIME = "FIRST_TIME";
+
     //keys for user sharedPref
     public static final String USER_EMAIL = "EMAIL";
     public static final String USER_FNAME = "FNAME";
@@ -33,8 +35,10 @@ public class LoginActivity extends AppCompatActivity implements RegisterFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         //get the shared pref
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
 
         //we check to see if the user is logged in by checking the shared preferences
         boolean isLoggedIn = sharedPref.getBoolean(LoginFragment.USER_LOGGED_IN, false);

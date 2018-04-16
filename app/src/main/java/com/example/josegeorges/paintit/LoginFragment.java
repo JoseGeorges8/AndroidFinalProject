@@ -13,9 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.josegeorges.paintit.POJO.Item;
 import com.example.josegeorges.paintit.POJO.User;
 import com.example.josegeorges.paintit.utils.DatabaseHandler;
 
@@ -99,7 +101,6 @@ public class LoginFragment extends Fragment {
         //Sign as a user to the app
         emailEditText = view.findViewById(R.id.input_email);
         passwordEditText = view.findViewById(R.id.input_password);
-
         //when click login, check for valid user and if found log it in
         Button logInButton = view.findViewById(R.id.btn_login);
         logInButton.setOnClickListener(new View.OnClickListener() {
@@ -182,6 +183,10 @@ public class LoginFragment extends Fragment {
                 editor.putString(LoginActivity.USER_PHONE, isUser.getPhoneNumber());
                 editor.apply();
 
+                //Populate the list of needed items in the items table right here
+
+                //Get an instance of the database handler
+
                 //open the main activity
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putExtra(USER_LOGGED_IN, isUser);
@@ -232,4 +237,5 @@ public class LoginFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

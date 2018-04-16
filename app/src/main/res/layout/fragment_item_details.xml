@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorBackground"
+    android:clickable="true"
+    tools:context="com.example.josegeorges.paintit.ItemDetailsFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary" />
+
+
+    <TextView
+        android:textSize="@dimen/title_size"
+        android:textAlignment="center"
+        android:id="@+id/item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Item Name"
+        android:layout_margin="@dimen/standard_margin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+
+
+
+
+    <TextView
+        android:textSize="@dimen/title_size"
+        android:textAlignment="center"
+        android:id="@+id/item_individual_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#00ff00"
+        android:text="Price"
+        android:layout_margin="@dimen/standard_margin"
+        app:layout_constraintLeft_toRightOf="@id/item_title"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+
+
+    <ImageView
+        android:layout_margin="@dimen/standard_margin"
+        android:id="@+id/item_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/recovery"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_title"
+        app:layout_constraintBottom_toTopOf="@id/properties_container"/>
+
+    <TextView
+        android:id="@+id/item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        app:layout_constraintTop_toBottomOf="@id/item_image"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="@dimen/standard_margin"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+
+    <LinearLayout
+        android:id="@+id/properties_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/standard_margin"
+        app:layout_constraintBottom_toTopOf="@id/buttons_container">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Size: "/>
+        <Spinner
+            android:id="@+id/item_size"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quantity: "
+            />
+        <Spinner
+            android:id="@+id/item_quantity"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Color: "
+            />
+        <Spinner
+            android:id="@+id/item_color"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:id="@+id/buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:textAllCaps="false"
+            android:background="#ff0000"
+            android:layout_weight="1"
+            />
+
+
+
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add to order"
+            android:textAllCaps="false"
+            android:background="#00ff00"
+            android:layout_weight="1"
+            />
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -4,56 +4,38 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.josegeorges.paintit.POJO.Stains;
+
+
+import com.example.josegeorges.paintit.POJO.Item;
 import com.example.josegeorges.paintit.adapters.ItemsAdapter;
 
 import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ItemListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ItemListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ItemListFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private ArrayList<Item> listReceived;
 
     private OnFragmentInteractionListener mListener;
+
+    FragmentManager fm;
 
     public ItemListFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ItemListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ItemListFragment newInstance(String param1, String param2) {
+    public static ItemListFragment newInstance(ArrayList<Item> list) {
         ItemListFragment fragment = new ItemListFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putParcelableArrayList(ARG_PARAM1, list);
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,8 +44,7 @@ public class ItemListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            listReceived = getArguments().getParcelableArrayList(ARG_PARAM1);
         }
     }
 
@@ -73,14 +54,17 @@ public class ItemListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
-        ArrayList<Stains> stainsList = new ArrayList<Stains>();
 
-        RecyclerView.Adapter adapter;
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.item_recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        /*
+        All we need to do here is basically inflate the recycler view, along with passing the adapter and the list received from the
+         new instance method
+         */
 
-        recyclerView.setAdapter(new ItemsAdapter(stainsList));
-
+        if(listReceived != null) {
+            RecyclerView recyclerView = view.findViewById(R.id.item_recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.setAdapter(new ItemsAdapter(listReceived, getContext()));
+        }
 
         //TODO Animate the Recycler View Skip For Now
 //        RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
@@ -117,16 +101,6 @@ public class ItemListFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

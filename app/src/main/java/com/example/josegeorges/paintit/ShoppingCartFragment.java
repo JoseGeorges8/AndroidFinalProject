@@ -14,54 +14,35 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.josegeorges.paintit.POJO.Color;
-import com.example.josegeorges.paintit.POJO.User;
-import com.example.josegeorges.paintit.utils.DatabaseHandler;
-
-import java.util.ArrayList;
+import com.example.josegeorges.paintit.POJO.ShoppingCartList;
+import com.example.josegeorges.paintit.adapters.ShoppingCartAdapter;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FavouriteColorsFragment.OnFragmentInteractionListener} interface
+ * {@link ShoppingCartFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FavouriteColorsFragment#newInstance} factory method to
+ * Use the {@link ShoppingCartFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FavouriteColorsFragment extends Fragment {
+public class ShoppingCartFragment extends Fragment {
 
-    //for the bundle
-    private static final String ARG_PARAM1 = "param1";
+    private RecyclerView recyclerView;
+    private Toolbar toolbar;
 
-    //user
-    private User loggedInUser;
-    ArrayList<Color> favouriteColors;
 
     private OnFragmentInteractionListener mListener;
 
-    //setting up recyclerView
-    private RecyclerView recyclerView;
-
-    //setting up toolbar
-    private Toolbar toolbar;
-
-    public FavouriteColorsFragment() {
+    public ShoppingCartFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param user logged in user.
-     * @return A new instance of fragment FavouriteColorsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FavouriteColorsFragment newInstance(User user) {
-        FavouriteColorsFragment fragment = new FavouriteColorsFragment();
+
+    public static ShoppingCartFragment newInstance(String param1, String param2) {
+        ShoppingCartFragment fragment = new ShoppingCartFragment();
         Bundle args = new Bundle();
-        args.putParcelable(ARG_PARAM1, user);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -70,7 +51,7 @@ public class FavouriteColorsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            loggedInUser = getArguments().getParcelable(ARG_PARAM1);
+
         }
     }
 
@@ -78,12 +59,7 @@ public class FavouriteColorsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_favourite_colors, container, false);
-
-        DatabaseHandler db = new DatabaseHandler(getActivity());
-        if(loggedInUser != null) {
-           favouriteColors = db.getAllFavouriteColours(loggedInUser, null);
-        }
+        View view = inflater.inflate(R.layout.fragment_shopping_cart, container, false);
 
         //setting up an action bar
         toolbar = view.findViewById(R.id.toolbar);
@@ -102,7 +78,7 @@ public class FavouriteColorsFragment extends Fragment {
         setHasOptionsMenu(true);
 
         //linking recyclerView
-        recyclerView = view.findViewById(R.id.favourite_colors_recyclerView);
+        recyclerView = view.findViewById(R.id.shoppingcart_recyclerView);
         LinearLayoutManager myLayoutManager = new LinearLayoutManager(getActivity()){
             @Override
             public boolean supportsPredictiveItemAnimations() {
@@ -112,7 +88,7 @@ public class FavouriteColorsFragment extends Fragment {
         };
         myLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(myLayoutManager);
-        recyclerView.setAdapter(new FavouriteColorsAdapter(favouriteColors));
+        recyclerView.setAdapter(new ShoppingCartAdapter(ShoppingCartList.getIntance().getList(), (MainActivity) getActivity()));
 
         return view;
     }
@@ -141,7 +117,16 @@ public class FavouriteColorsFragment extends Fragment {
         mListener = null;
     }
 
-
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

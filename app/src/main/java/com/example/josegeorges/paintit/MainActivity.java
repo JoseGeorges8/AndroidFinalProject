@@ -21,18 +21,21 @@ import android.view.View;
 
 import com.example.josegeorges.paintit.POJO.User;
 import com.example.josegeorges.paintit.adapters.SimpleFragmentPagerAdapter;
+import com.example.josegeorges.paintit.utils.DatabaseHandler;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.LibsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements StoreFragment.OnFragmentInteractionListener,
-            ProfileFragment.OnFragmentInteractionListener, FavouriteColorsFragment.OnFragmentInteractionListener{
+            ProfileFragment.OnFragmentInteractionListener, FavouriteColorsFragment.OnFragmentInteractionListener,
+            ItemListFragment.OnFragmentInteractionListener,
+            ShoppingCartFragment.OnFragmentInteractionListener{
 
     //required elements
-
-
     private Toolbar toolbar; //action bat
     private ViewPager viewPager; //for swipe
     private SimpleFragmentPagerAdapter adapter; //adapter for the viewPager
@@ -144,8 +147,22 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
+            case R.id.action_cart:
+                if(user.getEmail().equals(LoginFragment.GUEST_EMAIL)){
+                    //don't show settings to the guest user
+                    new AlertDialog.Builder(this)
+                            .setTitle("Access Denied")
+                            .setMessage("This portion of the app is accessible only for logged in users!")
+                            .show();
+                }else{
+                    //show settings if it's not the guest user
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_content, new ShoppingCartFragment())
+                            .addToBackStack(null)
+                            .commit();
+                }
+                break;
             case R.id.action_settings:
-
                 if(user.getEmail().equals(LoginFragment.GUEST_EMAIL)){
                     //don't show settings to the guest user
                     new AlertDialog.Builder(this)
@@ -160,11 +177,19 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
                             .commit();
                 }
              break;
-            //TODO: ADD About libraries for the credits
             case R.id.action_about:
+                new LibsBuilder()
+                        .withLicenseShown(true)
+                        .withActivityTitle("About Us")
+                        .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                    .start(this);
                 break;
             //log the user out
             case R.id.action_log_out:
+                DatabaseHandler db = new DatabaseHandler(this);
+                db.deleteAllItems();
+                db.deleteAllTypes();
+                db.close();
                 SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putBoolean(LoginFragment.USER_LOGGED_IN, false).apply();

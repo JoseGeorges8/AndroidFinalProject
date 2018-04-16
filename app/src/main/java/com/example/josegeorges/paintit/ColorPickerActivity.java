@@ -45,7 +45,7 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
     int greenValue; //green value of the RGB
     int blueValue; //blue value of the RGB
 
-    FloatingActionButton fab; //for launching the camera activity
+    public static FloatingActionButton fab; //for launching the camera activity
     FrameLayout layout; //holds the color value that the user wants
 
     EditText colorName; //name of the color to save
