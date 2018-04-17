@@ -20,7 +20,6 @@
     </string-array>
 
 
-
     <!-- About Libraries strings -->
     <string name="aboutLibraries_description_showIcon">true</string>
     <string name="aboutLibraries_description_showVersion">true</string>
