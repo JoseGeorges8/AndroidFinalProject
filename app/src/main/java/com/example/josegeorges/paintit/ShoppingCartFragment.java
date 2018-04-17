@@ -107,6 +107,17 @@ public class ShoppingCartFragment extends Fragment {
         //set the total of the cart here
         totalTextView.setText("$" + String.valueOf(ShoppingCartList.getIntance().getTotalCost()));
 
+
+        //go back on the stack of fragments
+        conntinueShoppingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().popBackStack();
+                getActivity().getSupportFragmentManager().popBackStack();
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
         return view;
     }
 

@@ -273,5 +273,4 @@ public class ItemDetailsFragment extends Fragment{
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-
 }

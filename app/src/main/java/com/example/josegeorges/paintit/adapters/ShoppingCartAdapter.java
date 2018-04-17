@@ -2,6 +2,8 @@ package com.example.josegeorges.paintit.adapters;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import com.example.josegeorges.paintit.POJO.Item;
 import com.example.josegeorges.paintit.POJO.ShoppingCartList;
 import com.example.josegeorges.paintit.ProfileFragment;
 import com.example.josegeorges.paintit.R;
+import com.example.josegeorges.paintit.ShoppingCartFragment;
 import com.example.josegeorges.paintit.utils.DatabaseHandler;
 import com.squareup.picasso.Picasso;
 
@@ -81,6 +84,15 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                                 shoppingCartList.getList().remove(item);
                                 //notify recycler view
                                 notifyItemRemoved(item);
+
+                                //This block of code makes sure that the change in the textview total is displayed in the shopping cart
+                                Fragment currentFragment = activity.getSupportFragmentManager().findFragmentById(R.id.main_content);
+                                if (currentFragment instanceof ShoppingCartFragment){
+                                    FragmentTransaction fragTransaction = activity.getSupportFragmentManager().beginTransaction();
+                                    fragTransaction.detach(currentFragment);
+                                    fragTransaction.attach(currentFragment);
+                                    fragTransaction.commit();
+                                }
                             }
                         })
                         .setNegativeButton("No", null)
