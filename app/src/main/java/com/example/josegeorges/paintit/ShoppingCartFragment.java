@@ -13,6 +13,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.josegeorges.paintit.POJO.ShoppingCartList;
 import com.example.josegeorges.paintit.adapters.ShoppingCartAdapter;
@@ -30,6 +33,21 @@ public class ShoppingCartFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private Toolbar toolbar;
+
+    // Item name
+    TextView itemName;
+
+    // Item description
+    TextView itemDescription;
+
+    // Item price
+    TextView itemPrice;
+
+    // Item image
+    ImageView itemImage;
+
+    // Button to delete an item from the shopping cart
+    ImageButton deleteItem;
 
 
     private OnFragmentInteractionListener mListener;
@@ -60,6 +78,13 @@ public class ShoppingCartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shopping_cart, container, false);
+
+        // Link up the Views
+        itemImage = view.findViewById(R.id.cart_image);
+        itemName = view.findViewById(R.id.cart_item);
+        itemDescription = view.findViewById(R.id.cart_item_description);
+        itemPrice = view.findViewById(R.id.cart_item_price);
+        deleteItem = view.findViewById(R.id.remove_from_cart);
 
         //setting up an action bar
         toolbar = view.findViewById(R.id.toolbar);
