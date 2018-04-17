@@ -3,9 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
+    android:orientation="vertical"
     android:background="@color/colorBackground"
     tools:context="com.example.josegeorges.paintit.CheckoutFragment">
 
+
+
+    <Button
+        android:id="@+id/set_time_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Time"/>
+
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hh-mm"/>
 
     <Button
         android:id="@+id/set_date_button"
@@ -13,12 +28,11 @@
         android:layout_height="wrap_content"
         android:text="Set Date"/>
 
-    <Button
-    android:id="@+id/set_time_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Set Date"/>
 
-
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="yyyy-mm-dd"/>
 
 </LinearLayout>

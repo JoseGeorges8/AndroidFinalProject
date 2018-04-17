@@ -8,18 +8,27 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
 
 
 public class CheckoutFragment extends Fragment {
+
+    //hours chosen by the user
+     public static int year = 0;
+     public static int month = 0;
+     public static int day = 0;
+     public static int hour = 0;
+     public static int minute = 0;
 
 
     public CheckoutFragment() {
@@ -41,6 +50,18 @@ public class CheckoutFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_checkout, container, false);
 
+        Button buttonTime = view.findViewById(R.id.set_time_button);
+        buttonTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment newFragment = new TimePickerFragment();
+                newFragment.show(getActivity().getSupportFragmentManager(), "timePicker");
+            }
+        });
+
+        TextView time = view.findViewById(R.id.time);
+        time.setText(hour + " - " + minute);
+
         Button buttonDate = view.findViewById(R.id.set_date_button);
         buttonDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,14 +71,8 @@ public class CheckoutFragment extends Fragment {
             }
         });
 
-        Button buttonTime = view.findViewById(R.id.set_time_button);
-        buttonTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment newFragment = new TimePickerFragment();
-                newFragment.show(getActivity().getSupportFragmentManager(), "timePicker");
-            }
-        });
+        TextView date = view.findViewById(R.id.date);
+        date.setText(year + " - " + month + " - " + day);
 
         return view;
     }
@@ -94,6 +109,17 @@ public class CheckoutFragment extends Fragment {
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             // Do something with the time chosen by the user
+            CheckoutFragment.hour = hourOfDay;
+            CheckoutFragment.minute = minute;
+            //This block of code makes sure that the change in the textview total is displayed in the shopping cart
+            Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.main_content);
+            if (currentFragment instanceof CheckoutFragment){
+                FragmentTransaction fragTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragTransaction.detach(currentFragment);
+                fragTransaction.attach(currentFragment);
+                fragTransaction.commit();
+            }
+
         }
     }
 
@@ -103,6 +129,7 @@ public class CheckoutFragment extends Fragment {
      */
     public static class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
+
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -118,7 +145,22 @@ public class CheckoutFragment extends Fragment {
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen by the user
+            CheckoutFragment.year = year;
+            CheckoutFragment.month = month;
+            CheckoutFragment.day = day;
+            //This block of code makes sure that the change in the textview total is displayed in the shopping cart
+            Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.main_content);
+            if (currentFragment instanceof CheckoutFragment){
+                FragmentTransaction fragTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragTransaction.detach(currentFragment);
+                fragTransaction.attach(currentFragment);
+                fragTransaction.commit();
+            }
         }
+
+
+
+
     }
 
 }
