@@ -13,8 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.josegeorges.paintit.POJO.ShoppingCartList;
@@ -33,26 +32,13 @@ public class ShoppingCartFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private Toolbar toolbar;
-
-
-
-    // Item name
-    TextView itemName;
-
-    // Item description
-    TextView itemDescription;
-
-    // Item price
-    TextView itemPrice;
-
-    // Item image
-    ImageView itemImage;
-
-    // Button to delete an item from the shopping cart
-    ImageButton deleteItem;
+    private TextView totalTextView;
+    private Button conntinueShoppingButton;
+    private Button checkoutButton;
 
 
     private OnFragmentInteractionListener mListener;
+
 
     public ShoppingCartFragment() {
         // Required empty public constructor
@@ -80,19 +66,6 @@ public class ShoppingCartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shopping_cart, container, false);
-
-        // Link up the Views
-        itemImage = view.findViewById(R.id.cart_image);
-        itemName = view.findViewById(R.id.cart_item);
-        itemDescription = view.findViewById(R.id.cart_item_description);
-        itemPrice = view.findViewById(R.id.cart_item_price);
-        deleteItem = view.findViewById(R.id.remove_from_cart);
-
-//        deleteItem.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//            }
-//        });
 
         //setting up an action bar
         toolbar = view.findViewById(R.id.toolbar);
@@ -126,7 +99,13 @@ public class ShoppingCartFragment extends Fragment {
         // This is used to set the height of the recycler view so the items don't overflow
         recyclerView.getLayoutParams().height = 1200;
 
+        //linking the bottom items
+        totalTextView = view.findViewById(R.id.textView);
+        conntinueShoppingButton = view.findViewById(R.id.continueShopping_button);
+        checkoutButton = view.findViewById(R.id.checkout_button);
 
+        //set the total of the cart here
+        totalTextView.setText("$" + String.valueOf(ShoppingCartList.getIntance().getTotalCost()));
 
         return view;
     }

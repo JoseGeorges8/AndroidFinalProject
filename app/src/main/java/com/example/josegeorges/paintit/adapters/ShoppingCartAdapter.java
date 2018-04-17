@@ -59,6 +59,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         holder.itemPrice.setText("$" + String.valueOf(list.get(position).getPrice()));
         holder.itemDescription.setText(list.get(position).getDescription() + " (" + list.get(position).getSize() + " Gallons)");
 
+        //delete item from the shopping cart
         holder.itemDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,14 +71,16 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //get the selected item
-                                int color = holder.getAdapterPosition();
+                                int item = holder.getAdapterPosition();
 
                                 //get the shopping cart
                                 ShoppingCartList shoppingCartList = ShoppingCartList.getIntance();
+                                //remove the cost from the total
+                                shoppingCartList.removeCost(shoppingCartList.getList().get(item).getPrice());
                                 //delete from the shopping cart list
-                                shoppingCartList.getList().remove(color);
+                                shoppingCartList.getList().remove(item);
                                 //notify recycler view
-                                notifyItemRemoved(color);
+                                notifyItemRemoved(item);
                             }
                         })
                         .setNegativeButton("No", null)

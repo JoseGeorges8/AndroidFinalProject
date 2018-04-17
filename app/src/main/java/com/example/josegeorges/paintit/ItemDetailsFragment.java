@@ -8,8 +8,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -37,6 +41,10 @@ public class ItemDetailsFragment extends Fragment{
 
     //Main Layout
     CoordinatorLayout myCoordinatorLayout;
+
+    //setting up toolbar
+    private Toolbar toolbar;
+
 
     //item being passed
     public static final String ITEM_PASSED = "item_passed";
@@ -98,6 +106,23 @@ public class ItemDetailsFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_item_details, container, false);
+
+        //setting up an action bar
+        toolbar = view.findViewById(R.id.toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        toolbar.setTitle(R.string.app_name);
+        toolbar.setNavigationIcon(R.drawable.ic_chevron_left_black_24dp);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorAccent));
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+        setHasOptionsMenu(true);
+
 
         //Link The Views
         myCoordinatorLayout = getActivity().findViewById(R.id.myCoordinatorLayout);
@@ -198,6 +223,7 @@ public class ItemDetailsFragment extends Fragment{
                     Item tempItem = new Item(item.getItemID(), item.getUpc(), Double.parseDouble(sizePrice) * quantity, item.getImageView(),  item.getItemTypeId(), Integer.parseInt(size), item.getDescription() );
                     if(shoppingCartList != null) {
                         shoppingCartList.getList().add(tempItem);
+                        shoppingCartList.addCost(tempItem.getPrice());
                         Snackbar mySnackbar = Snackbar.make(myCoordinatorLayout,
                                 R.string.item_added_cart, Snackbar.LENGTH_SHORT);
                         mySnackbar.setAction(R.string.checkout_string, new MyCheckoutListener());
@@ -235,10 +261,17 @@ public class ItemDetailsFragment extends Fragment{
         @Override
         public void onClick(View v) {
             getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.main_content, new ShoppingCartFragment()).commit();
+                    .replace(R.id.main_content, new ShoppingCartFragment()).addToBackStack(null).commit();
         }
     }
 
+    //this method takes care of changing the toolbar style
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.toolbar_noicons, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
 
 }
