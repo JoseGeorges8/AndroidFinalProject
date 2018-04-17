@@ -34,6 +34,8 @@ public class ShoppingCartFragment extends Fragment {
     private RecyclerView recyclerView;
     private Toolbar toolbar;
 
+
+
     // Item name
     TextView itemName;
 
@@ -86,6 +88,12 @@ public class ShoppingCartFragment extends Fragment {
         itemPrice = view.findViewById(R.id.cart_item_price);
         deleteItem = view.findViewById(R.id.remove_from_cart);
 
+//        deleteItem.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//            }
+//        });
+
         //setting up an action bar
         toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
@@ -114,6 +122,11 @@ public class ShoppingCartFragment extends Fragment {
         myLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(myLayoutManager);
         recyclerView.setAdapter(new ShoppingCartAdapter(ShoppingCartList.getIntance().getList(), (MainActivity) getActivity()));
+
+        // This is used to set the height of the recycler view so the items don't overflow
+        recyclerView.getLayoutParams().height = 1200;
+
+
 
         return view;
     }
