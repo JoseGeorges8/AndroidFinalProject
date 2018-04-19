@@ -52,7 +52,7 @@ public class CheckoutFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_checkout, container, false);
 
-        Button buttonTime = view.findViewById(R.id.set_time_button);
+        TextView buttonTime = view.findViewById(R.id.set_time);
         buttonTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,10 +61,9 @@ public class CheckoutFragment extends Fragment {
             }
         });
 
-        TextView time = view.findViewById(R.id.time);
-        time.setText(hour + " - " + minute);
+        buttonTime.setText(hour + " - " + minute);
 
-        Button buttonDate = view.findViewById(R.id.set_date_button);
+        TextView buttonDate = view.findViewById(R.id.set_date);
         buttonDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,11 +72,20 @@ public class CheckoutFragment extends Fragment {
             }
         });
 
-        TextView total = view.findViewById(R.id.total);
-        total.setText(String.valueOf(ShoppingCartList.getIntance().getTotalCost()));
+        buttonDate.setText(year + " - " + month + " - " + day);
 
-        TextView date = view.findViewById(R.id.date);
-        date.setText(year + " - " + month + " - " + day);
+
+        // grab the total from the shopping cart and store it in subtotal in the checkout
+        TextView subTotal = view.findViewById(R.id.subTotal);
+        subTotal.setText(String.valueOf(ShoppingCartList.getIntance().getTotalCost()));
+
+        TextView total = view.findViewById(R.id.total);
+        total.setText("$" + (Double.parseDouble(subTotal.getText().toString()) * 1.13));
+
+
+
+
+
 
         return view;
     }
