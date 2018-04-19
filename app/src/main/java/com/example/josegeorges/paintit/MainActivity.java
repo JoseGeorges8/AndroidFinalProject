@@ -178,11 +178,17 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
                 }
              break;
             case R.id.action_about:
+                //show the about us page
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_content, new AboutUsFragment())
+                        .addToBackStack(null)
+                        .commit();
+            case R.id.action_credits:
                 new LibsBuilder()
                         .withLicenseShown(true)
-                        .withActivityTitle("About Us")
+                        .withActivityTitle("Credits")
                         .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
-                    .start(this);
+                        .start(this);
                 break;
             //log the user out
             case R.id.action_log_out:

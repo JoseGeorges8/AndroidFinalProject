@@ -16,6 +16,11 @@
         android:title="About us"
         app:showAsAction="collapseActionView"/>
 
+
+    <item android:id="@+id/action_credits"
+        android:title="Credits"
+        app:showAsAction="collapseActionView"/>
+
     <item android:id="@+id/action_log_out"
         android:title="Log out"
         app:showAsAction="collapseActionView"/>
