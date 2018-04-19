@@ -59,6 +59,18 @@ public class AboutUsFragment extends Fragment {
             }
         });
 
+        LinearLayout likeUs = view.findViewById(R.id.social_media_container);
+        likeUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://www.facebook.com/Trivel-341889966290364/"));
+                if(intent.resolveActivity(getActivity().getPackageManager()) != null){
+                    getActivity().startActivity(intent);
+                }
+            }
+        });
+
         return view;
     }
 
