@@ -118,19 +118,22 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
      * @param view
      */
     public void addColor(View view){
-        String name = colorName.getText().toString();
-        int value = definitiveChosenColor;
-        String currentTime = Calendar.getInstance().getTime().toString();
-        Log.d("ADDCOLOR", "Color details: " + name + " " + value + " " + currentTime.toString());
-        com.example.josegeorges.paintit.POJO.Color color = new com.example.josegeorges.paintit.POJO.Color(value, name, currentTime, user.getUserID());
-        DatabaseHandler db = new DatabaseHandler(this);
-        boolean  result = db.addColor(color);
+        String name = colorName.getText().toString().trim();
+        if (name.isEmpty()){
+            colorName.setError("Missing name for color");
+        }else {
+            int value = definitiveChosenColor;
+            String currentTime = Calendar.getInstance().getTime().toString();
+            Log.d("ADDCOLOR", "Color details: " + name + " " + value + " " + currentTime.toString());
+            com.example.josegeorges.paintit.POJO.Color color = new com.example.josegeorges.paintit.POJO.Color(value, name, currentTime, user.getUserID());
+            DatabaseHandler db = new DatabaseHandler(this);
+            boolean result = db.addColor(color);
             if (result) {
                 Log.d("COLORPICKER", "Color successfully added on the db");
                 boolean checkFavColorTable = db.isFavouriteColorOnDatabase(user.getUserID(), color.getHexValue());
-                if(checkFavColorTable){
+                if (checkFavColorTable) {
                     Log.d("COLORPICKER", "Color is already is favourites table");
-                }else {
+                } else {
                     boolean secondResult = db.addFavoriteColor(color, color.getUserId());
                     if (secondResult) {
                         Log.d("COLORPICKER", "Color successfully added on the favourites table for user " + user.getEmail());
@@ -141,7 +144,7 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
                 Log.d("COLORPICKER", "Something went wrong when adding the color");
                 onBackPressed();
             }
-
+        }
     }
 
     /**
