@@ -32,20 +32,39 @@
         app:layout_constraintBottom_toTopOf="@id/button_frame"
         app:layout_constraintVertical_chainStyle="spread"/>
 
+    <TextView
+        android:id="@+id/color_aproximate_name"
+        android:layout_width="match_parent"
+        android:textSize="@dimen/title_size"
+        android:layout_height="wrap_content"
+        android:text="Approximate Color"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/frame_layout"
+        />
 
-    <EditText
-        android:id="@+id/color_picker_color_name_edit_text"
+
+
+    <FrameLayout
+        android:id="@+id/edit_text_container"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:hint="Color Name"
-        android:maxLines="1"
-        android:layout_margin="@dimen/standard_margin"
-        android:textColor="@color/colorAccent"
-        android:textColorHint="@color/colorAccentDark"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/button_frame"
         app:layout_constraintTop_toBottomOf="@id/viewPager"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/button_frame">
+        <EditText
+            android:id="@+id/color_picker_color_name_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Color Name"
+            android:layout_gravity="center"
+            android:maxLines="1"
+            android:layout_margin="@dimen/standard_margin"
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccentDark" />
+
+    </FrameLayout>
+
 
     <FrameLayout
         android:id="@+id/viewPager"
@@ -53,7 +72,7 @@
         android:layout_height="0dp"
         app:layout_constraintRight_toLeftOf="@id/frame_layout"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintBottom_toTopOf="@id/color_picker_color_name_edit_text"
+        app:layout_constraintBottom_toTopOf="@id/edit_text_container"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintVertical_chainStyle="spread">
@@ -66,7 +85,7 @@
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/frame_layout"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/color_picker_color_name_edit_text"
+        app:layout_constraintLeft_toRightOf="@id/edit_text_container"
         app:layout_constraintRight_toRightOf="parent">
         <Button
             android:id="@+id/color_picker_confirm_button"

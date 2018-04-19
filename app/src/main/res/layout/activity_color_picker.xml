@@ -33,6 +33,15 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_chainStyle="spread" />
 
+    <TextView
+        android:id="@+id/color_aproximate_name"
+        android:layout_width="match_parent"
+        android:textSize="@dimen/title_size"
+        android:layout_height="wrap_content"
+        android:text="Approximate Color"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/frame_layout"
+        />
 
     <EditText
         android:id="@+id/color_picker_color_name_edit_text"
@@ -45,7 +54,7 @@
         android:textColor="@color/colorAccent"
         android:textColorHint="@color/colorAccentDark"
         app:layout_constraintStart_toEndOf="@+id/viewPager"
-        app:layout_constraintTop_toBottomOf="@id/frame_layout" />
+        app:layout_constraintTop_toBottomOf="@id/color_aproximate_name" />
 
     <FrameLayout
         android:id="@+id/viewPager"

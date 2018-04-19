@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.example.josegeorges.paintit.POJO.User;
 import com.example.josegeorges.paintit.utils.DatabaseHandler;
@@ -31,6 +32,7 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
 
     //properties needed
 
+    public float[] hsv;
 
     public static final int REQUEST_CAMERA_CODE = 2323; //this code is for when granting camera permissions
 
@@ -49,6 +51,7 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
     FrameLayout layout; //holds the color value that the user wants
 
     EditText colorName; //name of the color to save
+    TextView aproxColorName; //this is a default name for people who can't see the name properly
     Button confirmButton; //button to confirm and save the color to the database
 
     User user; //user
@@ -90,6 +93,9 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
 
         //set up the EditText to get the name
         colorName = findViewById(R.id.color_picker_color_name_edit_text);
+
+        //set up the TextView to put the aprox name
+        aproxColorName = findViewById(R.id.color_aproximate_name);
 
         //set up the confirmation button
         confirmButton = findViewById(R.id.color_picker_confirm_button);
@@ -171,6 +177,7 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
             blueValue = value;
 
         definitiveChosenColor = Color.rgb( redValue, greenValue, blueValue);
+        Color.colorToHSV(definitiveChosenColor, hsv);
         layout.setBackgroundColor(definitiveChosenColor);
         layout.refreshDrawableState();
     }
