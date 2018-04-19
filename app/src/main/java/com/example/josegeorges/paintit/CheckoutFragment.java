@@ -18,6 +18,8 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.josegeorges.paintit.POJO.ShoppingCartList;
+
 import java.util.Calendar;
 
 
@@ -70,6 +72,9 @@ public class CheckoutFragment extends Fragment {
                 newFragment.show(getActivity().getSupportFragmentManager(), "datePicker");
             }
         });
+
+        TextView total = view.findViewById(R.id.total);
+        total.setText(String.valueOf(ShoppingCartList.getIntance().getTotalCost()));
 
         TextView date = view.findViewById(R.id.date);
         date.setText(year + " - " + month + " - " + day);
