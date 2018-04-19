@@ -207,8 +207,19 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
         Color.colorToHSV(color, hsv);
         Log.d("HSV", hsv[0] + ", " + hsv[1] + ", " + hsv[2]);
         float hue = hsv[0];
+        float sat = hsv[1];
+        float val = hsv[2];
 
-        //blue
+
+        //Black
+        if(hue == 0 && sat == 0 && val == 0)
+            return "Black";
+
+        //White
+        if(hue == 0 && sat == 0 && val == 1)
+            return "White";
+
+        //Blue
         if(hue >= 180 && hue < 250)
             return "Blue";
 
@@ -220,13 +231,25 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
         if(hue >= 340 || hue < 10)
             return "Red";
 
+        //Either Red or orange
+        if(hue >= 10 && hue < 20)
+            return "Red/Orange";
+
         //Orange
-        if(hue >= 10 && hue < 40)
+        if(hue >= 20 && hue < 40)
             return "Orange";
 
+        //Either Orange or Yellow
+        if(hue >= 40 && hue < 50)
+            return "Orange/Yellow";
+
         //Yellow
-        if(hue >= 40 && hue < 70)
+        if(hue >= 50 && hue <= 60)
             return "Yellow";
+
+        //Either Yellow or Green
+        if(hue > 60 && hue < 70)
+            return "Green/Yellow";
 
         //Green
         if(hue >= 70 && hue < 150)
