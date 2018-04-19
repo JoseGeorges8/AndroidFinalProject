@@ -177,12 +177,13 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
                             .commit();
                 }
              break;
-            case R.id.action_about:
+            case R.id.action_aboutt:
                 //show the about us page
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.main_content, new AboutUsFragment())
                         .addToBackStack(null)
                         .commit();
+                break;
             case R.id.action_credits:
                 new LibsBuilder()
                         .withLicenseShown(true)

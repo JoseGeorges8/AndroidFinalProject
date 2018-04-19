@@ -12,7 +12,7 @@
         android:title="Settings"
         app:showAsAction="collapseActionView"/>
 
-    <item android:id="@+id/action_about"
+    <item android:id="@+id/action_aboutt"
         android:title="About us"
         app:showAsAction="collapseActionView"/>
 
