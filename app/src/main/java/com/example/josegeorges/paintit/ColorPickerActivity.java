@@ -32,7 +32,6 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
 
     //properties needed
 
-    public float[] hsv;
 
     public static final int REQUEST_CAMERA_CODE = 2323; //this code is for when granting camera permissions
 
@@ -156,6 +155,7 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
                 if (resultCode == Activity.RESULT_OK && data!=null) {
                     colorPickedByCameraValue = data.getIntExtra(CameraActivity.SELECTED_COLOR, 0);
                     definitiveChosenColor = colorPickedByCameraValue;
+                    aproxColorName.setText(colorName(definitiveChosenColor));
                     layout.setBackgroundColor(definitiveChosenColor);
                     layout.refreshDrawableState();
                 }
@@ -177,7 +177,7 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
             blueValue = value;
 
         definitiveChosenColor = Color.rgb( redValue, greenValue, blueValue);
-        Color.colorToHSV(definitiveChosenColor, hsv);
+        aproxColorName.setText(colorName(definitiveChosenColor));
         layout.setBackgroundColor(definitiveChosenColor);
         layout.refreshDrawableState();
     }
@@ -200,6 +200,43 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         askForCameraPermission();
+    }
+
+    public static String colorName(int color){
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        Log.d("HSV", hsv[0] + ", " + hsv[1] + ", " + hsv[2]);
+        float hue = hsv[0];
+
+        //blue
+        if(hue >= 180 && hue < 250)
+            return "Blue";
+
+        //Magenta
+        if(hue >= 250 && hue < 340)
+            return "Magenta";
+
+        //Red
+        if(hue >= 340 || hue < 10)
+            return "Red";
+
+        //Orange
+        if(hue >= 10 && hue < 40)
+            return "Orange";
+
+        //Yellow
+        if(hue >= 40 && hue < 70)
+            return "Yellow";
+
+        //Green
+        if(hue >= 70 && hue < 150)
+            return "Green";
+
+        //Either Blue or Green
+        if(hue >= 150 && hue < 180)
+            return "Blue/Green";
+
+        return "Color not found";
     }
 
 }
