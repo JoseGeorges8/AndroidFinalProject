@@ -4,8 +4,10 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,10 +19,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.josegeorges.paintit.POJO.ShoppingCartList;
 
 import java.util.Calendar;
+import java.util.Random;
 
 
 public class CheckoutFragment extends Fragment {
@@ -80,11 +84,51 @@ public class CheckoutFragment extends Fragment {
         subTotal.setText(String.valueOf(ShoppingCartList.getIntance().getTotalCost()));
 
         TextView total = view.findViewById(R.id.total);
-        total.setText("$" + (Double.parseDouble(subTotal.getText().toString()) * 1.13));
+        total.setText("$" + Math.ceil((Double.parseDouble(subTotal.getText().toString()) * 1.13 )));
 
+        // Grab from the shared preferences
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext());
 
+        // Grab the user information from shared preferences
+        String email = sharedPref.getString(LoginActivity.USER_EMAIL, "");
+        String fname = sharedPref.getString(LoginActivity.USER_FNAME, "");
+        String lname = sharedPref.getString(LoginActivity.USER_LNAME, "");
+        String phone = sharedPref.getString(LoginActivity.USER_PHONE, "");
+        String fullName = fname + " " + lname;
 
+        TextView displayName = view.findViewById(R.id.name);
+        displayName.setText(fullName);
 
+        TextView displayEmail = view.findViewById(R.id.email);
+        displayEmail.setText(email);
+
+        TextView displayPhoneNumber = view.findViewById(R.id.phoneNumber);
+        displayPhoneNumber.setText(phone);
+
+        Button backToCartButton = view.findViewById(R.id.backToCart_button);
+        backToCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
+        Button confirmOrderButton = view.findViewById(R.id.confirmOrder_button);
+        confirmOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_content,
+                      new ShoppingCartFragment()).addToBackStack(null).commit();
+
+                Toast.makeText(getActivity(), "Your order has been placed", Toast.LENGTH_LONG)
+                        .show();
+
+            }
+        });
+
+        // Generate a random 10 digit number and cast it to a string
+        long orderNumber = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
+        String orderNumberAsString = Long.toString(orderNumber);
 
 
         return view;
@@ -170,8 +214,6 @@ public class CheckoutFragment extends Fragment {
                 fragTransaction.commit();
             }
         }
-
-
 
 
     }
