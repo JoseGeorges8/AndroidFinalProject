@@ -1,5 +1,6 @@
 package com.example.josegeorges.paintit;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -21,9 +22,14 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.josegeorges.paintit.POJO.Item;
+import com.example.josegeorges.paintit.POJO.Order;
 import com.example.josegeorges.paintit.POJO.ShoppingCartList;
+import com.example.josegeorges.paintit.utils.DatabaseHandler;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 
@@ -51,7 +57,7 @@ public class CheckoutFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_checkout, container, false);
@@ -65,9 +71,9 @@ public class CheckoutFragment extends Fragment {
             }
         });
 
-        buttonTime.setText(hour + " - " + minute);
+        buttonTime.setText(hour + ":" + minute);
 
-        TextView buttonDate = view.findViewById(R.id.set_date);
+        final TextView buttonDate = view.findViewById(R.id.set_date);
         buttonDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,7 +82,7 @@ public class CheckoutFragment extends Fragment {
             }
         });
 
-        buttonDate.setText(year + " - " + month + " - " + day);
+        buttonDate.setText(year + "/" + month + "/" + day);
 
 
         // grab the total from the shopping cart and store it in subtotal in the checkout
@@ -90,6 +96,7 @@ public class CheckoutFragment extends Fragment {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext());
 
         // Grab the user information from shared preferences
+        final int user_id = sharedPref.getInt(LoginActivity.USER_ID, 0);
         String email = sharedPref.getString(LoginActivity.USER_EMAIL, "");
         String fname = sharedPref.getString(LoginActivity.USER_FNAME, "");
         String lname = sharedPref.getString(LoginActivity.USER_LNAME, "");
@@ -117,18 +124,61 @@ public class CheckoutFragment extends Fragment {
         confirmOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_content,
-                      new ShoppingCartFragment()).addToBackStack(null).commit();
 
-                Toast.makeText(getActivity(), "Your order has been placed", Toast.LENGTH_LONG)
-                        .show();
+                //we get today's date
+                Date c = Calendar.getInstance().getTime();
+                String currentDate = (c.getYear() + 1900) + "/" + (c.getMonth() +1) + "/" + c.getDate();
 
+                //we first check for a valid date
+                if(year <= c.getYear() + 1900){
+                    if(month <= c.getMonth() +1){
+                        if(day <= c.getDate()){
+                            new AlertDialog.Builder(getActivity())
+                                    .setTitle("Invalid Date")
+                                    .setMessage("Please choose a date after today")
+                                    .show();
+                            return;
+                        }
+                    }
+                }
+
+                // Generate a random 10 digit number and cast it to a string for the order number
+                long orderNumber = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
+                String orderNumberAsString = Long.toString(orderNumber);
+
+                //create the order and add it to the orders table
+                Order newOrder = new Order(orderNumberAsString, currentDate, buttonDate.getText().toString(), user_id);
+                DatabaseHandler db = new DatabaseHandler(getActivity());
+                boolean result = db.addOrder(newOrder);
+                if(result){
+                    //add the items and the order to the orders/items table and clear the shopping cart
+                    for (Item item : ShoppingCartList.getIntance().getList()){
+                        result = db.addOrderItemId(newOrder.getOrderID(), item.getItemID());
+                        if(result){
+                            System.out.print("added to the table");
+                        }else{
+                            Toast.makeText(getActivity(), "Something went wrong with the order/items table", Toast.LENGTH_LONG)
+                                    .show();
+                            db.close();
+                            return;
+                        }
+                    }
+                    Toast.makeText(getActivity(), "Your order has been placed", Toast.LENGTH_LONG)
+                            .show();
+                }else{
+                    Toast.makeText(getActivity(), "Something went wrong with the order", Toast.LENGTH_LONG)
+                            .show();
+                    db.close();
+                    return;
+                }
+
+                db.close();
+//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_content,
+//                      new ProfileFragment()).addToBackStack(null).commit();
             }
         });
 
-        // Generate a random 10 digit number and cast it to a string
-        long orderNumber = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
-        String orderNumberAsString = Long.toString(orderNumber);
+
 
 
         return view;
@@ -203,7 +253,7 @@ public class CheckoutFragment extends Fragment {
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen by the user
             CheckoutFragment.year = year;
-            CheckoutFragment.month = month;
+            CheckoutFragment.month = month + 1;
             CheckoutFragment.day = day;
             //This block of code makes sure that the change in the textview total is displayed in the shopping cart
             Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.main_content);
