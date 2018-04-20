@@ -20,9 +20,9 @@
     </string-array>
 
 
-
     <!-- About Libraries strings -->
     <string name="aboutLibraries_description_showIcon">true</string>
     <string name="aboutLibraries_description_showVersion">true</string>
     <string name="aboutLibraries_description_text">Place your description here :D</string>
+    <string name="about_us_description">We are a proud painting store ready for your paint troubles! we are located in Windsor, ON and carry all the different items you need to get those new layers ready. Through our app you will be able to pick the colours for your paints and order them to pick them up in store!</string>
 </resources>

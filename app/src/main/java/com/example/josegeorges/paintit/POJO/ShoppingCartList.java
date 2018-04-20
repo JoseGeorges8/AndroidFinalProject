@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class ShoppingCartList {
 
     private static ShoppingCartList intance = null;
+    private double totalCost = 0;
 
     ArrayList<Item> list = new ArrayList<>();
 
@@ -29,7 +30,24 @@ public class ShoppingCartList {
         list.clear();
     }
 
+
+    public void addCost(double itemCost){
+        totalCost += itemCost;
+    }
+
+    public void removeCost(double itemCost){
+        totalCost -= itemCost;
+    }
+
     //getters and setters
+    public double getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
+    }
+
     public ArrayList<Item> getList() {
         return list;
     }

@@ -8,16 +8,34 @@ public class Order {
     private int orderID;
     private String orderNumber;
     private String dateOrdered;
+    private String pickUpDate;
     private int userID;
 
     public Order() {
     }
 
-    public Order(int orderID, String orderNumber, String dateOrdered, int userID) {
+    public Order(int orderID, String orderNumber, String dateOrdered, String pickUpDate, int userID) {
         this.orderID = orderID;
         this.orderNumber = orderNumber;
         this.dateOrdered = dateOrdered;
+        this.pickUpDate = pickUpDate;
         this.userID = userID;
+    }
+
+    public Order(String orderNumber, String dateOrdered, String pickUpDate, int userID) {
+        this.orderNumber = orderNumber;
+        this.dateOrdered = dateOrdered;
+        this.pickUpDate = pickUpDate;
+        this.userID = userID;
+    }
+
+
+    public String getPickUpDate() {
+        return pickUpDate;
+    }
+
+    public void setPickUpDate(String pickUpDate) {
+        this.pickUpDate = pickUpDate;
     }
 
     public int getOrderID() {

@@ -1,5 +1,6 @@
 package com.example.josegeorges.paintit;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.josegeorges.paintit.POJO.ShoppingCartList;
 import com.example.josegeorges.paintit.adapters.ShoppingCartAdapter;
@@ -30,9 +33,13 @@ public class ShoppingCartFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private Toolbar toolbar;
+    private TextView totalTextView;
+    private Button conntinueShoppingButton;
+    private Button checkoutButton;
 
 
     private OnFragmentInteractionListener mListener;
+
 
     public ShoppingCartFragment() {
         // Required empty public constructor
@@ -89,6 +96,46 @@ public class ShoppingCartFragment extends Fragment {
         myLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(myLayoutManager);
         recyclerView.setAdapter(new ShoppingCartAdapter(ShoppingCartList.getIntance().getList(), (MainActivity) getActivity()));
+
+        // This is used to set the height of the recycler view so the items don't overflow
+        recyclerView.getLayoutParams().height = 1200;
+
+        //linking the bottom items
+        totalTextView = view.findViewById(R.id.textView);
+        conntinueShoppingButton = view.findViewById(R.id.continueShopping_button);
+        checkoutButton = view.findViewById(R.id.checkout_button);
+
+        //set the total of the cart here
+        totalTextView.setText("$" + String.valueOf(ShoppingCartList.getIntance().getTotalCost()));
+
+
+        //go back on the stack of fragments
+        conntinueShoppingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().popBackStack();
+                getActivity().getSupportFragmentManager().popBackStack();
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
+        checkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(ShoppingCartList.getIntance().getList().isEmpty()){
+                    //don't show settings to the guest user
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Empty Cart")
+                            .setMessage("You must have items in the cart in order to checkout!")
+                            .show();
+                }else {
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_content, new CheckoutFragment())
+                            .addToBackStack(null)
+                            .commit();
+                }
+            }
+        });
 
         return view;
     }

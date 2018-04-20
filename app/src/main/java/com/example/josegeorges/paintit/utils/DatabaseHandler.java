@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Database version
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 7;
 
     // name the database
     public static final String DATABASE_NAME = "paintit";
@@ -61,6 +61,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_ORDERID = "order_id";
     public static final String COLUMN_ORDERNUMBER = "order_number";
     public static final String COLUMN_DATEORDERED = "date_ordered";
+    public static final String COLUMN_PICKUPDATE = "pick_up_date";
     // Uses USERID
 
     // Items Table
@@ -125,7 +126,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Orders Table
     public static final String CREATE_ORDERS_TABLE = "CREATE TABLE " +
             TABLE_ORDERS + "(" + COLUMN_ORDERID + " INTEGER PRIMARY KEY," +
-            COLUMN_ORDERNUMBER + " TEXT," + COLUMN_DATEORDERED + " TIMESTAMP,"
+            COLUMN_ORDERNUMBER + " LONG," + COLUMN_DATEORDERED + " TIMESTAMP,"
+            +COLUMN_PICKUPDATE + " TEXT,"
             + COLUMN_USERID +
             " INTEGER REFERENCES " + TABLE_USERS + "(" + COLUMN_USERID
             + "))";
@@ -144,8 +146,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String CREATE_ITEMORDERS_TABLE = "CREATE TABLE " +
             TABLE_ITEMORDERS + "(" + COLUMN_ORDERID + " INTEGER REFERENCES " +
             TABLE_ORDERS + "(" + COLUMN_ORDERID + ")," + COLUMN_ITEMID +
-            " INTEGER REFERENCES " + TABLE_ITEMS + "(" + COLUMN_ITEMID + "),"
-            + COLUMN_LASTNAME + " INTEGER)";
+            " INTEGER REFERENCES " + TABLE_ITEMS + "(" + COLUMN_ITEMID + "))";
 
     // Palettes Table
     public static final String CREATE_PALETTES_TABLE = "CREATE TABLE " +
@@ -251,15 +252,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return true;
     }
 
-    public void addOrder(Order order){
+
+
+    public boolean addOrder(Order order){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_ORDERID, order.getOrderID());
         values.put(COLUMN_ORDERNUMBER, order.getOrderNumber());
         values.put(COLUMN_DATEORDERED, order.getDateOrdered());
+        values.put(COLUMN_PICKUPDATE, order.getPickUpDate());
         values.put(COLUMN_USERID, order.getUserID());
-        db.insert(TABLE_ORDERS, null, values);
+        long result = db.insert(TABLE_ORDERS, null, values);
         db.close();
+        if (result == -1)
+            return false;
+        else
+            return true;
     }
 
 
@@ -332,6 +340,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COLUMN_HEXVALUE, color.getHexValue());
         values.put(COLUMN_COLORNAME, color.getColorName());
         long result = db.insert(TABLE_FAVORITECOLORS, null, values);
+        if (result == -1)
+            return false;
+        else
+            return true;
+    }
+
+    public boolean addOrderItemId(int orderId, int itemId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ORDERID, orderId);
+        values.put(COLUMN_ITEMID, itemId);
+        long result = db.insert(TABLE_ITEMORDERS, null, values);
         if (result == -1)
             return false;
         else
@@ -468,7 +488,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             order = new Order(Integer.parseInt(cursor.getString(0)),
                     cursor.getString(1),
                     cursor.getString(2),
-                    Integer.parseInt(cursor.getString(3)));
+                    cursor.getString(3),
+                    Integer.parseInt(cursor.getString(4)));
         }
         db.close();
         return order;
@@ -484,7 +505,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 orderList.add(new Order(Integer.parseInt(cursor.getString(0)),
                         cursor.getString(1),
                         cursor.getString(2),
-                        Integer.parseInt(cursor.getString(3))));
+                        cursor.getString(3),
+                        Integer.parseInt(cursor.getString(4))));
             } while (cursor.moveToNext());
         }
         db.close();

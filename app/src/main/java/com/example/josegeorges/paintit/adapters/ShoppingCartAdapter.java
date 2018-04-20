@@ -1,16 +1,24 @@
 package com.example.josegeorges.paintit.adapters;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.josegeorges.paintit.MainActivity;
 import com.example.josegeorges.paintit.POJO.Item;
+import com.example.josegeorges.paintit.POJO.ShoppingCartList;
 import com.example.josegeorges.paintit.ProfileFragment;
 import com.example.josegeorges.paintit.R;
+import com.example.josegeorges.paintit.ShoppingCartFragment;
+import com.example.josegeorges.paintit.utils.DatabaseHandler;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -41,17 +49,56 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
 
 
+
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(ShoppingCartViewHolder holder, int position) {
+    public void onBindViewHolder(final ShoppingCartViewHolder holder, int position) {
         //adding image using picasso
         Picasso.with(activity).load(ProfileFragment.loadImage(list.get(position).getImageView(), activity)).resize(60,
                 80).centerCrop().into(holder.itemImage);
         holder.itemName.setText(list.get(position).getDescription());
         holder.itemPrice.setText("$" + String.valueOf(list.get(position).getPrice()));
         holder.itemDescription.setText(list.get(position).getDescription() + " (" + list.get(position).getSize() + " Gallons)");
+
+        //delete item from the shopping cart
+        holder.itemDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(activity)
+                        .setTitle("Delete Color")
+                        .setMessage("Are you sure you want to delete this color?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //get the selected item
+                                int item = holder.getAdapterPosition();
+
+                                //get the shopping cart
+                                ShoppingCartList shoppingCartList = ShoppingCartList.getIntance();
+                                //remove the cost from the total
+                                shoppingCartList.removeCost(shoppingCartList.getList().get(item).getPrice());
+                                //delete from the shopping cart list
+                                shoppingCartList.getList().remove(item);
+                                //notify recycler view
+                                notifyItemRemoved(item);
+
+                                //This block of code makes sure that the change in the textview total is displayed in the shopping cart
+                                Fragment currentFragment = activity.getSupportFragmentManager().findFragmentById(R.id.main_content);
+                                if (currentFragment instanceof ShoppingCartFragment){
+                                    FragmentTransaction fragTransaction = activity.getSupportFragmentManager().beginTransaction();
+                                    fragTransaction.detach(currentFragment);
+                                    fragTransaction.attach(currentFragment);
+                                    fragTransaction.commit();
+                                }
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            }
+        });
     }
 
     @Override
@@ -65,6 +112,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         protected TextView itemName;
         protected TextView itemDescription;
         protected TextView itemPrice;
+        protected ImageButton itemDelete;
 
 
         public ShoppingCartViewHolder(View itemView) {
@@ -73,6 +121,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
             itemName = itemView.findViewById(R.id.cart_item);
             itemDescription = itemView.findViewById(R.id.cart_item_description);
             itemPrice = itemView.findViewById(R.id.cart_item_price);
+            itemDelete = itemView.findViewById(R.id.remove_from_cart);
         }
 
 

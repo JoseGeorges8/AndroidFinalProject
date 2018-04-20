@@ -1,6 +1,8 @@
 package com.example.josegeorges.paintit;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -8,8 +10,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -37,6 +43,10 @@ public class ItemDetailsFragment extends Fragment{
 
     //Main Layout
     CoordinatorLayout myCoordinatorLayout;
+
+    //setting up toolbar
+    private Toolbar toolbar;
+
 
     //item being passed
     public static final String ITEM_PASSED = "item_passed";
@@ -99,6 +109,23 @@ public class ItemDetailsFragment extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_item_details, container, false);
 
+        //setting up an action bar
+        toolbar = view.findViewById(R.id.toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        toolbar.setTitle(R.string.app_name);
+        toolbar.setNavigationIcon(R.drawable.ic_chevron_left_black_24dp);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorAccent));
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+        setHasOptionsMenu(true);
+
+
         //Link The Views
         myCoordinatorLayout = getActivity().findViewById(R.id.myCoordinatorLayout);
         itemTitle = view.findViewById(R.id.item_title);
@@ -126,6 +153,38 @@ public class ItemDetailsFragment extends Fragment{
         DatabaseHandler db = new DatabaseHandler(getContext());
         ArrayList<String> availableSizes = db.getSizes(String.valueOf(item.getItemTypeId()), item.getDescription());
         ArrayList<Color> availableColors = db.getAllFavouriteColours(getLoggedInUser(), null);
+        if(availableColors.isEmpty()){
+            //don't show shopping cart to the guest user
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Missing Colour")
+                    .setCancelable(false)
+                    .setMessage("We've noticed you haven't added a colour to your list. You need a colour to add to your paint!")
+                    .setPositiveButton("Add a colour", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+
+                            int id = sharedPref.getInt(LoginActivity.USER_ID, 0);
+                            String email = sharedPref.getString(LoginActivity.USER_EMAIL, "");
+                            String fname = sharedPref.getString(LoginActivity.USER_FNAME, "");
+                            String lname = sharedPref.getString(LoginActivity.USER_LNAME, "");
+                            String password = sharedPref.getString(LoginActivity.USER_PASSWORD, "");
+                            String emailRecovery = sharedPref.getString(LoginActivity.USER_RECOVERY_EMAIL, "");
+                            String phone = sharedPref.getString(LoginActivity.USER_PHONE, "");
+
+                            //create the user
+                            User isUser = new User(id, fname, lname, email, password, emailRecovery, phone);
+
+
+                            getActivity().getSupportFragmentManager().popBackStack();
+                            getActivity().getSupportFragmentManager().popBackStack();
+                            Intent intent = new Intent(getActivity(), ColorPickerActivity.class);
+                            intent.putExtra("USER", isUser);
+                            startActivity(intent);
+                        }
+                    })
+                    .show();
+        }
         //making the quantities array. It will go up to 5 so that's the limit per customer
         ArrayList<Integer> quantities = new ArrayList<>();
         for(int i = 0; i < 5; i ++){
@@ -194,10 +253,10 @@ public class ItemDetailsFragment extends Fragment{
                             .setMessage("This portion of the app is accessible only for logged in users!")
                             .show();
                 }else {
-                    //show shopping cart if it's not the guest user
                     Item tempItem = new Item(item.getItemID(), item.getUpc(), Double.parseDouble(sizePrice) * quantity, item.getImageView(),  item.getItemTypeId(), Integer.parseInt(size), item.getDescription() );
                     if(shoppingCartList != null) {
                         shoppingCartList.getList().add(tempItem);
+                        shoppingCartList.addCost(tempItem.getPrice());
                         Snackbar mySnackbar = Snackbar.make(myCoordinatorLayout,
                                 R.string.item_added_cart, Snackbar.LENGTH_SHORT);
                         mySnackbar.setAction(R.string.checkout_string, new MyCheckoutListener());
@@ -235,10 +294,16 @@ public class ItemDetailsFragment extends Fragment{
         @Override
         public void onClick(View v) {
             getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.main_content, new ShoppingCartFragment()).commit();
+                    .replace(R.id.main_content, new ShoppingCartFragment()).addToBackStack(null).commit();
         }
     }
 
-
+    //this method takes care of changing the toolbar style
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.toolbar_noicons, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
 }
