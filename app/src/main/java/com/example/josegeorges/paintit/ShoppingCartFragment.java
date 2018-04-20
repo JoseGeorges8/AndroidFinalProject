@@ -1,5 +1,6 @@
 package com.example.josegeorges.paintit;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -121,10 +122,18 @@ public class ShoppingCartFragment extends Fragment {
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_content, new CheckoutFragment())
-                        .addToBackStack(null)
-                        .commit();
+                if(ShoppingCartList.getIntance().getList().isEmpty()){
+                    //don't show settings to the guest user
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("Empty Cart")
+                            .setMessage("You must have items in the cart in order to checkout!")
+                            .show();
+                }else {
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_content, new CheckoutFragment())
+                            .addToBackStack(null)
+                            .commit();
+                }
             }
         });
 

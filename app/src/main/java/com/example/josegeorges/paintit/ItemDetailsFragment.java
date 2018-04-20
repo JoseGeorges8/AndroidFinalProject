@@ -1,6 +1,8 @@
 package com.example.josegeorges.paintit;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -151,6 +153,38 @@ public class ItemDetailsFragment extends Fragment{
         DatabaseHandler db = new DatabaseHandler(getContext());
         ArrayList<String> availableSizes = db.getSizes(String.valueOf(item.getItemTypeId()), item.getDescription());
         ArrayList<Color> availableColors = db.getAllFavouriteColours(getLoggedInUser(), null);
+        if(availableColors.isEmpty()){
+            //don't show shopping cart to the guest user
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Missing Colour")
+                    .setCancelable(false)
+                    .setMessage("We've noticed you haven't added a colour to your list. You need a colour to add to your paint!")
+                    .setPositiveButton("Add a colour", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+
+                            int id = sharedPref.getInt(LoginActivity.USER_ID, 0);
+                            String email = sharedPref.getString(LoginActivity.USER_EMAIL, "");
+                            String fname = sharedPref.getString(LoginActivity.USER_FNAME, "");
+                            String lname = sharedPref.getString(LoginActivity.USER_LNAME, "");
+                            String password = sharedPref.getString(LoginActivity.USER_PASSWORD, "");
+                            String emailRecovery = sharedPref.getString(LoginActivity.USER_RECOVERY_EMAIL, "");
+                            String phone = sharedPref.getString(LoginActivity.USER_PHONE, "");
+
+                            //create the user
+                            User isUser = new User(id, fname, lname, email, password, emailRecovery, phone);
+
+
+                            getActivity().getSupportFragmentManager().popBackStack();
+                            getActivity().getSupportFragmentManager().popBackStack();
+                            Intent intent = new Intent(getActivity(), ColorPickerActivity.class);
+                            intent.putExtra("USER", isUser);
+                            startActivity(intent);
+                        }
+                    })
+                    .show();
+        }
         //making the quantities array. It will go up to 5 so that's the limit per customer
         ArrayList<Integer> quantities = new ArrayList<>();
         for(int i = 0; i < 5; i ++){
@@ -219,7 +253,6 @@ public class ItemDetailsFragment extends Fragment{
                             .setMessage("This portion of the app is accessible only for logged in users!")
                             .show();
                 }else {
-                    //show shopping cart if it's not the guest user
                     Item tempItem = new Item(item.getItemID(), item.getUpc(), Double.parseDouble(sizePrice) * quantity, item.getImageView(),  item.getItemTypeId(), Integer.parseInt(size), item.getDescription() );
                     if(shoppingCartList != null) {
                         shoppingCartList.getList().add(tempItem);
