@@ -257,7 +257,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public boolean addOrder(Order order){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_ORDERID, order.getOrderID());
         values.put(COLUMN_ORDERNUMBER, order.getOrderNumber());
         values.put(COLUMN_DATEORDERED, order.getDateOrdered());
         values.put(COLUMN_PICKUPDATE, order.getPickUpDate());
