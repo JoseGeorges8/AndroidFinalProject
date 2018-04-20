@@ -512,6 +512,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return orderList;
     }
 
+    public ArrayList<Order> getAllRecentOrders(int userid){
+        ArrayList<Order> orderList = new ArrayList<Order>();
+        String query = "SELECT * FROM " + TABLE_ORDERS + " WHERE " + COLUMN_USERID + " = " + userid + " LIMIT 3";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.moveToFirst()) {
+            do {
+                orderList.add(new Order(Integer.parseInt(cursor.getString(0)),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        Integer.parseInt(cursor.getString(4))));
+            } while (cursor.moveToNext());
+        }
+        db.close();
+        return orderList;
+    }
+
 
 
 
