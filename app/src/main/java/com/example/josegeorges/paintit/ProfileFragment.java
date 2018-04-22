@@ -227,64 +227,69 @@ public class ProfileFragment extends Fragment {
         db.addType("Brushes");
 
         //Add the interior paints to the database
-        db.addItem(new Item(422987391, 50, "bucket", 0, 10, "Acrylic flat"));
-        db.addItem(new Item(422987392, 50, "bucket", 0, 10, "Acrylic Eggshell"));
-        db.addItem(new Item(422987393, 50, "bucket", 0, 10, "Acrylic Satin"));
-        db.addItem(new Item(422987394, 50, "bucket", 0, 10, "Acrylic Semi-Gloss"));
-        db.addItem(new Item(422787395, 50, "bucket", 0, 10, "Acrylic Gloss"));
-        db.addItem(new Item(422987396, 50, "bucket", 0, 10, "Alkyed Flat"));
-        db.addItem(new Item(422987397, 50, "bucket", 0, 10, "Alkyed Semi-Gloss"));
-        db.addItem(new Item(422987398, 50, "bucket", 0, 10, "Alkyed Gloss"));
-        db.addItem(new Item(422987391, 30, "bucket", 0, 5, "Acrylic flat"));
-        db.addItem(new Item(422987392, 30, "bucket", 0, 5, "Acrylic Eggshell"));
-        db.addItem(new Item(422987393, 30, "bucket", 0, 5, "Acrylic Satin"));
-        db.addItem(new Item(422987394, 30, "bucket", 0, 5, "Acrylic Semi-Gloss"));
-        db.addItem(new Item(422787395, 30, "bucket", 0, 5, "Acrylic Gloss"));
-        db.addItem(new Item(422987396, 30, "bucket", 0, 5, "Alkyed Flat"));
-        db.addItem(new Item(422987397, 30, "bucket", 0, 5, "Alkyed Semi-Gloss"));
-        db.addItem(new Item(422987398, 30, "bucket", 0, 5, "Alkyed Gloss"));
-        db.addItem(new Item(422987391, 20, "bucket", 0, 3, "Acrylic flat"));
-        db.addItem(new Item(422987392, 20, "bucket", 0, 3, "Acrylic Eggshell"));
-        db.addItem(new Item(422987393, 20, "bucket", 0, 3, "Acrylic Satin"));
-        db.addItem(new Item(422987394, 20, "bucket", 0, 3, "Acrylic Semi-Gloss"));
-        db.addItem(new Item(422787395, 20, "bucket", 0, 3, "Acrylic Gloss"));
-        db.addItem(new Item(422987396, 20, "bucket", 0, 3, "Alkyed Flat"));
-        db.addItem(new Item(422987397, 20, "bucket", 0, 3, "Alkyed Semi-Gloss"));
-        db.addItem(new Item(422987398, 20, "bucket", 0, 3, "Alkyed Gloss"));
+        db.addItem(new Item(422987391, 59.99, "bucket", 0, 10, "Acrylic flat"));
+        db.addItem(new Item(422987392, 59.99, "bucket", 0, 10, "Acrylic Eggshell"));
+        db.addItem(new Item(422987393, 59.99, "bucket", 0, 10, "Acrylic Satin"));
+        db.addItem(new Item(422987394, 59.99, "bucket", 0, 10, "Acrylic Semi-Gloss"));
+        db.addItem(new Item(422787395, 59.99, "bucket", 0, 10, "Acrylic Gloss"));
+        db.addItem(new Item(422987396, 59.99, "bucket", 0, 10, "Alkyed Flat"));
+        db.addItem(new Item(422987397, 59.99, "bucket", 0, 10, "Alkyed Semi-Gloss"));
+        db.addItem(new Item(422987398, 59.99, "bucket", 0, 10, "Alkyed Gloss"));
+
+        db.addItem(new Item(422987391, 39.99, "bucket", 0, 5, "Acrylic flat"));
+        db.addItem(new Item(422987392, 39.99, "bucket", 0, 5, "Acrylic Eggshell"));
+        db.addItem(new Item(422987393, 39.99, "bucket", 0, 5, "Acrylic Satin"));
+        db.addItem(new Item(422987394, 39.99, "bucket", 0, 5, "Acrylic Semi-Gloss"));
+        db.addItem(new Item(422787395, 39.99, "bucket", 0, 5, "Acrylic Gloss"));
+        db.addItem(new Item(422987396, 39.99, "bucket", 0, 5, "Alkyed Flat"));
+        db.addItem(new Item(422987397, 39.99, "bucket", 0, 5, "Alkyed Semi-Gloss"));
+        db.addItem(new Item(422987398, 39.99, "bucket", 0, 5, "Alkyed Gloss"));
+
+        db.addItem(new Item(422987391, 24.99, "bucket", 0, 3, "Acrylic flat"));
+        db.addItem(new Item(422987392, 24.99, "bucket", 0, 3, "Acrylic Eggshell"));
+        db.addItem(new Item(422987393, 24.99, "bucket", 0, 3, "Acrylic Satin"));
+        db.addItem(new Item(422987394, 24.99, "bucket", 0, 3, "Acrylic Semi-Gloss"));
+        db.addItem(new Item(422787395, 24.99, "bucket", 0, 3, "Acrylic Gloss"));
+        db.addItem(new Item(422987396, 24.99, "bucket", 0, 3, "Alkyed Flat"));
+        db.addItem(new Item(422987397, 24.99, "bucket", 0, 3, "Alkyed Semi-Gloss"));
+        db.addItem(new Item(422987398, 24.99, "bucket", 0, 3, "Alkyed Gloss"));
 
         //Add the exterior paints to the database
-        db.addItem(new Item(422987398, 50, "bucket", 1, 10, "Exterior Flat"));
-        db.addItem(new Item(422987398, 50, "bucket", 1, 10, "Exterior Satin Enamel"));
-        db.addItem(new Item(422987398, 50, "bucket", 1, 10, "Exterior Gloss Enamel"));
-        db.addItem(new Item(422987398, 50, "bucket", 1, 10, "Exterior Semi-Gloss Enamel"));
-        db.addItem(new Item(422987398, 50, "bucket", 1, 10, "Exterior Matte"));
-        db.addItem(new Item(422987398, 30, "bucket", 1, 5, "Exterior Flat"));
-        db.addItem(new Item(422987398, 30, "bucket", 1, 5, "Exterior Satin Enamel"));
-        db.addItem(new Item(422987398, 30, "bucket", 1, 5, "Exterior Gloss Enamel"));
-        db.addItem(new Item(422987398, 30, "bucket", 1, 5, "Exterior Semi-Gloss Enamel"));
-        db.addItem(new Item(422987398, 30, "bucket", 1, 5, "Exterior Matte"));
-        db.addItem(new Item(422987398, 20, "bucket", 1, 3, "Exterior Flat"));
-        db.addItem(new Item(422987398, 20, "bucket", 1, 3, "Exterior Satin Enamel"));
-        db.addItem(new Item(422987398, 20, "bucket", 1, 3, "Exterior Gloss Enamel"));
-        db.addItem(new Item(422987398, 20, "bucket", 1, 3, "Exterior Semi-Gloss Enamel"));
-        db.addItem(new Item(422987398, 20, "bucket", 1, 3, "Exterior Matte"));
+        db.addItem(new Item(422987398, 59.99, "bucket", 1, 10, "Exterior Flat"));
+        db.addItem(new Item(422987398, 59.99, "bucket", 1, 10, "Exterior Satin Enamel"));
+        db.addItem(new Item(422987398, 59.99, "bucket", 1, 10, "Exterior Gloss Enamel"));
+        db.addItem(new Item(422987398, 59.99, "bucket", 1, 10, "Exterior Semi-Gloss Enamel"));
+        db.addItem(new Item(422987398, 59.99, "bucket", 1, 10, "Exterior Matte"));
+
+        db.addItem(new Item(422987398, 39.99, "bucket", 1, 5, "Exterior Flat"));
+        db.addItem(new Item(422987398, 39.99, "bucket", 1, 5, "Exterior Satin Enamel"));
+        db.addItem(new Item(422987398, 39.99, "bucket", 1, 5, "Exterior Gloss Enamel"));
+        db.addItem(new Item(422987398, 39.99, "bucket", 1, 5, "Exterior Semi-Gloss Enamel"));
+        db.addItem(new Item(422987398, 39.99, "bucket", 1, 5, "Exterior Matte"));
+
+        db.addItem(new Item(422987398, 24.99, "bucket", 1, 3, "Exterior Flat"));
+        db.addItem(new Item(422987398, 24.99, "bucket", 1, 3, "Exterior Satin Enamel"));
+        db.addItem(new Item(422987398, 24.99, "bucket", 1, 3, "Exterior Gloss Enamel"));
+        db.addItem(new Item(422987398, 24.99, "bucket", 1, 3, "Exterior Semi-Gloss Enamel"));
+        db.addItem(new Item(422987398, 24.99, "bucket", 1, 3, "Exterior Matte"));
 
 //        //Add the stains to the database
-        db.addItem(new Item(422987398, 20, "bucket", 2, 0, "Hardwood Finish"));
-        db.addItem(new Item(422987398, 20, "bucket", 2, 0, "Clearwood Finish"));
-        db.addItem(new Item(422987398, 20, "bucket", 2, 0, "Semi-Transparent Oil Finish"));
-        db.addItem(new Item(422987398, 20, "bucket", 2, 0, "Semi-Transparent Deck Stain"));
-        db.addItem(new Item(422987398, 20, "bucket", 2, 0, "Solid Deck Stain"));
-        db.addItem(new Item(422987398, 20, "bucket", 2, 0, "All Purpose Deck Wash"));
-        db.addItem(new Item(422987398, 20, "bucket", 2, 0, "Stain Remover"));
-//        //Add the brushes the database
-        db.addItem(new Item(422987398, 20, "bucket", 3, 0, "Round Brush"));
-        db.addItem(new Item(422987398, 20, "bucket", 3, 0, "Flat Brush"));
-        db.addItem(new Item(422987398, 20, "bucket", 3, 0, "Angular Flat Brush"));
-        db.addItem(new Item(422987398, 20, "bucket", 3, 0, "Bright Brush"));
-        db.addItem(new Item(422987398, 20, "bucket", 3, 0, "Filbert Brush"));
-        db.addItem(new Item(422987398, 20, "bucket", 3, 0, "Fan Brush"));
-        db.addItem(new Item(422987398, 20, "bucket", 3, 0, "Roller"));
+        db.addItem(new Item(422987398, 49.99, "bucket", 2, 10, "Hardwood Finish"));
+        db.addItem(new Item(422987398, 49.99, "bucket", 2, 10, "Clearwood Finish"));
+        db.addItem(new Item(422987398, 49.99, "bucket", 2, 10, "Semi-Transparent Oil Finish"));
+        db.addItem(new Item(422987398, 49.99, "bucket", 2, 10, "Semi-Transparent Deck Stain"));
+        db.addItem(new Item(422987398, 49.99, "bucket", 2, 10, "Solid Deck Stain"));
+        db.addItem(new Item(422987398, 49.99, "bucket", 2, 10, "All Purpose Deck Wash"));
+        db.addItem(new Item(422987398, 49.99, "bucket", 2, 10, "Stain Remover"));
+
+        //        //Add the brushes the database
+        db.addItem(new Item(422987398, 9.99, "bucket", 3, 0, "Round Brush"));
+        db.addItem(new Item(422987398, 9.99, "bucket", 3, 0, "Flat Brush"));
+        db.addItem(new Item(422987398, 9.99, "bucket", 3, 0, "Angular Flat Brush"));
+        db.addItem(new Item(422987398, 9.99, "bucket", 3, 0, "Bright Brush"));
+        db.addItem(new Item(422987398, 9.99, "bucket", 3, 0, "Filbert Brush"));
+        db.addItem(new Item(422987398, 9.99, "bucket", 3, 0, "Fan Brush"));
+        db.addItem(new Item(422987398, 14.99, "bucket", 3, 0, "Roller"));
 
         //Close the database
         db.close();
