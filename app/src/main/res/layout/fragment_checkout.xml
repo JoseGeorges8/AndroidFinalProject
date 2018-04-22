@@ -37,7 +37,7 @@
             android:text="Sub Total: "
             android:textSize="24sp"
             android:layout_weight="1"
-            />
+            android:layout_marginLeft="16dp" />
 
         <TextView
             android:id="@+id/subTotal"
@@ -46,7 +46,7 @@
             android:layout_marginBottom="8dp"
             android:text="$0"
             android:textSize="24sp"
-            />
+            android:layout_marginRight="16dp" />
 
     </LinearLayout>
 
@@ -70,7 +70,7 @@
             android:text="Total: "
             android:textSize="24sp"
             android:layout_weight="1"
-            />
+            android:layout_marginLeft="16dp" />
 
         <TextView
             android:id="@+id/total"
@@ -79,7 +79,7 @@
             android:layout_marginBottom="8dp"
             android:text="$0"
             android:textSize="24sp"
-            />
+            android:layout_marginRight="16dp" />
 
     </LinearLayout>
 
@@ -109,8 +109,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:text="Name "
-                android:textSize="24sp" />
+                android:text="Name: "
+                android:textSize="20sp"
+                android:layout_marginLeft="16dp" />
 
             <TextView
                 android:id="@+id/name"
@@ -118,7 +119,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="Keegan Oribine "
-                android:textSize="24sp" />
+                android:layout_marginRight="16dp"
+                android:textSize="16sp" />
 
 
         </LinearLayout>
@@ -141,8 +143,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:text="Email "
-                android:textSize="24sp" />
+                android:text="Email: "
+                android:textSize="20sp"
+                android:layout_marginLeft="16dp" />
 
             <TextView
                 android:id="@+id/email"
@@ -150,6 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="keeganoribine@gmail.com"
+                android:layout_marginRight="16dp"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -171,8 +175,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:text="Phone Number"
-                android:textSize="24sp" />
+                android:text="Phone Number:"
+                android:textSize="20sp"
+                android:layout_marginLeft="16dp" />
 
 
             <TextView
@@ -181,16 +186,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:text="226-555-9898"
-                android:textSize="24sp" />
+                android:layout_marginRight="16dp"
+                android:textSize="16sp" />
+
         </LinearLayout>
     </LinearLayout>
 
+
     <LinearLayout
-        android:id="@+id/dateTimeLinearLayout"
+        android:id="@+id/setDate_linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
-        android:orientation="horizontal"
+        android:layout_height="238dp"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -198,25 +206,68 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/personal_information">
 
-
-        <TextView
-            android:id="@+id/set_date"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/message_linearLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_weight="1"
-            android:hint="HH/MM"
-            android:textSize="24sp" />
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/setDate_linearLayout">
 
-        <TextView
-            android:id="@+id/set_time"
-            android:layout_width="wrap_content"
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:text="Select a date and time to pickup your order"
+                android:textSize="18sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dateTimeLinearLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="YYYY/MM/DD"
-            android:textSize="24sp" />
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/message_linearLayout">
+
+
+            <TextView
+                android:id="@+id/set_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="18dp"
+                android:layout_weight="1"
+                android:hint="HH/MM"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/set_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="18dp"
+                android:hint="YYYY/MM/DD"
+                android:textSize="20sp" />
+        </LinearLayout>
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/buttons_container"
