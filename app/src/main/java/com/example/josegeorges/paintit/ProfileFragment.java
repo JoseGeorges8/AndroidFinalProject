@@ -174,9 +174,31 @@ public class ProfileFragment extends Fragment {
         };
         myLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
+        //linking recyclerView
+        LinearLayoutManager mySecondLayoutManager = new LinearLayoutManager(getActivity()){
+            @Override
+            public boolean supportsPredictiveItemAnimations() {
 
-        recentOrdersRecyclerView.setLayoutManager(myLayoutManager);
-        //TODO: Create the adapter for the recent orders recycler view and the layut for each item
+                return true;
+
+            }
+        };
+        myLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+
+        recentOrdersRecyclerView.setLayoutManager(mySecondLayoutManager);
+        RecentOrdersAdapter recentOrdersAdapter = new RecentOrdersAdapter(recentOrders);
+        recentOrdersRecyclerView.setAdapter(recentOrdersAdapter);
+
+        if(recentOrders.size() > 0){
+            recentOrdersRecyclerView.setVisibility(View.VISIBLE);
+            seeAllOrders.setVisibility(View.VISIBLE);
+            noOrders.setVisibility(View.GONE);
+        }else{
+            recentOrdersRecyclerView.setVisibility(View.GONE);
+            seeAllOrders.setVisibility(View.GONE);
+            noOrders.setVisibility(View.VISIBLE);
+        }
 
         favouriteColoursRecyclerView.setLayoutManager(myLayoutManager);
         favouriteColorsAdapter = new FavouriteColorsAdapter(favouriteColors);
