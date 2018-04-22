@@ -84,6 +84,7 @@ public class FavouriteColorsFragment extends Fragment {
         if(loggedInUser != null) {
            favouriteColors = db.getAllFavouriteColours(loggedInUser, null);
         }
+        db.close();
 
         //setting up an action bar
         toolbar = view.findViewById(R.id.toolbar);

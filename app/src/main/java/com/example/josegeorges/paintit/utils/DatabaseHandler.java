@@ -494,9 +494,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return order;
     }
 
-    public ArrayList<Order> getAllOrders(){
+
+    public ArrayList<Order> getAllOrders(int userid){
         ArrayList<Order> orderList = new ArrayList<Order>();
-        String query = "SELECT * FROM " + TABLE_ORDERS;
+        String query = "SELECT * FROM " + TABLE_ORDERS + " WHERE " + COLUMN_USERID + " = " + userid;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         if(cursor.moveToFirst()) {

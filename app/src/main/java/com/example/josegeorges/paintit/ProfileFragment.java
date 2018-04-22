@@ -235,6 +235,16 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        seeAllOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_content, OrdersFragment.newInstance(loggedInUser))
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
         return view;
     }
 
