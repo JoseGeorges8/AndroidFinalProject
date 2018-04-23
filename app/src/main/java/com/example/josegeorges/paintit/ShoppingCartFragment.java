@@ -106,7 +106,7 @@ public class ShoppingCartFragment extends Fragment {
         checkoutButton = view.findViewById(R.id.checkout_button);
 
         //set the total of the cart here
-        totalTextView.setText("$" + String.valueOf(ShoppingCartList.getIntance().getTotalCost()));
+        totalTextView.setText("$" + String.format("%.2f", ShoppingCartList.getIntance().getTotalCost()));
 
 
         //go back on the stack of fragments
