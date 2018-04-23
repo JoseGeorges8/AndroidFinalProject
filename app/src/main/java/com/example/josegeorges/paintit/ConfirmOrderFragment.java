@@ -64,7 +64,7 @@ public class ConfirmOrderFragment extends Fragment {
 
         message.setText("Thank you for shopping with us. Your order has been processed. " +
                 "It can be picked on " + order.getPickUpDate() +
-                "Please bring valid ID and a recognized form of payment. ");
+                " Please bring valid ID and a recognized form of payment. ");
 
         done.setOnClickListener(new View.OnClickListener() {
             @Override
