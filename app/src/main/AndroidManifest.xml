@@ -18,7 +18,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
         <activity android:name=".ColorPickerActivity" />
-        <activity android:name=".PalletePickerActivity" />
         <activity
             android:name=".LoginActivity"
             android:noHistory="true">

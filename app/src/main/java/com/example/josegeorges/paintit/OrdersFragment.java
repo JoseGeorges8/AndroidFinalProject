@@ -15,51 +15,32 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.josegeorges.paintit.POJO.Color;
+import com.example.josegeorges.paintit.POJO.Order;
 import com.example.josegeorges.paintit.POJO.User;
 import com.example.josegeorges.paintit.utils.DatabaseHandler;
 
 import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FavouriteColorsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link FavouriteColorsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FavouriteColorsFragment extends Fragment {
+public class OrdersFragment extends Fragment {
+
+    public OrdersFragment() {
+        // Required empty public constructor
+    }
 
     //for the bundle
     private static final String ARG_PARAM1 = "param1";
 
-    //user
-    private User loggedInUser;
-    ArrayList<Color> favouriteColors;
-
-    private OnFragmentInteractionListener mListener;
-
-    //setting up recyclerView
-    private RecyclerView recyclerView;
-
     //setting up toolbar
     private Toolbar toolbar;
 
-    public FavouriteColorsFragment() {
-        // Required empty public constructor
-    }
+    //setting up recyclerView
+    private RecyclerView recyclerView;
+    ArrayList<Order> orders;
+    User loggedInUser;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param user logged in user.
-     * @return A new instance of fragment FavouriteColorsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FavouriteColorsFragment newInstance(User user) {
-        FavouriteColorsFragment fragment = new FavouriteColorsFragment();
+    public static OrdersFragment newInstance(User user) {
+        OrdersFragment fragment = new OrdersFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_PARAM1, user);
         fragment.setArguments(args);
@@ -68,8 +49,7 @@ public class FavouriteColorsFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        super.onCreate(savedInstanceState);if (getArguments() != null) {
             loggedInUser = getArguments().getParcelable(ARG_PARAM1);
         }
     }
@@ -78,13 +58,14 @@ public class FavouriteColorsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_favourite_colors, container, false);
+        View view =  inflater.inflate(R.layout.fragment_orders, container, false);
 
         DatabaseHandler db = new DatabaseHandler(getActivity());
         if(loggedInUser != null) {
-           favouriteColors = db.getAllFavouriteColours(loggedInUser, null);
+            orders = db.getAllOrders(loggedInUser.getUserID());
         }
         db.close();
+
 
         //setting up an action bar
         toolbar = view.findViewById(R.id.toolbar);
@@ -103,7 +84,7 @@ public class FavouriteColorsFragment extends Fragment {
         setHasOptionsMenu(true);
 
         //linking recyclerView
-        recyclerView = view.findViewById(R.id.favourite_colors_recyclerView);
+        recyclerView = view.findViewById(R.id.recentOrders_recyclerView);
         LinearLayoutManager myLayoutManager = new LinearLayoutManager(getActivity()){
             @Override
             public boolean supportsPredictiveItemAnimations() {
@@ -113,40 +94,24 @@ public class FavouriteColorsFragment extends Fragment {
         };
         myLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(myLayoutManager);
-        recyclerView.setAdapter(new FavouriteColorsAdapter(favouriteColors));
+        recyclerView.setAdapter(new RecentOrdersAdapter(orders));
+
 
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 
     //this method takes care of changing the toolbar style
     @Override

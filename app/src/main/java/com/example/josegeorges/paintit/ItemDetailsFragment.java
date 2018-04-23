@@ -33,6 +33,7 @@ import com.example.josegeorges.paintit.POJO.User;
 import com.example.josegeorges.paintit.utils.DatabaseHandler;
 import com.squareup.picasso.Picasso;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
@@ -202,7 +203,7 @@ public class ItemDetailsFragment extends Fragment{
                 DatabaseHandler db = new DatabaseHandler(getContext());
                 size = (String) parent.getItemAtPosition(i);
                 sizePrice = db.getPrice(String.valueOf(item.getItemTypeId()), item.getDescription(), size);
-                itemPrice.setText("$"+String.valueOf(Double.parseDouble(sizePrice) * quantity));
+                itemPrice.setText("$"+String.format("%.2f", Double.parseDouble(sizePrice) * quantity));
                 itemIndividualPrice.setText("($"+sizePrice+")");
             }
 
@@ -226,7 +227,7 @@ public class ItemDetailsFragment extends Fragment{
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
                 quantity = (Integer) parent.getItemAtPosition(i);
-                itemPrice.setText("$"+String.valueOf(Double.parseDouble(sizePrice) * quantity));
+                itemPrice.setText("$"+String.format("%.2f", Double.parseDouble(sizePrice) * quantity));
             }
 
             @Override
@@ -293,6 +294,9 @@ public class ItemDetailsFragment extends Fragment{
 
         @Override
         public void onClick(View v) {
+            //we go back to main menu and from there to checkout
+            getActivity().getSupportFragmentManager().popBackStack();
+            getActivity().getSupportFragmentManager().popBackStack();
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.main_content, new ShoppingCartFragment()).addToBackStack(null).commit();
         }

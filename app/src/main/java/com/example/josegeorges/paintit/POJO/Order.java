@@ -1,10 +1,13 @@
 package com.example.josegeorges.paintit.POJO;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Keegan on 2018-03-25.
  */
 
-public class Order {
+public class Order implements Parcelable {
     private int orderID;
     private String orderNumber;
     private String dateOrdered;
@@ -69,4 +72,38 @@ public class Order {
     public void setUserID(int userID) {
         this.userID = userID;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.orderID);
+        dest.writeString(this.orderNumber);
+        dest.writeString(this.dateOrdered);
+        dest.writeString(this.pickUpDate);
+        dest.writeInt(this.userID);
+    }
+
+    protected Order(Parcel in) {
+        this.orderID = in.readInt();
+        this.orderNumber = in.readString();
+        this.dateOrdered = in.readString();
+        this.pickUpDate = in.readString();
+        this.userID = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Order> CREATOR = new Parcelable.Creator<Order>() {
+        @Override
+        public Order createFromParcel(Parcel source) {
+            return new Order(source);
+        }
+
+        @Override
+        public Order[] newArray(int size) {
+            return new Order[size];
+        }
+    };
 }

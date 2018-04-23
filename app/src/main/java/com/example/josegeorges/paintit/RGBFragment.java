@@ -69,9 +69,9 @@ public class RGBFragment extends Fragment {
         blueBar.setMax(255);
 
         //setting starting values to bars and edit texts
-        redBar.setProgress(160);
-        greenBar.setProgress(160);
-        blueBar.setProgress(160);
+        redBar.setProgress(100);
+        greenBar.setProgress(150);
+        blueBar.setProgress(200);
 
 
         //setting this initial values to the frame_layout

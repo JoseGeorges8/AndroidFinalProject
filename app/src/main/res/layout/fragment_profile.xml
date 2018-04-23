@@ -75,23 +75,13 @@
                         android:visibility="gone" />
 
                     <TextView
+                        android:id="@+id/no_recent_orders"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/standard_padding"
                         android:text="You don't have any recent orders"
                         android:textAlignment="center"
                         android:textColor="@color/colorAccentDark" />
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="?attr/selectableItemBackground"
-                        android:padding="@dimen/standard_padding"
-                        android:text="Make a new order"
-                        android:textAlignment="center"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorAccent" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -102,9 +92,10 @@
                 android:layout_marginEnd="@dimen/card_margin"
                 android:layout_marginStart="@dimen/card_margin"
                 android:layout_marginTop="@dimen/card_margin"
+                android:layout_marginBottom="@dimen/card_margin"
                 android:background="@color/cardsColor"
                 app:cardCornerRadius="@dimen/corner_radius"
-                app:layout_constraintBottom_toTopOf="@+id/cardView"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recent_orders_card">
@@ -171,80 +162,6 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginEnd="@dimen/card_margin"
-                android:layout_marginStart="@dimen/card_margin"
-                android:layout_marginTop="@dimen/card_margin"
-                android:background="@color/cardsColor"
-                app:cardCornerRadius="@dimen/corner_radius"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/favourite_colours_card">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/cardsColor"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/standard_margin"
-                        android:paddingTop="@dimen/standard_padding"
-                        android:text="Favourite Palettes"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="@dimen/title_size" />
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/standard_padding"
-                        android:background="@color/colorAccentDark"
-                        android:padding="1dp" />
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/favourite_palettes_list"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/see_all_favourite_palettes"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:padding="@dimen/standard_padding"
-                        android:text="@string/see_all"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/colorAccent"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/standard_padding"
-                        android:text="You don't have any favourite palettes yet"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorAccentDark" />
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="?attr/selectableItemBackground"
-                        android:padding="@dimen/standard_padding"
-                        android:text="Add palette"
-                        android:textAlignment="center"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorAccent" />
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>

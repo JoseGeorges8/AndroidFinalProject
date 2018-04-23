@@ -44,11 +44,9 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
 
     private FloatingActionMenu mainFab; //big main fab button
     private FloatingActionButton fabColour; //mini fab button for the colourPicker
-    private FloatingActionButton fabPalette; //mini fab button for the palettePicker
     private List<FloatingActionMenu> menus = new ArrayList<>();
     private Handler mUiHandler = new Handler();
 
-    private RecyclerView favouriteColoursRecyclerView; //max 3 colours to display
 
     User user;
 
@@ -112,16 +110,6 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
             }
         });
 
-        //link the mini fab button for the colour picker and when click open the activity.
-        fabPalette = (FloatingActionButton) findViewById(R.id.palette_picker_fab);
-        fabPalette.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, PalletePickerActivity.class);
-                startActivity(intent);
-            }
-        });
-
 
         mainFab.setClosedOnTouchOutside(true);
         mainFab.hideMenuButton(false);
@@ -157,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
                 }else{
                     //show settings if it's not the guest user
                     getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(R.anim.slide_right, R.anim.slide_left, R.anim.slide_back_left, R.anim.slide_back_right)
                             .replace(R.id.main_content, new ShoppingCartFragment())
                             .addToBackStack(null)
                             .commit();
@@ -180,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
             case R.id.action_aboutt:
                 //show the about us page
                 getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.slide_right, R.anim.slide_left, R.anim.slide_back_left, R.anim.slide_back_right)
                         .replace(R.id.main_content, new AboutUsFragment())
                         .addToBackStack(null)
                         .commit();
