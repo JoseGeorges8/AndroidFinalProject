@@ -44,6 +44,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsRecycle
             public void onClick(View view) {
                 MainActivity activity = (MainActivity) context;
                 activity.getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.slide_right, R.anim.slide_left, R.anim.slide_back_left, R.anim.slide_back_right)
                         .replace(R.id.main_content, ItemDetailsFragment.newInstance(list.get(holder.getAdapterPosition())))
                         .addToBackStack(null)
                         .commit();

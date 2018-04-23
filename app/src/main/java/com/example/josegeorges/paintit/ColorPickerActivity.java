@@ -138,11 +138,11 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
                     if (secondResult) {
                         Log.d("COLORPICKER", "Color successfully added on the favourites table for user " + user.getEmail());
                     }
-                    onBackPressed();
+                    finish();
                 }
             } else {
                 Log.d("COLORPICKER", "Something went wrong when adding the color");
-                onBackPressed();
+                finish();
             }
         }
     }
