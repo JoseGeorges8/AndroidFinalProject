@@ -346,13 +346,13 @@ public class ProfileFragment extends Fragment {
         db.addItem(new Item(422987398, 49.99, "bucket", 2, 10, "Stain Remover"));
 
         //        //Add the brushes the database
-        db.addItem(new Item(422987398, 9.99, "bucket", 3, 0, "Round Brush"));
-        db.addItem(new Item(422987398, 9.99, "bucket", 3, 0, "Flat Brush"));
-        db.addItem(new Item(422987398, 9.99, "bucket", 3, 0, "Angular Flat Brush"));
-        db.addItem(new Item(422987398, 9.99, "bucket", 3, 0, "Bright Brush"));
-        db.addItem(new Item(422987398, 9.99, "bucket", 3, 0, "Filbert Brush"));
-        db.addItem(new Item(422987398, 9.99, "bucket", 3, 0, "Fan Brush"));
-        db.addItem(new Item(422987398, 14.99, "bucket", 3, 0, "Roller"));
+        db.addItem(new Item(422987398, 9.99, "brush", 3, 0, "Round Brush"));
+        db.addItem(new Item(422987398, 9.99, "brush", 3, 0, "Flat Brush"));
+        db.addItem(new Item(422987398, 9.99, "brush", 3, 0, "Angular Flat Brush"));
+        db.addItem(new Item(422987398, 9.99, "brush", 3, 0, "Bright Brush"));
+        db.addItem(new Item(422987398, 9.99, "brush", 3, 0, "Filbert Brush"));
+        db.addItem(new Item(422987398, 9.99, "brush", 3, 0, "Fan Brush"));
+        db.addItem(new Item(422987398, 14.99, "brush", 3, 0, "Roller"));
 
         //Close the database
         db.close();

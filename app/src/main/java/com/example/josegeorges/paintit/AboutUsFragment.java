@@ -64,7 +64,7 @@ public class AboutUsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("https://www.facebook.com/Trivel-341889966290364/"));
+                        Uri.parse("https://www.facebook.com/PaintItApp/"));
                 if(intent.resolveActivity(getActivity().getPackageManager()) != null){
                     getActivity().startActivity(intent);
                 }
