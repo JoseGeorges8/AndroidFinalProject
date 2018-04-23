@@ -1,0 +1,135 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:clickable="true"
+    android:background="@color/colorBackground"
+    android:layout_height="match_parent"
+    tools:context="com.example.josegeorges.paintit.AboutUsFragment">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+       <ImageView
+           android:id="@+id/logo"
+           android:layout_width="120dp"
+           android:layout_height="120dp"
+           android:src="@drawable/logo"
+           app:layout_constraintRight_toRightOf="parent"
+           app:layout_constraintLeft_toLeftOf="parent"
+           app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/app_name"
+            app:layout_constraintTop_toBottomOf="@id/logo"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="@dimen/title_size"/>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/description_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_margin"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_name"
+            app:layout_constraintBottom_toTopOf="@id/phone_container">
+
+            <TextView
+                android:padding="@dimen/standard_padding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_us_description"/>
+
+        </android.support.v7.widget.CardView>
+
+
+
+
+        <LinearLayout
+            android:id="@+id/phone_container"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_margin"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/email_container">
+
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Call Us "
+                android:textSize="@dimen/title_size"/>
+
+            <ImageView
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/phone" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/email_container"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_margin"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/social_media_container">
+
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email Us "
+                android:textSize="@dimen/title_size"/>
+
+            <ImageView
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/gmail"/>
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/social_media_container"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/standard_margin"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Like Us On "
+                    android:textSize="@dimen/title_size"/>
+
+                <ImageView
+                    android:id="@+id/social_media"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/fb144" />
+            </LinearLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

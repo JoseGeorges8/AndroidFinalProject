@@ -17,6 +17,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.josegeorges.paintit.POJO.User;
+import com.example.josegeorges.paintit.utils.DatabaseHandler;
+
 /**
  * Created by josegeorges on 2018-03-30.
  */
@@ -91,6 +94,9 @@ public class SettingsScreenFragment extends PreferenceFragment implements Shared
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DatabaseHandler db = new DatabaseHandler(getActivity());
+                db.deleteAllItems();
+                db.deleteAllTypes();
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putBoolean(LoginFragment.USER_LOGGED_IN, false).apply();
 
@@ -102,6 +108,7 @@ public class SettingsScreenFragment extends PreferenceFragment implements Shared
 
         return view;
     }
+
 
     //this method takes care of changing the toolbar style
     @Override
@@ -149,6 +156,4 @@ public class SettingsScreenFragment extends PreferenceFragment implements Shared
         }
         db.close();
     }
-
-
 }

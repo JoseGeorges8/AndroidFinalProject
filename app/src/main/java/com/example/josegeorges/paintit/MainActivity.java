@@ -1,15 +1,13 @@
 package com.example.josegeorges.paintit;
 
-import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Handler;
-import android.support.annotation.NonNull;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,21 +18,24 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.example.josegeorges.paintit.utils.SimpleFragmentPagerAdapter;
+import com.example.josegeorges.paintit.POJO.User;
+import com.example.josegeorges.paintit.adapters.SimpleFragmentPagerAdapter;
+import com.example.josegeorges.paintit.utils.DatabaseHandler;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.LibsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements StoreFragment.OnFragmentInteractionListener,
-            ProfileFragment.OnFragmentInteractionListener, FavouriteColorsFragment.OnFragmentInteractionListener{
+            ProfileFragment.OnFragmentInteractionListener, FavouriteColorsFragment.OnFragmentInteractionListener,
+            ItemListFragment.OnFragmentInteractionListener,
+            ShoppingCartFragment.OnFragmentInteractionListener{
 
     //required elements
-
-
     private Toolbar toolbar; //action bat
     private ViewPager viewPager; //for swipe
     private SimpleFragmentPagerAdapter adapter; //adapter for the viewPager
@@ -43,11 +44,9 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
 
     private FloatingActionMenu mainFab; //big main fab button
     private FloatingActionButton fabColour; //mini fab button for the colourPicker
-    private FloatingActionButton fabPalette; //mini fab button for the palettePicker
     private List<FloatingActionMenu> menus = new ArrayList<>();
     private Handler mUiHandler = new Handler();
 
-    private RecyclerView favouriteColoursRecyclerView; //max 3 colours to display
 
     User user;
 
@@ -111,16 +110,6 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
             }
         });
 
-        //link the mini fab button for the colour picker and when click open the activity.
-        fabPalette = (FloatingActionButton) findViewById(R.id.palette_picker_fab);
-        fabPalette.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, PalletePickerActivity.class);
-                startActivity(intent);
-            }
-        });
-
 
         mainFab.setClosedOnTouchOutside(true);
         mainFab.hideMenuButton(false);
@@ -128,8 +117,6 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
 
     /*
     This adds the toolbar_icons file to the toolbar, which shows the settings symbol
-
-    TODO: Add the cart icon to this xml file so it shows here
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -140,18 +127,70 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
 
     /*
     This method takes care of looking for which icon from the toolbar has been selected and run code depending on it
-
-     TODO: Add the cart icon function to open the cart fragment
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
+            case R.id.action_cart:
+                if(user.getEmail().equals(LoginFragment.GUEST_EMAIL)){
+                    //don't show settings to the guest user
+                    new AlertDialog.Builder(this)
+                            .setTitle("Access Denied")
+                            .setMessage("This portion of the app is accessible only for logged in users!")
+                            .show();
+                }else{
+                    //show settings if it's not the guest user
+                    getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(R.anim.slide_right, R.anim.slide_left, R.anim.slide_back_left, R.anim.slide_back_right)
+                            .replace(R.id.main_content, new ShoppingCartFragment())
+                            .addToBackStack(null)
+                            .commit();
+                }
+                break;
             case R.id.action_settings:
-             getFragmentManager().beginTransaction()
-                     .replace(R.id.main_content, SettingsScreenFragment.newInstance(user))
-                     .addToBackStack(null)
-                     .commit();
+                if(user.getEmail().equals(LoginFragment.GUEST_EMAIL)){
+                    //don't show settings to the guest user
+                    new AlertDialog.Builder(this)
+                            .setTitle("Access Denied")
+                            .setMessage("This portion of the app is accessible only for logged in users!")
+                            .show();
+                }else{
+                    //show settings if it's not the guest user
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.main_content, SettingsScreenFragment.newInstance(user))
+                            .addToBackStack(null)
+                            .commit();
+                }
              break;
+            case R.id.action_aboutt:
+                //show the about us page
+                getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.slide_right, R.anim.slide_left, R.anim.slide_back_left, R.anim.slide_back_right)
+                        .replace(R.id.main_content, new AboutUsFragment())
+                        .addToBackStack(null)
+                        .commit();
+                break;
+            case R.id.action_credits:
+                new LibsBuilder()
+                        .withLibraries("floatingactionbutton", "picasso", "toasty")
+                        .withLicenseShown(true)
+                        .withActivityTitle("Credits")
+                        .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                        .start(this);
+                break;
+            //log the user out
+            case R.id.action_log_out:
+                DatabaseHandler db = new DatabaseHandler(this);
+                db.deleteAllItems();
+                db.deleteAllTypes();
+                db.close();
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putBoolean(LoginFragment.USER_LOGGED_IN, false).apply();
+                Intent intent = new Intent(this, LoginActivity.class);
+                finish();
+                startActivity(intent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

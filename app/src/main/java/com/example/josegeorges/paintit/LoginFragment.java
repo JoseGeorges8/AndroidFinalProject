@@ -1,6 +1,5 @@
 package com.example.josegeorges.paintit;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +16,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.josegeorges.paintit.POJO.User;
+import com.example.josegeorges.paintit.utils.DatabaseHandler;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +29,15 @@ import android.widget.Toast;
  * create an instance of this fragment.
  */
 public class LoginFragment extends Fragment {
+
+
+    //GUEST KEYS
+    public static final String GUEST_FNAME = "guest";
+    public static final String GUEST_LNAME = "guest";
+    public static final String GUEST_EMAIL = "guest@paintit.com";
+    public static final String GUEST_PASSWORD = "guestpaintit";
+    public static final String GUEST_RECOVERYEMAIL = "guest@paintit.com";
+    public static final String GUEST_PHONE = "1111111111";
 
     //key for when passing the logged user to the main Activity
     public static final String USER_LOGGED_IN = "user_logged_in";
@@ -88,7 +99,6 @@ public class LoginFragment extends Fragment {
         //Sign as a user to the app
         emailEditText = view.findViewById(R.id.input_email);
         passwordEditText = view.findViewById(R.id.input_password);
-
         //when click login, check for valid user and if found log it in
         Button logInButton = view.findViewById(R.id.btn_login);
         logInButton.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +144,8 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.login_content, new RegisterFragment())
+                        .setCustomAnimations(R.anim.dont_move, R.anim.slide_up)
+                        .replace(R.id.login_content, new RegisterNameEmailFragment())
                         .addToBackStack(null)
                         .commit();
             }
@@ -146,7 +157,38 @@ public class LoginFragment extends Fragment {
         signAsGuest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DatabaseHandler db = new DatabaseHandler(getContext());
+                User isUser = db.getUser(GUEST_EMAIL, GUEST_PASSWORD);
+                if(isUser == null){
+                    isUser = new User(GUEST_FNAME, GUEST_LNAME, GUEST_EMAIL, GUEST_PASSWORD, GUEST_RECOVERYEMAIL, GUEST_PHONE);
+                    db.addUser(isUser);
+                    db.close();
+                    Log.d("GUEST", "GUEST CREATED");
+                }
+                //we state that the user is logged in.
+                // We make this so that we can check if the user is logged in or not to log it out
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putBoolean(USER_LOGGED_IN, true);
+
+                //we add all the user information into the sharepreferences
+                //that way, even though we have it on the database we know which user to load when the app opens again
+                editor.putInt(LoginActivity.USER_ID, isUser.getUserID());
+                editor.putString(LoginActivity.USER_EMAIL, isUser.getEmail());
+                editor.putString(LoginActivity.USER_FNAME, isUser.getFirstName());
+                editor.putString(LoginActivity.USER_LNAME, isUser.getLastName());
+                editor.putString(LoginActivity.USER_PASSWORD, isUser.getPassword());
+                editor.putString(LoginActivity.USER_RECOVERY_EMAIL, isUser.getRecoveryEmail());
+                editor.putString(LoginActivity.USER_PHONE, isUser.getPhoneNumber());
+                editor.apply();
+
+                //Populate the list of needed items in the items table right here
+
+                //Get an instance of the database handler
+
+                //open the main activity
                 Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra(USER_LOGGED_IN, isUser);
                 startActivity(intent);
             }
         });
@@ -194,4 +236,5 @@ public class LoginFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

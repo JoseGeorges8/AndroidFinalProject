@@ -1,19 +1,25 @@
 package com.example.josegeorges.paintit;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.view.inputmethod.InputMethodManager;
+
+import com.example.josegeorges.paintit.POJO.User;
 
 /**
  * This activity hosts the login system and takes care of checking the user status
  */
 public class LoginActivity extends AppCompatActivity implements RegisterFragment.OnFragmentInteractionListener,
             LoginFragment.OnFragmentInteractionListener{
+
+    public static final String FIRST_TIME = "FIRST_TIME";
 
     //keys for user sharedPref
     public static final String USER_EMAIL = "EMAIL";
@@ -29,8 +35,10 @@ public class LoginActivity extends AppCompatActivity implements RegisterFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         //get the shared pref
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
 
         //we check to see if the user is logged in by checking the shared preferences
         boolean isLoggedIn = sharedPref.getBoolean(LoginFragment.USER_LOGGED_IN, false);
@@ -73,6 +81,15 @@ public class LoginActivity extends AppCompatActivity implements RegisterFragment
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
+        hideKeyboard();
+    }
+
+    private void hideKeyboard() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            Log.d("KEYBOARD", "Hiding keyboard");
+            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).
+                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 }

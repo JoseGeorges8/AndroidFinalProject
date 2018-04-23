@@ -14,6 +14,10 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.josegeorges.paintit.POJO.Color;
+import com.example.josegeorges.paintit.POJO.User;
+import com.example.josegeorges.paintit.utils.DatabaseHandler;
+
 import java.util.ArrayList;
 
 
@@ -80,6 +84,7 @@ public class FavouriteColorsFragment extends Fragment {
         if(loggedInUser != null) {
            favouriteColors = db.getAllFavouriteColours(loggedInUser, null);
         }
+        db.close();
 
         //setting up an action bar
         toolbar = view.findViewById(R.id.toolbar);
@@ -137,16 +142,7 @@ public class FavouriteColorsFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

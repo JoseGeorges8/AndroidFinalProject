@@ -8,11 +8,7 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +17,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+
+import com.example.josegeorges.paintit.POJO.User;
+import com.example.josegeorges.paintit.utils.DatabaseHandler;
 
 import java.util.Calendar;
 
@@ -46,10 +46,11 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
     int greenValue; //green value of the RGB
     int blueValue; //blue value of the RGB
 
-    FloatingActionButton fab; //for launching the camera activity
+    public static FloatingActionButton fab; //for launching the camera activity
     FrameLayout layout; //holds the color value that the user wants
 
     EditText colorName; //name of the color to save
+    TextView aproxColorName; //this is a default name for people who can't see the name properly
     Button confirmButton; //button to confirm and save the color to the database
 
     User user; //user
@@ -92,6 +93,9 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
         //set up the EditText to get the name
         colorName = findViewById(R.id.color_picker_color_name_edit_text);
 
+        //set up the TextView to put the aprox name
+        aproxColorName = findViewById(R.id.color_aproximate_name);
+
         //set up the confirmation button
         confirmButton = findViewById(R.id.color_picker_confirm_button);
 
@@ -114,30 +118,33 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
      * @param view
      */
     public void addColor(View view){
-        String name = colorName.getText().toString();
-        int value = definitiveChosenColor;
-        String currentTime = Calendar.getInstance().getTime().toString();
-        Log.d("ADDCOLOR", "Color details: " + name + " " + value + " " + currentTime.toString());
-        com.example.josegeorges.paintit.Color color = new com.example.josegeorges.paintit.Color(value, name, currentTime, user.getUserID());
-        DatabaseHandler db = new DatabaseHandler(this);
-        boolean  result = db.addColor(color);
+        String name = colorName.getText().toString().trim();
+        if (name.isEmpty()){
+            colorName.setError("Missing name for color");
+        }else {
+            int value = definitiveChosenColor;
+            String currentTime = Calendar.getInstance().getTime().toString();
+            Log.d("ADDCOLOR", "Color details: " + name + " " + value + " " + currentTime.toString());
+            com.example.josegeorges.paintit.POJO.Color color = new com.example.josegeorges.paintit.POJO.Color(value, name, currentTime, user.getUserID());
+            DatabaseHandler db = new DatabaseHandler(this);
+            boolean result = db.addColor(color);
             if (result) {
                 Log.d("COLORPICKER", "Color successfully added on the db");
                 boolean checkFavColorTable = db.isFavouriteColorOnDatabase(user.getUserID(), color.getHexValue());
-                if(checkFavColorTable){
+                if (checkFavColorTable) {
                     Log.d("COLORPICKER", "Color is already is favourites table");
-                }else {
+                } else {
                     boolean secondResult = db.addFavoriteColor(color, color.getUserId());
                     if (secondResult) {
                         Log.d("COLORPICKER", "Color successfully added on the favourites table for user " + user.getEmail());
                     }
-                    onBackPressed();
+                    finish();
                 }
             } else {
                 Log.d("COLORPICKER", "Something went wrong when adding the color");
-                onBackPressed();
+                finish();
             }
-
+        }
     }
 
     /**
@@ -151,6 +158,7 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
                 if (resultCode == Activity.RESULT_OK && data!=null) {
                     colorPickedByCameraValue = data.getIntExtra(CameraActivity.SELECTED_COLOR, 0);
                     definitiveChosenColor = colorPickedByCameraValue;
+                    aproxColorName.setText(colorName(definitiveChosenColor));
                     layout.setBackgroundColor(definitiveChosenColor);
                     layout.refreshDrawableState();
                 }
@@ -172,6 +180,7 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
             blueValue = value;
 
         definitiveChosenColor = Color.rgb( redValue, greenValue, blueValue);
+        aproxColorName.setText(colorName(definitiveChosenColor));
         layout.setBackgroundColor(definitiveChosenColor);
         layout.refreshDrawableState();
     }
@@ -194,6 +203,66 @@ public class ColorPickerActivity extends AppCompatActivity implements RGBFragmen
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         askForCameraPermission();
+    }
+
+    public static String colorName(int color){
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        Log.d("HSV", hsv[0] + ", " + hsv[1] + ", " + hsv[2]);
+        float hue = hsv[0];
+        float sat = hsv[1];
+        float val = hsv[2];
+
+
+        //Black
+        if(hue == 0 && sat == 0 && val == 0)
+            return "Black";
+
+        //White
+        if(hue == 0 && sat == 0 && val == 1)
+            return "White";
+
+        //Blue
+        if(hue >= 180 && hue < 250)
+            return "Blue";
+
+        //Magenta
+        if(hue >= 250 && hue < 340)
+            return "Magenta";
+
+        //Red
+        if(hue >= 340 || hue < 10)
+            return "Red";
+
+        //Either Red or orange
+        if(hue >= 10 && hue < 20)
+            return "Red/Orange";
+
+        //Orange
+        if(hue >= 20 && hue < 40)
+            return "Orange";
+
+        //Either Orange or Yellow
+        if(hue >= 40 && hue < 50)
+            return "Orange/Yellow";
+
+        //Yellow
+        if(hue >= 50 && hue <= 60)
+            return "Yellow";
+
+        //Either Yellow or Green
+        if(hue > 60 && hue < 70)
+            return "Green/Yellow";
+
+        //Green
+        if(hue >= 70 && hue < 150)
+            return "Green";
+
+        //Either Blue or Green
+        if(hue >= 150 && hue < 180)
+            return "Blue/Green";
+
+        return "Color not found";
     }
 
 }

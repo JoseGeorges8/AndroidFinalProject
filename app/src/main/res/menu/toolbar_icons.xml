@@ -2,7 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <!-- Settings, should always be in the overflow -->
-    <item android:id="@+id/action_settings"
-        android:icon="@drawable/ic_more_vert_black_24dp"
+
+    <item android:id="@+id/action_cart"
+        android:title="Cart"
+        android:icon="@drawable/ic_shopping_cart_black_24dp"
         app:showAsAction="always"/>
+
+    <item android:id="@+id/action_settings"
+        android:title="Settings"
+        app:showAsAction="collapseActionView"/>
+
+    <item android:id="@+id/action_aboutt"
+        android:title="About us"
+        app:showAsAction="collapseActionView"/>
+
+
+    <item android:id="@+id/action_credits"
+        android:title="Credits"
+        app:showAsAction="collapseActionView"/>
+
+    <item android:id="@+id/action_log_out"
+        android:title="Log out"
+        app:showAsAction="collapseActionView"/>
 </menu>
