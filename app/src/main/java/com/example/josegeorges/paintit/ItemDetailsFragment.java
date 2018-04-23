@@ -293,6 +293,9 @@ public class ItemDetailsFragment extends Fragment{
 
         @Override
         public void onClick(View v) {
+            //we go back to main menu and from there to checkout
+            getActivity().getSupportFragmentManager().popBackStack();
+            getActivity().getSupportFragmentManager().popBackStack();
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.main_content, new ShoppingCartFragment()).addToBackStack(null).commit();
         }

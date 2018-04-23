@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.josegeorges.paintit.POJO.Color;
 import com.example.josegeorges.paintit.POJO.Item;
+import com.example.josegeorges.paintit.POJO.Order;
 import com.example.josegeorges.paintit.POJO.User;
 import com.example.josegeorges.paintit.utils.DatabaseHandler;
 
@@ -44,18 +45,33 @@ public class ProfileFragment extends Fragment {
 
     //user
     private User loggedInUser;
-    ArrayList<Color> favouriteColors;
     FavouriteColorsAdapter favouriteColorsAdapter;
 
     private OnFragmentInteractionListener mListener;
 
+    //Recent orders
+
+    //array of orders
+    private ArrayList<Order> recentOrders;
+    //these two go together when items in orders
+    private RecyclerView recentOrdersRecyclerView;
+    private TextView seeAllOrders;
+    //this by itself when no items in orders
+    private TextView noOrders;
+
+
+    //Favourite colours
+
+    //array of colors
+    ArrayList<Color> favouriteColors;
     //these two go together
     private RecyclerView favouriteColoursRecyclerView;
     private TextView seeAllFavColors;
-
     //these two go together
     private TextView noColors;
     private Button addFavColor;
+
+    //swipe to refresh
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -88,12 +104,14 @@ public class ProfileFragment extends Fragment {
         }
         DatabaseHandler db = new DatabaseHandler(getActivity());
         if(loggedInUser != null) {
+            recentOrders = new ArrayList<>();
+            recentOrders = db.getAllRecentOrders(loggedInUser.getUserID());
+            Log.d("PROFILE", recentOrders.size() + " recent orders for " + loggedInUser.getEmail());
+
             favouriteColors = new ArrayList<>();
             favouriteColors = db.getAllFavouriteColours(loggedInUser, PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).getString("pref_key_color_display", "3"));
             Log.d("PROFILE", favouriteColors.size() + " favourite colors for " + loggedInUser.getEmail());
         }
-
-
     }
 
     @Override
@@ -102,7 +120,6 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        //TODO: THIS METHOD CONSTANTLY CREATES DATA, WE GOTTA FIND A WAY TO MAKE IT UNIQUE
         initializeData();
 
         swipeRefreshLayout = view.findViewById(R.id.swipe);
@@ -111,6 +128,8 @@ public class ProfileFragment extends Fragment {
             public void onRefresh() {
                 //we check the db and add whatever we have now to the adapter list and notify if changes where made
                 DatabaseHandler db = new DatabaseHandler(getActivity());
+
+                //favourite colors changes
                 favouriteColors = db.getAllFavouriteColours(loggedInUser, "3");
                 favouriteColorsAdapter.list = db.getAllFavouriteColours(loggedInUser, PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).getString("pref_key_color_display", "3"));
                 favouriteColorsAdapter.notifyDataSetChanged();
@@ -131,6 +150,13 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+
+        //recent orders
+        seeAllOrders = view.findViewById(R.id.see_all_recent_orders);
+        recentOrdersRecyclerView = view.findViewById(R.id.recent_orders_list);
+        noOrders = view.findViewById(R.id.no_recent_orders);
+
+        //fav colours
         addFavColor = view.findViewById(R.id.addColor_button);
         noColors = view.findViewById(R.id.no_favourite_colors_textView);
         seeAllFavColors = view.findViewById(R.id.see_all_favourite_colours);
@@ -147,6 +173,33 @@ public class ProfileFragment extends Fragment {
             }
         };
         myLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        //linking recyclerView
+        LinearLayoutManager mySecondLayoutManager = new LinearLayoutManager(getActivity()){
+            @Override
+            public boolean supportsPredictiveItemAnimations() {
+
+                return true;
+
+            }
+        };
+        myLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+
+        recentOrdersRecyclerView.setLayoutManager(mySecondLayoutManager);
+        RecentOrdersAdapter recentOrdersAdapter = new RecentOrdersAdapter(recentOrders);
+        recentOrdersRecyclerView.setAdapter(recentOrdersAdapter);
+
+        if(recentOrders.size() > 0){
+            recentOrdersRecyclerView.setVisibility(View.VISIBLE);
+            seeAllOrders.setVisibility(View.VISIBLE);
+            noOrders.setVisibility(View.GONE);
+        }else{
+            recentOrdersRecyclerView.setVisibility(View.GONE);
+            seeAllOrders.setVisibility(View.GONE);
+            noOrders.setVisibility(View.VISIBLE);
+        }
+
         favouriteColoursRecyclerView.setLayoutManager(myLayoutManager);
         favouriteColorsAdapter = new FavouriteColorsAdapter(favouriteColors);
         favouriteColoursRecyclerView.setAdapter(favouriteColorsAdapter);
@@ -177,6 +230,16 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.main_content, FavouriteColorsFragment.newInstance(loggedInUser))
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        seeAllOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_content, OrdersFragment.newInstance(loggedInUser))
                         .addToBackStack(null)
                         .commit();
             }

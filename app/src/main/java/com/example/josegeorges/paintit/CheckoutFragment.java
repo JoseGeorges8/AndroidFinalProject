@@ -32,6 +32,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
+import es.dmoral.toasty.Toasty;
+
 
 public class CheckoutFragment extends Fragment {
 
@@ -163,18 +165,19 @@ public class CheckoutFragment extends Fragment {
                             return;
                         }
                     }
-                    Toast.makeText(getActivity(), "Your order has been placed", Toast.LENGTH_LONG)
-                            .show();
+                    Toasty.success(getActivity(), "Order processed!", Toast.LENGTH_SHORT, true).show();
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.main_content, ConfirmOrderFragment.newInstance(newOrder))
+                            .addToBackStack(null).commit();
+                    ShoppingCartList.getIntance().finish();
                 }else{
                     Toast.makeText(getActivity(), "Something went wrong with the order", Toast.LENGTH_LONG)
                             .show();
                     db.close();
                     return;
                 }
-
                 db.close();
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_content,
-//                      new ProfileFragment()).addToBackStack(null).commit();
+
             }
         });
 

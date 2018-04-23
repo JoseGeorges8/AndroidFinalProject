@@ -51,7 +51,7 @@ public class RecentOrdersAdapter extends RecyclerView.Adapter<RecentOrdersAdapte
     @Override
     public void onBindViewHolder(RecentOrdersRecyclerViewHolder holder, int position) {
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext().getApplicationContext());
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
         // Grab the user information from shared preferences
         String email = sharedPref.getString(LoginActivity.USER_EMAIL, "");

@@ -75,23 +75,13 @@
                         android:visibility="gone" />
 
                     <TextView
+                        android:id="@+id/no_recent_orders"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/standard_padding"
                         android:text="You don't have any recent orders"
                         android:textAlignment="center"
                         android:textColor="@color/colorAccentDark" />
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="?attr/selectableItemBackground"
-                        android:padding="@dimen/standard_padding"
-                        android:text="Make a new order"
-                        android:textAlignment="center"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorAccent" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
