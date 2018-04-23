@@ -117,8 +117,6 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
 
     /*
     This adds the toolbar_icons file to the toolbar, which shows the settings symbol
-
-    TODO: Add the cart icon to this xml file so it shows here
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -129,8 +127,6 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
 
     /*
     This method takes care of looking for which icon from the toolbar has been selected and run code depending on it
-
-     TODO: Add the cart icon function to open the cart fragment
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -176,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements StoreFragment.OnF
                 break;
             case R.id.action_credits:
                 new LibsBuilder()
+                        .withLibraries("floatingactionbutton", "picasso", "toasty")
                         .withLicenseShown(true)
                         .withActivityTitle("Credits")
                         .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
