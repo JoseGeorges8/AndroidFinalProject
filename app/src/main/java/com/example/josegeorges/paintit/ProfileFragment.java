@@ -50,6 +50,7 @@ public class ProfileFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     //Recent orders
+    RecentOrdersAdapter recentOrdersAdapter;
 
     //array of orders
     private ArrayList<Order> recentOrders;
@@ -129,6 +130,19 @@ public class ProfileFragment extends Fragment {
                 //we check the db and add whatever we have now to the adapter list and notify if changes where made
                 DatabaseHandler db = new DatabaseHandler(getActivity());
 
+                recentOrders = db.getAllRecentOrders(loggedInUser.getUserID());
+
+
+                if(recentOrders.size() > 0){
+                    recentOrdersRecyclerView.setVisibility(View.VISIBLE);
+                    seeAllOrders.setVisibility(View.VISIBLE);
+                    noOrders.setVisibility(View.GONE);
+                }else{
+                    recentOrdersRecyclerView.setVisibility(View.GONE);
+                    seeAllOrders.setVisibility(View.GONE);
+                    noOrders.setVisibility(View.VISIBLE);
+                }
+
                 //favourite colors changes
                 favouriteColors = db.getAllFavouriteColours(loggedInUser, "3");
                 favouriteColorsAdapter.list = db.getAllFavouriteColours(loggedInUser, PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).getString("pref_key_color_display", "3"));
@@ -146,6 +160,7 @@ public class ProfileFragment extends Fragment {
                     noColors.setVisibility(View.VISIBLE);
                     addFavColor.setVisibility(View.VISIBLE);
                 }
+                db.close();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -187,7 +202,7 @@ public class ProfileFragment extends Fragment {
 
 
         recentOrdersRecyclerView.setLayoutManager(mySecondLayoutManager);
-        RecentOrdersAdapter recentOrdersAdapter = new RecentOrdersAdapter(recentOrders);
+        recentOrdersAdapter = new RecentOrdersAdapter(recentOrders);
         recentOrdersRecyclerView.setAdapter(recentOrdersAdapter);
 
         if(recentOrders.size() > 0){
@@ -229,6 +244,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.slide_right, R.anim.slide_left, R.anim.slide_back_left, R.anim.slide_back_right)
                         .replace(R.id.main_content, FavouriteColorsFragment.newInstance(loggedInUser))
                         .addToBackStack(null)
                         .commit();
@@ -239,6 +255,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.slide_right, R.anim.slide_left, R.anim.slide_back_left, R.anim.slide_back_right)
                         .replace(R.id.main_content, OrdersFragment.newInstance(loggedInUser))
                         .addToBackStack(null)
                         .commit();
@@ -336,16 +353,16 @@ public class ProfileFragment extends Fragment {
         db.addItem(new Item(422987398, 24.99, "bucket", 1, 3, "Exterior Semi-Gloss Enamel"));
         db.addItem(new Item(422987398, 24.99, "bucket", 1, 3, "Exterior Matte"));
 
-//        //Add the stains to the database
-        db.addItem(new Item(422987398, 49.99, "bucket", 2, 10, "Hardwood Finish"));
-        db.addItem(new Item(422987398, 49.99, "bucket", 2, 10, "Clearwood Finish"));
-        db.addItem(new Item(422987398, 49.99, "bucket", 2, 10, "Semi-Transparent Oil Finish"));
-        db.addItem(new Item(422987398, 49.99, "bucket", 2, 10, "Semi-Transparent Deck Stain"));
-        db.addItem(new Item(422987398, 49.99, "bucket", 2, 10, "Solid Deck Stain"));
-        db.addItem(new Item(422987398, 49.99, "bucket", 2, 10, "All Purpose Deck Wash"));
-        db.addItem(new Item(422987398, 49.99, "bucket", 2, 10, "Stain Remover"));
+        //Add the stains to the database
+        db.addItem(new Item(422987398, 49.99, "bucket", 2, 0, "Hardwood Finish"));
+        db.addItem(new Item(422987398, 49.99, "bucket", 2, 0, "Clearwood Finish"));
+        db.addItem(new Item(422987398, 49.99, "bucket", 2, 0, "Semi-Transparent Oil Finish"));
+        db.addItem(new Item(422987398, 49.99, "bucket", 2, 0, "Semi-Transparent Deck Stain"));
+        db.addItem(new Item(422987398, 49.99, "bucket", 2, 0, "Solid Deck Stain"));
+        db.addItem(new Item(422987398, 49.99, "bucket", 2, 0, "All Purpose Deck Wash"));
+        db.addItem(new Item(422987398, 49.99, "bucket", 2, 0, "Stain Remover"));
 
-        //        //Add the brushes the database
+        //Add the brushes the database
         db.addItem(new Item(422987398, 9.99, "bucket", 3, 0, "Round Brush"));
         db.addItem(new Item(422987398, 9.99, "bucket", 3, 0, "Flat Brush"));
         db.addItem(new Item(422987398, 9.99, "bucket", 3, 0, "Angular Flat Brush"));
@@ -363,7 +380,7 @@ public class ProfileFragment extends Fragment {
      *
      * with this method we can now store image names in the db and to display them just use this method.
      *
-     *         loadImage("image name", (MainActivity) getActivity());
+     *
      *
      * @param mImageName
      */

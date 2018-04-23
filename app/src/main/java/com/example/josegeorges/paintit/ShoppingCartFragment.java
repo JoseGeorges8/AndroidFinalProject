@@ -130,6 +130,7 @@ public class ShoppingCartFragment extends Fragment {
                             .show();
                 }else {
                     getActivity().getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(R.anim.slide_right, R.anim.slide_left, R.anim.slide_back_left, R.anim.slide_back_right)
                             .replace(R.id.main_content, new CheckoutFragment())
                             .addToBackStack(null)
                             .commit();

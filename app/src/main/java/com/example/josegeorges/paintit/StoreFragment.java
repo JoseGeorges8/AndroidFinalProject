@@ -69,6 +69,7 @@ public class StoreFragment extends Fragment {
                 DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
                 ArrayList<Item> interiorPaints = db.getItems("0", "3");
                 getActivity().getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.slide_right, R.anim.slide_left, R.anim.slide_back_left, R.anim.slide_back_right)
                         .replace(R.id.main_content, ItemListFragment.newInstance(interiorPaints))
                         .addToBackStack(null)
                         .commit();
@@ -83,6 +84,7 @@ public class StoreFragment extends Fragment {
                 DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
                 ArrayList<Item> exteriorPaints = db.getItems("1", "3");
                 getActivity().getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.slide_right, R.anim.slide_left, R.anim.slide_back_left, R.anim.slide_back_right)
                         .replace(R.id.main_content, ItemListFragment.newInstance(exteriorPaints))
                         .addToBackStack(null)
                         .commit();
@@ -97,6 +99,7 @@ public class StoreFragment extends Fragment {
                 DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
                 ArrayList<Item> stainsList = db.getItems("2", "0");
                 getActivity().getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.slide_right, R.anim.slide_left, R.anim.slide_back_left, R.anim.slide_back_right)
                         .replace(R.id.main_content, ItemListFragment.newInstance(stainsList))
                         .addToBackStack(null)
                         .commit();
@@ -111,6 +114,7 @@ public class StoreFragment extends Fragment {
                 DatabaseHandler db = new DatabaseHandler(getActivity().getApplicationContext());
                 ArrayList<Item> brushesList = db.getItems("3", "0");
                 getActivity().getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.slide_right, R.anim.slide_left, R.anim.slide_back_left, R.anim.slide_back_right)
                         .replace(R.id.main_content, ItemListFragment.newInstance(brushesList))
                         .addToBackStack(null)
                         .commit();
@@ -121,11 +125,7 @@ public class StoreFragment extends Fragment {
         return view;
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+
 
     @Override
     public void onAttach(Context context) {

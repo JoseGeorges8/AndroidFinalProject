@@ -167,8 +167,11 @@ public class CheckoutFragment extends Fragment {
                     }
                     Toasty.success(getActivity(), "Order processed!", Toast.LENGTH_SHORT, true).show();
                     getActivity().getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(R.anim.slide_right, R.anim.slide_left, R.anim.slide_back_left, R.anim.slide_back_right)
                             .replace(R.id.main_content, ConfirmOrderFragment.newInstance(newOrder))
-                            .addToBackStack(null).commit();
+                            .addToBackStack(null)
+
+                            .commit();
                     ShoppingCartList.getIntance().finish();
                 }else{
                     Toast.makeText(getActivity(), "Something went wrong with the order", Toast.LENGTH_LONG)
