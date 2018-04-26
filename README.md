@@ -1,30 +1,17 @@
-Paint-IT
+# Paint-It
+Andriod Project Jose Georges &amp; Keegan Oribine  
 
-Description 
-Pick a color by taking a photo or
-by using RGB values and order that color(s) in our store.
+# Description 
 
-![login](https://user-images.githubusercontent.com/32267812/39077715-f37bd8e4-44d1-11e8-8866-12e576168a32.png)
-
+Our app will allow users to pick a color using the camera on their device and allow them to order paint from our store. 
 
 
-![profile](https://user-images.githubusercontent.com/32267812/39077816-8a9495c2-44d2-11e8-91fd-73286e8eda36.png)
+# Screen Shots 
 
+![colorpicker](https://user-images.githubusercontent.com/32267812/39299130-0591da9a-4916-11e8-8cf5-dfea31b9af36.PNG)
+![exteriorpaints](https://user-images.githubusercontent.com/32267812/39299131-05a5f3d6-4916-11e8-8658-b6171e9c7a07.PNG)
+![productdetails](https://user-images.githubusercontent.com/32267812/39299132-05b6eb1e-4916-11e8-9071-39e94119058c.PNG)
+![profile](https://user-images.githubusercontent.com/32267812/39299133-05cf94ac-4916-11e8-92c1-3e4a9d722ff5.PNG)
+![shoppingcart](https://user-images.githubusercontent.com/32267812/39299135-05e36d56-4916-11e8-95d1-bccb9c944818.PNG)
+![storeinventory](https://user-images.githubusercontent.com/32267812/39299138-060731be-4916-11e8-9903-04e1cd8aac29.PNG)
 
-
-![pickcolor](https://user-images.githubusercontent.com/32267812/39077834-abbec092-44d2-11e8-83d1-6f077d124a8a.png)
-
-
-
-![painttypes](https://user-images.githubusercontent.com/32267812/39077858-e9889312-44d2-11e8-81c3-fe3c9d854466.png)
-
-
-
-![browsepaints](https://user-images.githubusercontent.com/32267812/39077894-39e3c7d2-44d3-11e8-9ec9-2c8b3af65d88.png)
-
-
-
-![productdetails](https://user-images.githubusercontent.com/32267812/39077913-6bbb9776-44d3-11e8-9957-a53e75693dc7.png)
-
-
-![shoppingcart](https://user-images.githubusercontent.com/32267812/39077927-816d03b6-44d3-11e8-8b64-1b5f2be3486a.png)
